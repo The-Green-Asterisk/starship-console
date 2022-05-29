@@ -17,9 +17,8 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css')
     .setPublicPath('public')
     .sourceMaps()
-    .browserSync('http://localhost:8000');
-
-mix.webpackConfig({
+    .browserSync('http://localhost:8000')
+    .webpackConfig({
     resolve: {
         fallback: {
             fs: false,

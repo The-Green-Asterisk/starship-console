@@ -1,13 +1,14 @@
 require('./bootstrap');
+import { rollValue } from './dice.js';
+
 Echo.channel('starship-console')
     .listen('HpUpdate', (data) => {
         handleDamage(data.data);
     });
 
 const htmlSecure = {method: 'GET', headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')}};
-const updateButton = document.getElementById('update-button');
+const fireButton = document.getElementById('fire-button');
 const body = document.getElementById('body');
-
 
 window.onbeforeunload = () => {
     body.className = 'fadeout';
@@ -42,5 +43,5 @@ var update = (damage) => {
         }
     })
 };
-if (updateButton !== null)
-    updateButton.addEventListener('click', function(){update(40)});
+if (fireButton !== null)
+    fireButton.addEventListener('click', function(){update(rollValue);});

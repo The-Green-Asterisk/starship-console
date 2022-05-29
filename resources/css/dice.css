@@ -1,0 +1,42 @@
+
+.dice {
+    display: flex;
+    justify-content: space-evenly;
+}
+.dice svg {
+    transition:none;
+    background-image: radial-gradient(rgba(55, 255, 0, 0.3), rgba(55, 255, 0, 0), rgba(55, 255, 0, 0));
+}
+.dice svg:hover {
+    transition:none;
+    filter: brightness(1.5);
+    transform: scale(1.03);
+}
+.dice svg:active {
+    transition:none;
+    filter: brightness(1.5);
+    transform: scale(.9);
+}
+#dice-tray {
+    margin: 1em auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    border:2px solid var(--ui-color);
+    border-radius: 5px;
+    padding: 1em 2em;
+}
+
+input[type=number] {
+    width: 3em;
+    font: var(--ui-font);
+    color: var(--ui-color);
+    background-color: #010513;
+    border:2px solid var(--ui-color);
+    border-radius: 5px;
+}
+
+#dice-tray svg {
+    width: 2em;
+}

@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="buttons">
-        <button id="update-button">Fire!</button>
+        <button id="fire-button">Fire!</button>
         @include('components.hp', ['system' => $starship, 'detail' => true])
         <a href="/reset/1" class="btn">Reset</a>
     </div>
+    @include('components.dice')
     <div class="heading">
         <h1>Systems Overview</h1>
     </div>
