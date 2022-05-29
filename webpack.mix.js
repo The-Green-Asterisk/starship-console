@@ -14,8 +14,10 @@ const path = require('path');
 
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/dice.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css')
     .setPublicPath('public')
+    // .ignore('resources/js/dice.js')
     .sourceMaps()
     .browserSync('http://localhost:8000')
     .webpackConfig({

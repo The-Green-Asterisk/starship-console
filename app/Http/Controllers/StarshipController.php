@@ -47,7 +47,7 @@ class StarshipController extends Controller
      */
     public function show(Starship $starship)
     {
-        //
+        return view('starship.show', compact('starship'));
     }
 
     /**
@@ -82,5 +82,17 @@ class StarshipController extends Controller
     public function destroy(Starship $starship)
     {
         //
+    }
+
+    public function takeDamage(Starship $starship, $damage)
+    {
+        $starship->takeDamage($damage);
+    }
+
+    public function resetDamage(Starship $starship)
+    {
+        $starship->resetDamage();
+
+        return redirect()->back();
     }
 }

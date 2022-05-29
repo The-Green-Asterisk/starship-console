@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Events\HpUpdate;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ModalController;
+use App\Http\Controllers\StarshipController;
 use App\Models\Starship;
 
 /*
@@ -17,19 +19,15 @@ use App\Models\Starship;
 |
 */
 
-Route::get('/', [Starship::class, 'index'])->name('home');
+Route::get('/starship/{starship}', [StarshipController::class, 'show'])->name('home');
+Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->name('damage');
+Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->name('reset');
 
-Route::get('/damage/{starship}/{damage}', function ($starship, $damage) {
-    $starship = Starship::find($starship);
-    $starship->takeDamage($damage);
-});
 
-Route::get('/reset/{starship}', function ($starship) {
-    $starship = Starship::find($starship);
-    $starship->resetDamage();
-    return redirect()->back();
-});
 
 Route::get('/listen', function () {
     return view('event-listener', ['consoleData' => null]);
 });
+
+Route::get('/login', [ModalController::class, 'login'])->name('login');
+Route::get('/roll/{starship}', [ModalController::class, 'roll']);

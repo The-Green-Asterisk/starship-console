@@ -7,8 +7,9 @@ const d20 = document.querySelector('#d20');
 const d100 = document.querySelector('#d100');
 const diceTray = document.querySelector('#dice-tray');
 const mod = document.querySelector('#modifier');
-const roll = document.querySelector('#roll');
+const roll = document.querySelector('#roll-dice');
 const result = document.querySelector('#result');
+const fireButton = document.querySelector('#fire-button');
 
 let diceResult = 0;
 let diceArray = [];
@@ -77,12 +78,14 @@ roll.addEventListener('click', () => {
     if (mod.value == 0){
         let sliced = result.innerText.slice(0, -1);
         result.innerText = sliced + ' =\u00a0';
+    }else if (mod.value < 0){
+        let sliced = result.innerText.slice(0, -1);
+        result.innerText = sliced + mod.value + ' =\u00a0';
     }else{
         result.innerText += Number(mod.value) + ' =\u00a0';
     }
     result.innerText += diceResult + Number(mod.value);
     rollValue = parseInt(diceResult + Number(mod.value));
-    console.log(rollValue);
     for (let i = 0; i < diceArray.length; i++)
         diceTray.removeChild(diceTray.firstChild);
     diceArray = [];
@@ -90,4 +93,21 @@ roll.addEventListener('click', () => {
     mod.value = 0;
 });
 
-export {rollValue};
+
+var damageStarship = (starshipId, damage) => {
+    if (damage != 0 && damage != null) {
+        fetch(`/starship/${starshipId}/damage/${damage}`, this.getSecure)
+        .then((res) => {
+            if (!res.ok) {
+                alert('Something went wrong');
+                console.log(res.text());
+            }
+        });
+    }
+};
+
+fireButton.addEventListener('click', () => {
+    let starshipId = fireButton.value
+    damageStarship(starshipId, rollValue)
+    body.removeChild(modal);
+});

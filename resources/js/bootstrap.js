@@ -13,4 +13,5 @@ window.Echo = new Echo({                                                    //
     forceTLS: true                                                          //
 });                                                                     //////
 
-require('./dice.js');
+// require('./dice.js');
+require('./modal.js');

@@ -17,8 +17,15 @@
     filter: brightness(1.5);
     transform: scale(.9);
 }
+.dice-tray-title {
+    color: var(--ui-color);
+    font-size: .8em;
+    text-align: left;
+    margin-bottom: 0;
+}
 #dice-tray {
     margin: 1em auto;
+    margin-top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,15 +33,7 @@
     border:2px solid var(--ui-color);
     border-radius: 5px;
     padding: 1em 2em;
-}
-
-input[type=number] {
-    width: 3em;
-    font: var(--ui-font);
-    color: var(--ui-color);
-    background-color: #010513;
-    border:2px solid var(--ui-color);
-    border-radius: 5px;
+    white-space: nowrap;
 }
 
 #dice-tray svg {

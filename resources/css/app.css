@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("dice.css");
+@import url("modal.css");
 
 :root {
     --sm-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -54,7 +55,7 @@ body {
 }
 .fadeout {
     opacity: 0;
-    transform:scale(2);
+    transform: scale(2);
     overflow: hidden;
 }
 
@@ -67,13 +68,13 @@ body {
         transform: translateX(-10px);
     }
     20% {
-        transform: translateY(-100px);
+        transform: translateY(-50px);
     }
     30% {
         transform: translateX(-10px);
     }
     40% {
-        transform: translateY(100px);
+        transform: translateY(50px);
     }
     50% {
         transform: translateX(40px);
@@ -85,10 +86,10 @@ body {
         transform: translateX(-9px);
     }
     80% {
-        transform: translateY(90px);
+        transform: translateY(70px);
     }
     90% {
-        transform: translateX(20px);
+        transform: translateX(-20px);
     }
     100% {
         transform: translateX(0);
@@ -97,7 +98,7 @@ body {
 }
 .shake {
     animation-name: shake;
-    animation-duration: .9s;
+    animation-duration: .7s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
     animation-direction: alternate;
@@ -140,7 +141,7 @@ button, .btn {
     color: var(--ui-color);
     background: transparent;
     max-width: 100px;
-    margin: 2em auto;
+    margin: 2em 1em;
     display: inline-block;
     padding: 1px 6px !important;
     cursor: pointer;
@@ -150,6 +151,7 @@ button, .btn {
     box-sizing: border-box;
     line-height: normal;
     transition: none;
+    white-space: nowrap;
 }
 button:hover, .btn:hover {
     background: var(--ui-color);
@@ -226,3 +228,13 @@ progress::-webkit-progress-value {
     animation: danger 1s infinite;
 }
 
+input {
+    font: var(--ui-font);
+    color: var(--ui-color);
+    background-color: #010513;
+    border:2px solid var(--ui-color);
+    border-radius: 5px;
+}
+input[type=number] {
+    width: 3em;
+}

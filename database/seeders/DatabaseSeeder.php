@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Character;
 use App\Models\Division;
 use App\Models\Starship;
 use App\Models\System;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -250,6 +252,23 @@ class DatabaseSeeder extends Seeder
         Starship::create([
             'id' => 1,
             'name' => 'Desert Rose'
+        ]);
+
+        User::create([
+            'id' => 1,
+            'name' => 'Steve Beaudry',
+            'email' => 'live.remix@@gmail.com',
+            'password' => bcrypt('iforgot'),
+            'is_admin' => true,
+            'is_dm' => true
+        ]);
+
+        Character::create([
+            'id' => 1,
+            'user_id' => 1,
+            'name' => 'Randy Mallard',
+            'starship_id' => 1,
+            'is_captain' => true
         ]);
     }
 }

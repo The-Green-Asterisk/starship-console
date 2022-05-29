@@ -15,7 +15,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->data = $this->getAllHps();
+        // $this->data = $this->getAllHps();
     }
 
     public function index()

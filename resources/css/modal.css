@@ -1,0 +1,43 @@
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#modal-dialog {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    background: #010513df;
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid var(--ui-color);
+    box-shadow: var(--lg-shadow);
+    animation: fadeIn 0.3s ease-in-out;
+}
+#modal-dialog form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#modal > input {
+    width: calc(100% - 1em);
+    margin: 0.5em 0;
+}
+#modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 0;
+    list-style: none;
+}

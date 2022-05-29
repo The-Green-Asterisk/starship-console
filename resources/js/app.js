@@ -1,14 +1,23 @@
 require('./bootstrap');
-import { rollValue } from './dice.js';
 
 Echo.channel('starship-console')
     .listen('HpUpdate', (data) => {
         handleDamage(data.data);
     });
 
-const htmlSecure = {method: 'GET', headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')}};
-const fireButton = document.getElementById('fire-button');
 const body = document.getElementById('body');
+const getSecure = {
+    method: 'GET',
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    }
+};
+const postSecure = {
+    method: 'POST',
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    }
+};
 
 window.onbeforeunload = () => {
     body.className = 'fadeout';
@@ -34,14 +43,5 @@ var handleDamage = (e) => {
         hpbox[i].querySelector('progress').value <= 25 ? hpbox[i].className = 'hp danger' : hpbox[i].className = 'hp';
 };
 
-var update = (damage) => {
-    fetch(`/damage/1/${damage}`, htmlSecure)
-    .then((res) => {
-        if (!res.ok) {
-            alert('Something went wrong');
-            console.log(res.text());
-        }
-    })
-};
-if (fireButton !== null)
-    fireButton.addEventListener('click', function(){update(rollValue);});
+
+export { getSecure, postSecure, body };

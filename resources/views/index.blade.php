@@ -2,23 +2,11 @@
 
 @section('content')
     <div class="buttons">
-        <button id="fire-button">Fire!</button>
         @include('components.hp', ['system' => $starship, 'detail' => true])
-        <a href="/reset/1" class="btn">Reset</a>
+        <a href="/starship/{{ $starship->id }}/reset-damage" class="btn">Reset</a>
+        <button id="login">Log In</button>
+        <button id="roll" value="{{ $starship->id }}">Roll</button>
     </div>
-    @include('components.dice')
-    <div class="heading">
-        <h1>Systems Overview</h1>
-    </div>
-    <div class="sections">
-        @foreach ($divisions as $division)
-            <section name="{{ $division->name }}">
-                <h1>{{ $division->name }}</h1>
-                @foreach ($division->systems as $system)
-                    @include('components.hp', ['system' => $system, 'detail' => false])
-                @endforeach
-            </section>
-        @endforeach
-    </div>
+    @yield('main')
 @endsection
 
