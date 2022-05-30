@@ -19,8 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(6)->create();
-
         Division::insert([
             [
                 'id' => 1,
@@ -257,8 +255,8 @@ class DatabaseSeeder extends Seeder
         User::create([
             'id' => 1,
             'name' => 'Steve Beaudry',
-            'email' => 'live.remix@@gmail.com',
-            'password' => bcrypt('iforgot'),
+            'email' => 'live.remix@gmail.com',
+            'password' => 'iforgot',
             'is_admin' => true,
             'is_dm' => true
         ]);

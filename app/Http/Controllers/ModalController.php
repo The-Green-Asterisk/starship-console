@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ModalController extends Controller
 {
+    public function register()
+    {
+        return view('modals.register');
+    }
+
     public function login()
     {
         return view('modals.login');

@@ -4,7 +4,7 @@
     <h1>Log In</h1>
     <form action="/login" method="post">
         @csrf
-        <input type="text" name="username" placeholder="Username">
+        <input type="email" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Password">
         <div id="modal-buttons">
             <button type="submit">Log In</button>

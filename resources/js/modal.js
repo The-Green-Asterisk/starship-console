@@ -1,3 +1,5 @@
+// const { body } = require('./app');
+
 var closeModal = () => {
     let modal = document.getElementById('modal');
     if (modal != null){
@@ -16,6 +18,24 @@ var clickOutside = (ev) => {
     }
 };
 
+document.getElementById('register').addEventListener('click', () => {
+    fetch('/register', this.getSecure)
+    .catch((err) => {
+        console.log(err);
+        alert('Something went wrong');
+    })
+    .then((res) => {
+        res.text()
+        .then((data) => {
+            let incomingModal = document.createElement('div');
+            incomingModal.innerHTML = data;
+            body.appendChild(incomingModal.firstChild);
+            document.addEventListener('click', (e) => {clickOutside(e)});
+        })
+        .then(() => {require('/js/registration.js')});
+    });
+});
+
 document.getElementById('login').addEventListener('click', () => {
     fetch('/login', this.getSecure)
     .catch((err) => {
@@ -28,12 +48,8 @@ document.getElementById('login').addEventListener('click', () => {
             let incomingModal = document.createElement('div');
             incomingModal.innerHTML = data;
             body.appendChild(incomingModal.firstChild);
-            document.addEventListener('click', (e) => {
-                clickOutside(e);
-            });
-            document.getElementById('close-button').addEventListener('click', () => {
-                closeModal();
-            });
+            document.addEventListener('click', (e) => {clickOutside(e)});
+            document.getElementById('close-button').addEventListener('click', () => {closeModal()});
         });
     });
 });
@@ -51,9 +67,7 @@ document.getElementById('roll').addEventListener('click', () => {
             let incomingModal = document.createElement('div');
             incomingModal.innerHTML = data;
             body.appendChild(incomingModal.firstChild);
-            document.addEventListener('click', (e) => {
-                clickOutside(e);
-            });
+            document.addEventListener('click', (e) => {clickOutside(e)});
             document.getElementById('close-button').addEventListener('click', () => {
                 rollValue = 0;
                 closeModal();
@@ -62,3 +76,5 @@ document.getElementById('roll').addEventListener('click', () => {
         .then(() => {require('/js/dice.js')});
     });
 });
+
+

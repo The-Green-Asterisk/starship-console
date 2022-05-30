@@ -28,10 +28,6 @@
     justify-content: center;
     align-items: center;
 }
-#modal > input {
-    width: calc(100% - 1em);
-    margin: 0.5em 0;
-}
 #modal-buttons {
     display: flex;
     flex-direction: row;

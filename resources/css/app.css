@@ -234,7 +234,13 @@ input {
     background-color: #010513;
     border:2px solid var(--ui-color);
     border-radius: 5px;
+    width: calc(100% - 1em);
+    margin: 0.5em 0;
 }
-input[type=number] {
-    width: 3em;
+
+p.error {
+    color: red;
+    font-size: .8em;
+    margin: 0;
+    padding: 0;
 }

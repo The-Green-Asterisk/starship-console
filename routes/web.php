@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\HpUpdate;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ModalController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StarshipController;
 use App\Models\Starship;
 
@@ -23,11 +24,11 @@ Route::get('/starship/{starship}', [StarshipController::class, 'show'])->name('h
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->name('damage');
 Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->name('reset');
 
-
-
 Route::get('/listen', function () {
     return view('event-listener', ['consoleData' => null]);
 });
 
+Route::get('/register', [ModalController::class, 'register']);
+Route::post('/register', [RegistrationController::class, 'register']);
 Route::get('/login', [ModalController::class, 'login'])->name('login');
 Route::get('/roll/{starship}', [ModalController::class, 'roll']);

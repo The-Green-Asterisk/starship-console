@@ -39,3 +39,7 @@
 #dice-tray svg {
     width: 2em;
 }
+
+#dice-tray > input {
+    width: 3em;
+}

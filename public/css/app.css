@@ -41,6 +41,10 @@
     width: 2em;
 }
 
+#dice-tray > input {
+    width: 3em;
+}
+
 #modal {
     position: fixed;
     top: 0;
@@ -71,10 +75,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-#modal > input {
-    width: calc(100% - 1em);
-    margin: 0.5em 0;
 }
 #modal-buttons {
     display: flex;
@@ -385,8 +385,14 @@ input {
     background-color: #010513;
     border:2px solid var(--ui-color);
     border-radius: 5px;
+    width: calc(100% - 1em);
+    margin: 0.5em 0;
 }
-input[type=number] {
-    width: 3em;
+
+p.error {
+    color: red;
+    font-size: .8em;
+    margin: 0;
+    padding: 0;
 }
 
