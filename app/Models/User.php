@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany(Character::class);
     }
 
+    public function starships()
+    {
+        return $this->belongsToMany(Starship::class);
+    }
+
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);

@@ -15,4 +15,14 @@ class Character extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function starship()
+    {
+        return $this->belongsTo(Starship::class);
+    }
+
+    public function divisions()
+    {
+        return $this->morphToMany(Division::class, 'divisionable');
+    }
 }

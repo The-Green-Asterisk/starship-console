@@ -14,6 +14,16 @@ class Starship extends Model
 
     protected $guarded = [];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function captain()
+    {
+        return $this->hasOne(User::class, 'captain_id');
+    }
+
     public function systems()
     {
         return $this->hasMany(System::class);
@@ -21,7 +31,7 @@ class Starship extends Model
 
     public function divisions()
     {
-        return $this->hasMany(Division::class);
+        return $this->morphToMany(Division::class, 'divisionable');
     }
 
     public function getMaxHp()

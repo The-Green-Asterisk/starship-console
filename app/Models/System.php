@@ -16,9 +16,9 @@ class System extends Model
         return $this->belongsTo(Starship::class);
     }
 
-    public function division()
+    public function divisions()
     {
-        return $this->belongsTo(Division::class);
+        return $this->morphToMany(Division::class, 'divisionable');
     }
 
     public function getHpPercentage()

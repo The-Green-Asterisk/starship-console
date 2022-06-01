@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('systems', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('max_hp')->default(0);
-            $table->integer('current_hp')->default(0);
+        Schema::create('starship_user', function (Blueprint $table) {
             $table->foreignId('starship_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('systems');
+        Schema::dropIfExists('starship_user');
     }
 };

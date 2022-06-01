@@ -11,12 +11,18 @@ class Division extends Model
 
     protected $guarded = [];
 
-    public function starship()
-    {
-        return $this->belongsTo(Starship::class);
-    }
     public function systems()
     {
-        return $this->hasMany(System::class);
+        return $this->morphedByMany(System::class, 'divisionable');
+    }
+
+    public function characters()
+    {
+        return $this->morphedByMany(Character::class, 'divisionable');
+    }
+
+    public function starships()
+    {
+        return $this->morphedByMany(Starship::class, 'divisionable');
     }
 }

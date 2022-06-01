@@ -30,7 +30,8 @@ var handleDamage = (e) => {
     }, 1000);
     for (let i = 0; i < e.length; i++)
     {
-        document.getElementById(e[i].systemId).value = e[i].hp;
+        if (document.getElementById(e[i].systemId) != null)
+            document.getElementById(e[i].systemId).value = e[i].hp;
         if (document.getElementById(e[i].systemId + 'detail') !== null){
             document.getElementById(e[i].systemId + 'detail').innerText = e[i].current;
             document.getElementById(e[i].systemId + 'detail-percent').innerText = e[i].hp.toFixed(0) + '%';

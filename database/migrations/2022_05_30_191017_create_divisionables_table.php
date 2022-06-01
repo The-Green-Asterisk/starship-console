@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('systems', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('max_hp')->default(0);
-            $table->integer('current_hp')->default(0);
-            $table->foreignId('starship_id');
+        Schema::create('divisionables', function (Blueprint $table) {
+            $table->foreignId('division_id');
+            $table->foreignId('divisionable_id');
+            $table->string('divisionable_type');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('systems');
+        Schema::dropIfExists('divisionables');
     }
 };

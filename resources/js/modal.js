@@ -1,5 +1,3 @@
-// const { body } = require('./app');
-
 var closeModal = () => {
     let modal = document.getElementById('modal');
     if (modal != null){
@@ -17,64 +15,131 @@ var clickOutside = (ev) => {
         closeModal();
     }
 };
-
-document.getElementById('register').addEventListener('click', () => {
-    fetch('/register', this.getSecure)
-    .catch((err) => {
-        console.log(err);
-        alert('Something went wrong');
-    })
-    .then((res) => {
-        res.text()
-        .then((data) => {
-            let incomingModal = document.createElement('div');
-            incomingModal.innerHTML = data;
-            body.appendChild(incomingModal.firstChild);
-            document.addEventListener('click', (e) => {clickOutside(e)});
+window.success = (message) => {
+        fetch(`/success/${message}`, this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
         })
-        .then(() => {require('/js/registration.js')});
-    });
-});
+        .then((res) => {
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                setTimeout(() => {
+                    closeModal();
+                }, 3000);
+            });
+        });
+    };
 
-document.getElementById('login').addEventListener('click', () => {
-    fetch('/login', this.getSecure)
-    .catch((err) => {
-        console.log(err);
-        alert('Something went wrong');
-    })
-    .then((res) => {
-        res.text()
-        .then((data) => {
-            let incomingModal = document.createElement('div');
-            incomingModal.innerHTML = data;
-            body.appendChild(incomingModal.firstChild);
-            document.addEventListener('click', (e) => {clickOutside(e)});
-            document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+if (document.getElementById('register') != null){
+    document.getElementById('register').addEventListener('click', () => {
+        fetch('/register', this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            this.hadFocus = document.activeElement;
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                window.activateRegistration();
+            })
         });
     });
-});
+}
 
-document.getElementById('roll').addEventListener('click', () => {
-    let rollValue = document.getElementById('roll').value;
-    fetch(`/roll/${rollValue}`, this.getSecure)
-    .catch((err) => {
-        console.log(err);
-        alert('Something went wrong');
-    })
-    .then((res) => {
-        res.text()
-        .then((data) => {
-            let incomingModal = document.createElement('div');
-            incomingModal.innerHTML = data;
-            body.appendChild(incomingModal.firstChild);
-            document.addEventListener('click', (e) => {clickOutside(e)});
-            document.getElementById('close-button').addEventListener('click', () => {
-                rollValue = 0;
-                closeModal();
-            });
+if (document.getElementById('login') != null){
+    document.getElementById('login').addEventListener('click', () => {
+        fetch('/login', this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
         })
-        .then(() => {require('/js/dice.js')});
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
     });
-});
+}
 
+if (document.getElementById('roll') != null){
+    document.getElementById('roll').addEventListener('click', () => {
+        let rollValue = document.getElementById('roll').value;
+        fetch(`/roll/${rollValue}`, this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {
+                    rollValue = 0;
+                    closeModal();
+                });
+                window.activateDice();
+            })
+        });
+    });
+}
 
+if (document.getElementById('new-character') != null){
+    document.getElementById('new-character').addEventListener('click', () => {
+        fetch('/new-character', this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}
+
+if (document.getElementById('new-starship') != null){
+    document.getElementById('new-starship').addEventListener('click', () => {
+        fetch('/new-starship', this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('ddb_id')->nullable();
             $table->string('picture_url')->nullable();
             $table->boolean('is_captain')->default(false);
-            $table->foreignId('division_id')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
