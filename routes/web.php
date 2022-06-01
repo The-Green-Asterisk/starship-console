@@ -29,25 +29,27 @@ Route::get('/', function () {
     }else{
         return view('welcome');
     }
-});
+})->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/new-character', [ModalController::class, 'newCharacter'])->middleware('auth');
 Route::post('/new-character', [CharacterController::class, 'store'])->middleware('auth');
+Route::get('/edit-character/{characterId}', [ModalController::class, 'editCharacter'])->middleware('auth');
+Route::post('/edit-character', [CharacterController::class, 'update'])->middleware('auth');
 Route::get('/new-starship', [ModalController::class, 'newStarship'])->middleware('auth');
 Route::post('/new-starship', [StarshipController::class, 'store'])->middleware('auth');
 Route::get('character-select/{character}', [CharacterController::class, 'makeActive'])->middleware('auth');
 Route::get('starship-select/{starship}', [StarshipController::class, 'makeActive'])->middleware('auth');
 
-Route::get('/starship/{starship}', [StarshipController::class, 'show'])->name('home');
-Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->name('damage');
-Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->name('reset');
+Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');
+Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');
+Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->middleware('auth')->name('reset');
 
 Route::get('/roll/{starship}', [ModalController::class, 'roll'])->middleware('auth');
 
-Route::get('/register', [ModalController::class, 'register'])->middleware('guest');
 Route::post('/register', [RegistrationController::class, 'register'])->middleware('guest');
+Route::get('/register', [ModalController::class, 'register'])->middleware('guest');
+Route::post('/login', [SessionsController::class, 'login'])->middleware('guest');
 Route::get('/login', [ModalController::class, 'login'])->name('login')->middleware('guest');
-Route::post('/login', [SessionsController::class, 'login'])->name('login')->middleware('guest');
 Route::get('/logout', [SessionsController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/success/{message}', [ModalController::class, 'success'])->name('success');

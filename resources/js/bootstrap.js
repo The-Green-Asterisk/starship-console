@@ -17,3 +17,4 @@ require('./dashboard.js');
 require('./modal.js');
 require('./modals/dice.js');
 require('./modals/registration.js');
+require('./modals/login.js');

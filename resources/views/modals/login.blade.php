@@ -1,14 +1,21 @@
 @extends('components.modal')
 
 @section('content')
-    <h1>Log In</h1>
-    <form action="/login" method="post">
+    <div class="modal-header">
+        <h1>Log In</h1>
+    </div>
+    <form method="POST" id="login-form">
         @csrf
-        <input type="email" name="email" placeholder="Email" autofocus>
-        <input type="password" name="password" placeholder="Password">
+        <label for="email" hidden>Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" autofocus>
+        <label for="password" hidden>Password</label>
+        <input type="password" id="password" name="password" placeholder="Password">
         <div id="modal-buttons">
             <button type="submit">Log In</button>
             <button type="button" id="close-button">Cancel</button>
+        </div>
+        <div id="errors">
+
         </div>
     </form>
 @endsection

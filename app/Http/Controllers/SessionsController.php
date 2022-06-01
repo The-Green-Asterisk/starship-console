@@ -21,9 +21,11 @@ class SessionsController extends Controller
             return response()->json($validator->getMessageBag(), 200);
         }else{
             if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                return redirect('starship/' . auth()->user()->characters->where('is_active')->first()->starship->id);
+                return response()->json([
+                    'redirect'=> url('starship/' . auth()->user()->characters->where('is_active')->first()->starship->id)
+                ]);
             }else{
-                return redirect('/login');
+                return response()->json(['error' => 'Invalid credentials'], 200);
             }
         }
     }
@@ -32,6 +34,6 @@ class SessionsController extends Controller
     {
         Auth::logout();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

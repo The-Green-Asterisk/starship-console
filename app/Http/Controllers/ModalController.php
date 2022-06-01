@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Character;
 use App\Models\Starship;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,15 @@ class ModalController extends Controller
     public function newCharacter()
     {
         return view('modals.new-character');
+    }
+
+    public function editCharacter($id)
+    {
+        $character = Character::find($id)->load('starship');
+
+        return view('modals.edit-character', [
+            'character' => $character,
+        ]);
     }
 
     public function newStarship()

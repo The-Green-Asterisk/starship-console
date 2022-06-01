@@ -31,7 +31,9 @@ class RegistrationController extends Controller
 
             auth()->login($user);
 
-            return redirect('/login');
+            return response()->json([
+                'redirect'=> url('/')
+            ]);
         }
     }
 }

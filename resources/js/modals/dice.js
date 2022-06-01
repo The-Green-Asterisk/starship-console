@@ -106,10 +106,11 @@ window.activateDice = () => {
             });
         }
     };
-
-    fireButton.addEventListener('click', () => {
-        let starshipId = fireButton.value
-        damageStarship(starshipId, rollValue)
-        body.removeChild(modal);
-    });
+    if (fireButton != null) {
+        fireButton.addEventListener('click', () => {
+            let starshipId = fireButton.value
+            damageStarship(starshipId, rollValue)
+            body.removeChild(modal);
+        });
+    }
 }

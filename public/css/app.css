@@ -289,15 +289,27 @@ a:hover {
 .buttons {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 50px;
+    padding: 0;
+}
+.bottom-buttons {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 0 50px;
     padding: 0;
-    list-style: none;
 }
 .buttons .hp {
     width: 100%;
 }
+.button-wrap{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 .btn.bottom, button.bottom {
     margin-top: 0;
 }
@@ -315,9 +327,12 @@ button, .btn {
     -webkit-appearance: button;
 	-moz-appearance: button;
     box-sizing: border-box;
-    line-height: normal;
+    line-height: inherit;
     transition: none;
     white-space: nowrap;
+}
+.spacer {
+    width: 100%;
 }
 button:hover, .btn:hover {
     background: var(--ui-color);
@@ -333,6 +348,9 @@ button:hover, .btn:hover {
     margin: 0;
     padding: 0;
     color: aliceblue;
+}
+.heading img {
+    margin-top: 4em;
 }
 
 .detail-wrapper {
@@ -404,7 +422,7 @@ input, select, option {
     border:2px solid var(--ui-color);
     border-radius: 5px;
     width: calc(100% - 1em);
-    margin: 0.5em 0;
+    margin: 2em 1em;
 }
 
 p.error {
@@ -426,5 +444,30 @@ p.error {
 }
 .select-div select{
     width: 100%;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+    .buttons {
+        justify-content: space-between;
+        margin: 0 2em;
+    }
+    .hp {
+        margin: 5px;
+    }
+    .buttons .hp {
+        order: 99;
+    }
+    .buttons {
+        flex-wrap: wrap;
+    }
+    button, .btn {
+        margin: 2px;
+    }
+    .buttons .logo {
+        width: 70px;
+    }
 }
 

@@ -81,7 +81,13 @@ class CharacterController extends Controller
      */
     public function update(UpdateCharacterRequest $request, Character $character)
     {
-        //
+        $character->name = $request->name;
+        $character->starship()->associate(Starship::find($request->starship_id));
+        $character->ddb_id = $request->ddb_id;
+        $character->save();
+        $this->makeActive($character);
+
+        return back()->with('success', 'Character updated!');
     }
 
     /**

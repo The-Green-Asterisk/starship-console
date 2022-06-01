@@ -9,7 +9,7 @@ window.activateRegistration = () => {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
-                username: document.getElementById('name').value,
+                name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
                 password_confirmation: document.getElementById('password-confirmation').value
@@ -18,14 +18,26 @@ window.activateRegistration = () => {
         .then((err) => {
             err.json()
             .then((data) => {
-                for (let i = 0; i < data.name.length; i++) {
-                    document.querySelector('#errors').innerHTML += `<p class="error">${data.name[i]}</p>`;
+                if (data.redirect) {
+                    window.location.href = data.redirect;
                 }
-                for (let i = 0; i < data.email.length; i++) {
-                    document.querySelector('#errors').innerHTML += `<p class="error">${data.email[i]}</p>`;
+                if (data.name){
+                    for (let i = 0; i < data.name.length; i++) {
+                        document.querySelector('#errors').innerHTML += `<p class="error">${data.name[i]}</p>`;
+                    }
                 }
-                for (let i = 0; i < data.password.length; i++) {
-                    document.querySelector('#errors').innerHTML += `<p class="error">${data.password[i]}</p>`;
+                if (data.email){
+                    for (let i = 0; i < data.email.length; i++) {
+                        document.querySelector('#errors').innerHTML += `<p class="error">${data.email[i]}</p>`;
+                    }
+                }
+                if (data.password){
+                    for (let i = 0; i < data.password.length; i++) {
+                        document.querySelector('#errors').innerHTML += `<p class="error">${data.password[i]}</p>`;
+                    }
+                }
+                if (data.error) {
+                document.querySelector('#errors').innerHTML += `<p class="error">${data.error}</p>`;
                 }
             });
         });

@@ -26,7 +26,8 @@
         <button id="roll-dice">Roll</button>
         <span id="result"></span>
     </div>
-
-    <button id="fire-button" value="{{ $starship }}">Fire!</button>
-    <button type="button" id="close-button">Cancel</button>
+    @if ($starship != 0)
+        <button id="fire-button" value="{{ $starship }}">Fire!</button>
+    @endif
+    <button type="button" id="close-button">Close</button>
 @endsection

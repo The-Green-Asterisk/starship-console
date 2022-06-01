@@ -72,6 +72,7 @@ if (document.getElementById('login') != null){
                 body.appendChild(incomingModal.firstChild);
                 document.addEventListener('click', (e) => {clickOutside(e)});
                 document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+                window.activateLogin();
             });
         });
     });
@@ -105,6 +106,28 @@ if (document.getElementById('roll') != null){
 if (document.getElementById('new-character') != null){
     document.getElementById('new-character').addEventListener('click', () => {
         fetch('/new-character', this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}
+
+if (document.getElementById('edit-character') != null){
+    document.getElementById('edit-character').addEventListener('click', () => {
+        let characterId = document.getElementById('character-select').value;
+        fetch(`/edit-character/${characterId}`, this.getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
