@@ -2,6 +2,7 @@
 .dice {
     display: flex;
     justify-content: space-evenly;
+    color: var(--ui-color);
 }
 .dice svg {
     transition:none;

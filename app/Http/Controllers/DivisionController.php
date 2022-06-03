@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDivisionRequest;
 use App\Http\Requests\UpdateDivisionRequest;
 use App\Models\Division;
+use App\Models\Starship;
 
 class DivisionController extends Controller
 {
@@ -45,9 +46,11 @@ class DivisionController extends Controller
      * @param  \App\Models\Division  $division
      * @return \Illuminate\Http\Response
      */
-    public function show(Division $division)
+    public function show(Starship $starship, Division $division)
     {
-        //
+        $systems = $division->systems()->where('starship_id', $starship->id)->get();
+
+        return view('divisions.show', compact('division', 'systems'));
     }
 
     /**

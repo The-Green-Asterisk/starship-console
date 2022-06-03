@@ -44,8 +44,51 @@ class ModalController extends Controller
         ]);
     }
 
+    public function deleteCharacter($id)
+    {
+        if (auth()->user()->characters->count() <= 1) {
+            $message = 'You cannot delete your only character.';
+            $yesButton = false;
+        }else{
+            $message = 'Are you sure you want to delete this character? This is Un-Undoable!';
+            $yesButton = true;
+        }
+
+        return view('modals.delete-character', [
+            'character' => $id,
+            'message' => $message,
+            'yesButton' => $yesButton
+        ]);
+    }
+
     public function newStarship()
     {
         return view('modals.new-starship');
+    }
+
+    public function editStarship($id)
+    {
+        $starship = Starship::find($id);
+
+        return view('modals.edit-starship', [
+            'starship' => $starship,
+        ]);
+    }
+
+    public function deleteStarship($id)
+    {
+        if (auth()->user()->starships->count() <= 1) {
+            $message = 'You cannot delete your only starship.';
+            $yesButton = false;
+        }else{
+            $message = 'Are you sure you want to delete this starship? This is Un-Undoable! If you are sure, then please select a new starship where the crew will be transferred to. If an appropriate transfer does not exist, please create a new starship first. By default, your crew will be transferred to:';
+            $yesButton = true;
+        }
+
+        return view('modals.delete-starship', [
+            'starship' => Starship::where('id', $id)->first(),
+            'message' => $message,
+            'yesButton' => $yesButton
+        ]);
     }
 }

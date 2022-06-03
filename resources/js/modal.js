@@ -146,9 +146,75 @@ if (document.getElementById('edit-character') != null){
     });
 }
 
+if (document.getElementById('delete-character') != null){
+    document.getElementById('delete-character').addEventListener('click', () => {
+        let characterId = document.getElementById('character-select').value;
+        fetch(`/delete-character/${characterId}`, this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}
+
 if (document.getElementById('new-starship') != null){
     document.getElementById('new-starship').addEventListener('click', () => {
         fetch('/new-starship', this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}
+
+if (document.getElementById('edit-starship') != null){
+    document.getElementById('edit-starship').addEventListener('click', () => {
+        let starshipId = document.getElementById('starship-select').value;
+        fetch(`/edit-starship/${starshipId}`, this.getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}
+
+if (document.getElementById('delete-starship') != null){
+    document.getElementById('delete-starship').addEventListener('click', () => {
+        let starshipId = document.getElementById('starship-select').value;
+        fetch(`/delete-starship/${starshipId}`, this.getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');

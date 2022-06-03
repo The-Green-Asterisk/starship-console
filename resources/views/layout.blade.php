@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? env("APP_NAME") }}</title>
+        <link rel="icon" href="{{ url('/img/valkur-logo.svg') }}">
         <link href="{{ url('/css/app.css') }}" rel="stylesheet">
 
     </head>

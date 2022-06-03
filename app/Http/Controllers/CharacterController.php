@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateCharacterRequest;
 use App\Models\Character;
 use App\Models\Starship;
 use App\Events\Success;
+use App\Models\Division;
+use App\Models\User;
 
 class CharacterController extends Controller
 {
@@ -79,13 +81,13 @@ class CharacterController extends Controller
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCharacterRequest $request, Character $character)
+    public function update(UpdateCharacterRequest $request)
     {
-        $character->name = $request->name;
-        $character->starship()->associate(Starship::find($request->starship_id));
-        $character->ddb_id = $request->ddb_id;
-        $character->save();
-        $this->makeActive($character);
+        Character::where('id', $request->character_id)->update([
+            'name' => $request->name,
+            'ddb_id' => $request->ddb_id,
+            'starship_id' => $request->starship_id,
+        ]);
 
         return back()->with('success', 'Character updated!');
     }
@@ -98,7 +100,18 @@ class CharacterController extends Controller
      */
     public function destroy(Character $character)
     {
-        //
+        $character = Character::find($character->id);
+        $character->divisions()->detach();
+        $character->delete();
+        foreach (auth()->user()->starships as $starship) {
+            if ($starship->captain_id == $character->id) {
+                $starship->captain_id = null;
+                $starship->save();
+            }
+        }
+        $this->makeActive(auth()->user()->characters->first());
+
+        return back()->with('success', 'Character deleted!');
     }
 
     public function makeActive(Character $character)
@@ -112,5 +125,14 @@ class CharacterController extends Controller
         $char->save();
 
         return back()->with('success', $char->name . ' activated!');
+    }
+
+    public function divisionSelect(Character $character, Division $division, $checked)
+    {
+        $checked === true
+            ? $character->divisions()->attach($division->id)
+            : $character->divisions()->detach($division->id);
+
+        return view('modals.success', ['message' => 'Division updated!']);
     }
 }

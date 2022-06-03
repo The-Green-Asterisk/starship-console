@@ -6,6 +6,7 @@ use App\Events\HpUpdate;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\ModalController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
@@ -35,12 +36,20 @@ Route::get('/new-character', [ModalController::class, 'newCharacter'])->middlewa
 Route::post('/new-character', [CharacterController::class, 'store'])->middleware('auth');
 Route::get('/edit-character/{characterId}', [ModalController::class, 'editCharacter'])->middleware('auth');
 Route::post('/edit-character', [CharacterController::class, 'update'])->middleware('auth');
+Route::get('/delete-character/{characterId}', [ModalController::class, 'deleteCharacter'])->middleware('auth');
+Route::post('/delete-character/{character}', [CharacterController::class, 'destroy'])->middleware('auth');
 Route::get('/new-starship', [ModalController::class, 'newStarship'])->middleware('auth');
 Route::post('/new-starship', [StarshipController::class, 'store'])->middleware('auth');
+Route::get('/edit-starship/{starshipId}', [ModalController::class, 'editStarship'])->middleware('auth');
+Route::post('/edit-starship', [StarshipController::class, 'update'])->middleware('auth');
+Route::get('/delete-starship/{starshipId}', [ModalController::class, 'deleteStarship'])->middleware('auth');
+Route::post('/delete-starship', [StarshipController::class, 'destroy'])->middleware('auth');
 Route::get('character-select/{character}', [CharacterController::class, 'makeActive'])->middleware('auth');
 Route::get('starship-select/{starship}', [StarshipController::class, 'makeActive'])->middleware('auth');
+Route::get('/character/{character}/division-select/{division}/{checked}', [CharacterController::class, 'divisionSelect'])->middleware('auth');
 
 Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');
+Route::get('/starship/{starship}/division/{division}', [DivisionController::class, 'show'])->middleware('auth')->name('division');
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');
 Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->middleware('auth')->name('reset');
 
