@@ -34,7 +34,6 @@
     border:2px solid var(--ui-color);
     border-radius: 5px;
     padding: 1em 2em;
-    white-space: nowrap;
 }
 
 #dice-tray svg {

@@ -5,6 +5,7 @@ Echo.channel('starship-console')
         handleDamage(data.data);
     });
 
+const d = (n) => {return Math.floor(Math.random() * n) + 1};
 const body = document.getElementById('body');
 const getSecure = {
     method: 'GET',
@@ -24,10 +25,13 @@ window.onbeforeunload = () => {
 };
 
 var handleDamage = (e) => {
-    body.className = 'shake';
-    setTimeout(() => {
-        body.className = '';
-    }, 1000);
+    if (document.getElementById("ship-" + e[e.length - 1].systemId) != null && document.getElementById("ship-" + e[e.length - 1].systemId).value > e[e.length - 1].hp) {
+        body.className = 'shake';
+        setTimeout(() => {
+            body.className = '';
+        }, 1000);
+        window.officerDamage(e[e.length - 1].officerDamage);
+    };
     for (let i = 0; i < e.length; i++)
     {
         if (document.getElementById(e[i].systemId) != null)
@@ -37,7 +41,7 @@ var handleDamage = (e) => {
             document.getElementById(e[i].systemId + 'detail-percent').innerText = e[i].hp.toFixed(0) + '%';
         }
     }
-    document.getElementById("ship-" + e[e.length - 1].systemId).value = e[e.length - 1].hp;
+    if (e.length>1) document.getElementById("ship-" + e[e.length - 1].systemId).value = e[e.length - 1].hp;
 
     let  hpbox = document.getElementsByClassName('hp' || 'hp danger');
     for (let i = 0; i < hpbox.length; i++)
@@ -45,4 +49,4 @@ var handleDamage = (e) => {
 };
 
 
-export { getSecure, postSecure, body };
+export { getSecure, postSecure, body, d };

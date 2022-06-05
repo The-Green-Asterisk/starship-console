@@ -1,0 +1,23 @@
+.crew-members {
+    display: flex;
+    align-items: center;
+}
+.crew-members  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: 2px solid var(--ui-color);
+    margin-right: 1em;
+}
+.manifest-divisions {
+    display: flex;
+    margin-left: 2em;
+    gap: 1em;
+}
+.captain-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    border: 2px solid var(--ui-color);
+    margin-right: 1em;
+}

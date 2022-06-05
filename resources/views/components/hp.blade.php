@@ -6,5 +6,8 @@
             <span><span id="{{ $system->id }}detail">{{ $system->current_hp ?? $system->getCurrentHp() }}</span>/{{ $system->max_hp ?? $system->getMaxHp() }}</span>
             <span id="{{ $system->id }}detail-percent">{{ number_format($system->getHpPercentage(), 0) }}%</span>
         </div>
+        @if ($system->description)
+            <span class="description">{{ $system->description ?? '' }}</span>
+        @endif
     @endif
 </div>

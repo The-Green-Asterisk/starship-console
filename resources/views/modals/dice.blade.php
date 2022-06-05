@@ -26,7 +26,7 @@
         <button id="roll-dice">Roll</button>
         <span id="result"></span>
     </div>
-    @if ($starship != 0)
+    @if ($starship != 0 && auth()->user()->is_dm)
         <button id="fire-button" value="{{ $starship }}">Fire!</button>
     @endif
     <button type="button" id="close-button">Close</button>

@@ -44,7 +44,7 @@ class CharacterController extends Controller
         $character->user_id = auth()->user()->id;
         $character->name = $request->name;
         $character->starship()->associate(Starship::find($request->starship_id));
-        $character->ddb_id = $request->ddb_id;
+        $character->engineering_mod = $request->engineering_mod;
         $character->save();
         $this->makeActive($character);
 
@@ -85,7 +85,7 @@ class CharacterController extends Controller
     {
         Character::where('id', $request->character_id)->update([
             'name' => $request->name,
-            'ddb_id' => $request->ddb_id,
+            'engineering_mod' => $request->engineering_mod,
             'starship_id' => $request->starship_id,
         ]);
 
@@ -127,11 +127,13 @@ class CharacterController extends Controller
         return back()->with('success', $char->name . ' activated!');
     }
 
-    public function divisionSelect(Character $character, Division $division, $checked)
+    public function divisionSelect(Character $character, Division $division)
     {
-        $checked === true
-            ? $character->divisions()->attach($division->id)
-            : $character->divisions()->detach($division->id);
+        $character = Character::find($character->id);
+
+        $character->divisions()->toggle($division->id);
+
+        $character->save();
 
         return view('modals.success', ['message' => 'Division updated!']);
     }

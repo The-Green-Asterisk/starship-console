@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Events\HpUpdate;
+use App\Models\Character;
 
 class Controller extends BaseController
 {
@@ -20,7 +21,9 @@ class Controller extends BaseController
 
     public function index()
     {
-        return view('index')->with($this->data);
+        $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
+
+        return view('index', compact('character'));
     }
 
     public function broadcast()

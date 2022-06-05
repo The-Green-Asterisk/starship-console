@@ -1,3 +1,5 @@
+import { getSecure } from "./app";
+
 var closeModal = () => {
     let modal = document.getElementById('modal');
     if (modal != null){
@@ -16,7 +18,7 @@ var clickOutside = (ev) => {
     }
 };
 window.success = (message) => {
-        fetch(`/success/${message}`, this.getSecure)
+        fetch(`/success/${message}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -34,15 +36,22 @@ window.success = (message) => {
         });
     };
 
+window.officerDamage = (div) => {
+    let incomingModal = document.createElement('div');
+    incomingModal.innerHTML = div;
+    body.appendChild(incomingModal.firstChild);
+    document.addEventListener('click', (e) => {clickOutside(e)});
+    document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+}
+
 if (document.getElementById('register') != null){
     document.getElementById('register').addEventListener('click', () => {
-        fetch('/register', this.getSecure)
+        fetch('/register', getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
         })
         .then((res) => {
-            this.hadFocus = document.activeElement;
             document.activeElement.blur();
             res.text()
             .then((data) => {
@@ -58,7 +67,7 @@ if (document.getElementById('register') != null){
 
 if (document.getElementById('login') != null){
     document.getElementById('login').addEventListener('click', () => {
-        fetch('/login', this.getSecure)
+        fetch('/login', getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -81,7 +90,7 @@ if (document.getElementById('login') != null){
 if (document.getElementById('roll') != null){
     document.getElementById('roll').addEventListener('click', () => {
         let rollValue = document.getElementById('roll').value;
-        fetch(`/roll/${rollValue}`, this.getSecure)
+        fetch(`/roll/${rollValue}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -105,7 +114,7 @@ if (document.getElementById('roll') != null){
 
 if (document.getElementById('new-character') != null){
     document.getElementById('new-character').addEventListener('click', () => {
-        fetch('/new-character', this.getSecure)
+        fetch('/new-character', getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -127,7 +136,7 @@ if (document.getElementById('new-character') != null){
 if (document.getElementById('edit-character') != null){
     document.getElementById('edit-character').addEventListener('click', () => {
         let characterId = document.getElementById('character-select').value;
-        fetch(`/edit-character/${characterId}`, this.getSecure)
+        fetch(`/edit-character/${characterId}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -149,7 +158,7 @@ if (document.getElementById('edit-character') != null){
 if (document.getElementById('delete-character') != null){
     document.getElementById('delete-character').addEventListener('click', () => {
         let characterId = document.getElementById('character-select').value;
-        fetch(`/delete-character/${characterId}`, this.getSecure)
+        fetch(`/delete-character/${characterId}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -170,7 +179,7 @@ if (document.getElementById('delete-character') != null){
 
 if (document.getElementById('new-starship') != null){
     document.getElementById('new-starship').addEventListener('click', () => {
-        fetch('/new-starship', this.getSecure)
+        fetch('/new-starship', getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -192,7 +201,7 @@ if (document.getElementById('new-starship') != null){
 if (document.getElementById('edit-starship') != null){
     document.getElementById('edit-starship').addEventListener('click', () => {
         let starshipId = document.getElementById('starship-select').value;
-        fetch(`/edit-starship/${starshipId}`, this.getSecure)
+        fetch(`/edit-starship/${starshipId}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -214,7 +223,7 @@ if (document.getElementById('edit-starship') != null){
 if (document.getElementById('delete-starship') != null){
     document.getElementById('delete-starship').addEventListener('click', () => {
         let starshipId = document.getElementById('starship-select').value;
-        fetch(`/delete-starship/${starshipId}`, this.getSecure)
+        fetch(`/delete-starship/${starshipId}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -229,6 +238,28 @@ if (document.getElementById('delete-starship') != null){
                 document.addEventListener('click', (e) => {clickOutside(e)});
                 document.getElementById('close-button').addEventListener('click', () => {closeModal()});
             });
+        });
+    });
+}
+
+if (document.getElementById('crew') != null){
+    document.getElementById('crew').addEventListener('click', () => {
+        let starshipId = document.getElementById('starship-id').value;
+        fetch(`/starship/${starshipId}/crew-manifest`, getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+                window.activateCrew();
+            })
         });
     });
 }

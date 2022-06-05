@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Character;
 use App\Models\Starship;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ModalController extends Controller
@@ -90,5 +91,32 @@ class ModalController extends Controller
             'message' => $message,
             'yesButton' => $yesButton
         ]);
+    }
+
+    public function crewManifest(Starship $starship)
+    {
+        return view('modals.crew-manifest', [
+            'crew' => Character::where('starship_id', $starship->id)->get(),
+            'divisions' => $starship->divisions,
+            'captain' => $starship->captain(),
+        ]);
+    }
+
+    public function addUser($email)
+    {
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            $user->starships()->attach(auth()->user()->characters->where('is_active')->first()->starship);
+            $message = $user->name . ' has been brought aboard the ' . auth()->user()->characters->where('is_active')->first()->starship->name . '!';
+        }else{
+            $message = 'User could not be found.';
+        }
+
+        $data = [
+            'message' => $message,
+        ];
+
+        return $data;
     }
 }

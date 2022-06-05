@@ -22,7 +22,7 @@ class SessionsController extends Controller
         }else{
             if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 return response()->json([
-                    'redirect'=> url('starship/' . auth()->user()->characters->where('is_active')->first()->starship->id)
+                    'redirect'=> 'starship/' . auth()->user()->characters->where('is_active')->first()->starship->id
                 ]);
             }else{
                 return response()->json(['error' => 'Invalid credentials'], 200);

@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 1,
                 'starship_id' => 1,
                 'name' => 'Navigation',
-                'description' => 'This sophisticated navigation system keep real-time records of your starship\'s position and velocity. It also provides a means of determining the distance and most efficient route to any given target. With navigation systems at 25% or less, the pilot has disadvantage on any skill check involving maneuvering distances greater than one AU.',
+                'description' => 'This sophisticated navigation system keeps real-time records of your starship\'s position and velocity. It also provides a means of determining the distance and most efficient route to any given target. With navigation systems at 25% or less, the pilot has disadvantage on any skill check involving maneuvering distances greater than one AU.',
                 'max_hp' => 15,
                 'current_hp' => 15
             ],
@@ -270,7 +270,8 @@ class DatabaseSeeder extends Seeder
         Starship::create([
             'id' => 1,
             'name' => 'Desert Rose',
-            'captain_id' => 1
+            'captain_id' => 1,
+            'dm_id' => 1,
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS');
         for ($i = 0; $i < Division::all()->count(); $i++) {

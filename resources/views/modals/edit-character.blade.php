@@ -5,7 +5,7 @@
     <form action="/edit-character" method="post">
         @csrf
         <input type="text" name="name" placeholder="Name" value="{{ $character->name }}" required autofocus>
-        <input type="number" name="ddb_id" placeholder="D&amp;D Beyond ID (Optional)" value="{{ $character->ddb_id }}">
+        <input type="number" name="engineering_mod" placeholder="Engineering Mod" value="{{ $character->engineering_mod }}">
         <select name="starship_id" required>
             <option value="" disabled>Starship</option>
             @foreach (auth()->user()->starships as $starship)

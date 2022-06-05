@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany(Character::class);
     }
 
+    public function starshipsAsDm()
+    {
+        return $this->hasMany(Starship::class, 'dm_id');
+    }
+
     public function starships()
     {
         return $this->belongsToMany(Starship::class);

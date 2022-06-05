@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\HpUpdate;
 use App\Http\Requests\StoreSystemRequest;
 use App\Http\Requests\UpdateSystemRequest;
 use App\Models\System;
@@ -82,5 +83,20 @@ class SystemController extends Controller
     public function destroy(System $system)
     {
         //
+    }
+
+    public function quickFix(System $system, $quickFix)
+    {
+        $system = System::find($system->id);
+        $system->current_hp += ($quickFix + auth()->user()->characters->where('is_active', true)->first()->engineering_mod);
+        $system->save();
+
+        $response[] = [
+            'systemId' => $system->id,
+            'hp' => $system->getHpPercentage(),
+            'current' => $system->current_hp
+        ];
+
+        HpUpdate::dispatch($response);
     }
 }

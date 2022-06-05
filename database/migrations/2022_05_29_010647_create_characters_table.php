@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('starship_id')->constrained()->nullable();
-            $table->integer('ddb_id')->nullable();
+            $table->integer('engineering_mod')->nullable();
             $table->string('picture_url')->nullable();
             $table->boolean('is_captain')->default(false);
             $table->boolean('is_active')->default(false);

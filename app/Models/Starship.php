@@ -14,14 +14,19 @@ class Starship extends Model
 
     protected $guarded = [];
 
+    public function dm()
+    {
+        return $this->belongsTo(User::class, 'dm_id');
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function captain()
+    public function scopeCaptain($query)
     {
-        return $this->hasOne(User::class, 'captain_id');
+        return Character::where('is_captain', true)->where('starship_id', $this->id)->first();
     }
 
     public function systems()
@@ -61,12 +66,25 @@ class Starship extends Model
     public function takeDamage($damage)
     {
         $response = [];
+        $pilotDamage = 0;
+        $opsDamage = 0;
+        $defDamage = 0;
+        $lifeDamage = 0;
+        $engDamage = 0;
+        $commsDamage = 0;
 
-        if ($this->systems->where('name', 'Shields')->first()->current_hp > 0) $damage = $damage - 15;
+        if ($this->systems->where('name', 'Shields')->first()->getHpPercentage() > 25) $damage = $damage - 15;
 
         for ($i = 0; $i < $damage ; $i++) {
-            $system = $this->systems()->where('current_hp', '>=', 0)->inRandomOrder()->first();
-            if ($system == null) continue;
+            $system = $this->systems()->inRandomOrder()->first();
+            if ($system->getHpPercentage() < 25) {
+                if ($system->divisions()->first()->id == 1) $pilotDamage++;
+                if ($system->divisions()->first()->id == 2) $opsDamage++;
+                if ($system->divisions()->first()->id == 3) $defDamage++;
+                if ($system->divisions()->first()->id == 4) $lifeDamage++;
+                if ($system->divisions()->first()->id == 5) $engDamage++;
+                if ($system->divisions()->first()->id == 6) $commsDamage++;
+            }
             if ($system->current_hp <= 0) $system->current_hp = 1;
             $system->current_hp--;
 
@@ -81,7 +99,15 @@ class Starship extends Model
         $response[] = [
             'systemId' => $this->id,
             'hp' => $this->getHpPercentage(),
-            'current' => $this->getCurrentHp()
+            'current' => $this->getCurrentHp(),
+            'officerDamage' => view('modals.officer-damage', [
+                'pilot' => $pilotDamage,
+                'ops' => $opsDamage,
+                'def' => $defDamage,
+                'life' => $lifeDamage,
+                'eng' => $engDamage,
+                'comms' => $commsDamage
+            ])->render()
         ];
 
         HpUpdate::dispatch($response);

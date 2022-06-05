@@ -32,6 +32,10 @@ class System extends Model
             $percentage = 0;
         }
 
+        if ($percentage > 100) {
+            $percentage = 100;
+        }
+
         return $percentage;
     }
 }

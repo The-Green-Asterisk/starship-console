@@ -1,3 +1,5 @@
+import { getSecure } from "./app";
+
 if (document.getElementById('character-select') != null){
     document.getElementById('character-select').addEventListener('change', () => {
         let characterId = document.getElementById('character-select').value;
@@ -12,14 +14,13 @@ if (document.getElementById('starship-select') != null){
 }
 
 if (document.getElementsByClassName('division-checkboxes') != null){
-    const checkboxes = document.getElementsByClassName('div-check');
+    const checkboxes = document.getElementsByClassName('checkbox-label');
     for (let i = 0; i < checkboxes.length; i++){
-        checkboxes[i].addEventListener('change', () => {
+        checkboxes[i].querySelector('input').addEventListener('change', () => {
             let characterId = document.getElementById('character-select').value;
-            let divisionId = checkboxes[i].value;
-            let checked = checkboxes[i].checked;
-            let url = `/character/${characterId}/division-select/${divisionId}/${checked}`;
-            fetch(url, this.getSecure)
+            let divisionId = checkboxes[i].querySelector('input').value;
+            let url = `/character/${characterId}/division-select/${divisionId}`;
+            fetch(url, getSecure)
             .then((res) => {
                 res.text()
                 .then((data) => {
@@ -28,9 +29,16 @@ if (document.getElementsByClassName('division-checkboxes') != null){
                     document.getElementById('body').appendChild(modal.firstChild);
                     setTimeout(() => {
                         document.getElementById('body').removeChild(document.getElementById('modal'));
+                        location.reload();
                     }, 2000);
                 });
             });
         });
     }
+}
+
+if (document.querySelector('#character-image') != null) {
+    document.querySelector('#character-image').addEventListener('change', (e) => {
+        document.characterImage.submit();
+    })
 }

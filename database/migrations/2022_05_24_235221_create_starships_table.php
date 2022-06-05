@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('manufacturer')->nullable();
             $table->foreignId('captain_id')->nullable()->references('id')->on('characters');
+            $table->foreignId('dm_id')->references('id')->on('users');
         });
 
         DB::statement('SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS');

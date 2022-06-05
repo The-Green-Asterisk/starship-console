@@ -1,3 +1,5 @@
+import { d, getSecure } from '../app.js';
+
 window.activateDice = () => {
     const d4 = document.querySelector('#d4');
     const d6 = document.querySelector('#d6');
@@ -17,7 +19,7 @@ window.activateDice = () => {
     var rollValue = 0;
 
     d4.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 4) + 1;
+        let roll = d(4);
         diceResult += roll;
         diceArray.push(roll);
         let tray4 = d4.cloneNode(true);
@@ -25,7 +27,7 @@ window.activateDice = () => {
         result.innerText = '';
     });
     d6.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 6) + 1;
+        let roll = d(6);
         diceResult += roll;
         diceArray.push(roll);
         let tray6 = d6.cloneNode(true);
@@ -33,7 +35,7 @@ window.activateDice = () => {
         result.innerText = '';
     });
     d8.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 8) + 1;
+        let roll = d(8);
         diceResult += roll;
         diceArray.push(roll);
         let tray8 = d8.cloneNode(true);
@@ -41,7 +43,7 @@ window.activateDice = () => {
         result.innerText = '';
     });
     d10.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 10) + 1;
+        let roll = d(10);
         diceResult += roll;
         diceArray.push(roll);
         let tray10 = d10.cloneNode(true);
@@ -49,7 +51,7 @@ window.activateDice = () => {
         result.innerText = '';
     });
     d12.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 12) + 1;
+        let roll = d(12);
         diceResult += roll;
         diceArray.push(roll);
         let tray12 = d12.cloneNode(true);
@@ -57,7 +59,7 @@ window.activateDice = () => {
         result.innerText = '';
     });
     d20.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 20) + 1;
+        let roll = d(20);
         diceResult += roll;
         diceArray.push(roll);
         let tray20 = d20.cloneNode(true);
@@ -65,7 +67,7 @@ window.activateDice = () => {
         result.innerText = '';
     });
     d100.addEventListener('click', () => {
-        let roll = Math.floor(Math.random() * 100) + 1;
+        let roll = d(100);
         diceResult += roll;
         diceArray.push(roll);
         let tray100 = d100.cloneNode(true);
@@ -97,7 +99,7 @@ window.activateDice = () => {
 
     var damageStarship = (starshipId, damage) => {
         if (damage != 0 && damage != null) {
-            fetch(`/starship/${starshipId}/damage/${damage}`, this.getSecure)
+            fetch(`/starship/${starshipId}/damage/${damage}`, getSecure)
             .then((res) => {
                 if (!res.ok) {
                     alert('Something went wrong');

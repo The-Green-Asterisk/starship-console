@@ -35,7 +35,6 @@
     border:2px solid var(--ui-color);
     border-radius: 5px;
     padding: 1em 2em;
-    white-space: nowrap;
 }
 
 #dice-tray svg {
@@ -85,6 +84,30 @@
     gap: 1em;
     padding: 0;
     list-style: none;
+}
+
+.crew-members {
+    display: flex;
+    align-items: center;
+}
+.crew-members  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: 2px solid var(--ui-color);
+    margin-right: 1em;
+}
+.manifest-divisions {
+    display: flex;
+    margin-left: 2em;
+    gap: 1em;
+}
+.captain-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    border: 2px solid var(--ui-color);
+    margin-right: 1em;
 }
 
 :root {
@@ -298,6 +321,7 @@ a:hover {
 .bottom-buttons {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 0 50px;
@@ -306,6 +330,26 @@ a:hover {
 .buttons .hp {
     width: 100%;
 }
+.hp {
+    position: relative;
+}
+.hp .description {
+    opacity: 0;
+    width: 300px;
+    position: absolute;
+    left: calc(50% - 150px);
+    background-color: #010513db;
+    border-radius: 5px;
+    border: 2px solid var(--ui-color);
+    z-index: 1;
+    padding: 1em;
+    pointer-events: none;
+}
+.hp:hover .description {
+    opacity: 1;
+    transform: translateY(-100%);
+}
+
 .button-wrap{
     display: flex;
     flex-wrap: nowrap;
@@ -331,6 +375,12 @@ button, .btn {
     line-height: inherit;
     transition: none;
     white-space: nowrap;
+}
+button path {
+    transition: none;
+}
+button:hover path:hover {
+    transition: none;
 }
 .spacer {
     width: 100%;
@@ -360,6 +410,7 @@ button:hover, .btn:hover {
 }
 
 div.sections {
+    max-width: 1300px;
     margin: .5em auto;
     display: flex;
     flex-direction: row;
@@ -469,7 +520,7 @@ p.error {
 }
 
 /* The container */
-.container {
+.checkbox-label {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -483,7 +534,7 @@ p.error {
   }
 
   /* Hide the browser's default checkbox */
-  .container input {
+  .checkbox-label input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -492,7 +543,7 @@ p.error {
   }
 
   /* Create a custom checkbox */
-  .checkmark {
+  .checkbox-label span {
     position: absolute;
     top: 0;
     left: 0;
@@ -504,29 +555,29 @@ p.error {
   }
 
   /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
+  .checkbox-label:hover input ~ span {
     background-color: rgb(44, 44, 44);
   }
 
   /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
+  .checkbox-label input:checked ~ span {
     background-color: var(--ui-color);
   }
 
   /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
+  .checkbox-label > span:after {
     content: "";
     position: absolute;
     display: none;
   }
 
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+  .checkbox-label input:checked ~ span:after {
     display: block;
   }
 
   /* Style the checkmark/indicator */
-  .container .checkmark:after {
+  .checkbox-label span:after {
     left: 9px;
     top: 5px;
     width: 5px;
@@ -551,6 +602,26 @@ p.error {
 .systems button {
     flex-grow: 0;
     flex-basis: auto;
+}
+
+.character-image {
+    background-image: url('/storage/img/default-image.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -o-object-position: top;
+       object-position: top;
+    -o-object-fit: cover;
+       object-fit: cover;
+    display: inline-block;
+    border-radius: 999px;
+    border: 2px solid var(--ui-color);
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+}
+input.character-image {
+    display: none;
 }
 
 

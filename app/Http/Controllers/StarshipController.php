@@ -47,6 +47,7 @@ class StarshipController extends Controller
         $starship->model = $request->model;
         $starship->manufacturer = $request->manufacturer;
         $starship->captain_id = $request->captain_id;
+        $starship->dm_id = auth()->id();
         $starship->save();
         $this->addDefaultSystems(Starship::find($starship->id));
 
@@ -79,7 +80,9 @@ class StarshipController extends Controller
             })->get();
         }
 
-        return view('starship.show', compact('divisions', 'starship'));
+        $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
+
+        return view('starship.show', compact('divisions', 'starship', 'character'));
     }
 
     /**
@@ -156,7 +159,7 @@ class StarshipController extends Controller
             [
                 'starship_id' => $starship->id,
                 'name' => 'Navigation',
-                'description' => 'This sophisticated navigation system keep real-time records of your starship\'s position and velocity. It also provides a means of determining the distance and most efficient route to any given target. With navigation systems at 25% or less, the pilot has disadvantage on any skill check involving maneuvering distances greater than one AU.',
+                'description' => 'This sophisticated navigation system keeps real-time records of your starship\'s position and velocity. It also provides a means of determining the distance and most efficient route to any given target. With navigation systems at 25% or less, the pilot has disadvantage on any skill check involving maneuvering distances greater than one AU.',
                 'max_hp' => 15,
                 'current_hp' => 15
             ],
