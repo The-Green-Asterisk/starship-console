@@ -9,13 +9,14 @@
         <input type="text" name="manufacturer" placeholder="Manufacturer (Optional)" value="{{ $starship->manufacturer }}">
         <select name="captain_id">
             <option value="" disabled>Captain</option>
-            @foreach (auth()->user()->characters as $character)
+            @foreach ($characters as $character)
                 @if ($character->id == $starship->captain_id)
                     <option value="{{ $character->id }}" selected>{{ $character->name }}</option>
                 @else
                     <option value="{{ $character->id }}">{{ $character->name }}</option>
                 @endif
             @endforeach
+            <option value="">No captain</option>
         </select>
         <div id="modal-buttons">
             <input hidden name="starship_id" value="{{ $starship->id }}">

@@ -34,7 +34,7 @@
             @elseif ($division->id == 5)
                 <p>The Engineering officer may access any system from any division to affect repairs throughout the ship.</p>
                 <h3>Divert Power</h3>
-                <p>Shut down one system to divert its power to another system giving advantage on any rolls related to that system and temporarily ignoring its damaged affect. This lasts for one minute.</p>
+                <p>Shut down one system to divert its power to another system giving advantage on any rolls related to the receiving system and temporarily ignoring its damaged effect. This lasts for one minute.</p>
                 <h3>Power Down</h3>
                 <p>Cut power to all systems to add +10 to all ship stealth checks with the ability to immediately power them back on in case of detection.</p>
             @elseif ($division->id == 6)

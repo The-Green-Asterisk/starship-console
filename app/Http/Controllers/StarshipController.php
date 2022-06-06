@@ -53,7 +53,7 @@ class StarshipController extends Controller
 
         User::find(auth()->user()->id)->starships()->attach(Starship::find($starship->id));
 
-        return back()->with('success', 'Starship created!');
+        return redirect('/dm-dashboard/' . $starship->id)->with('success', 'Starship created!');
     }
 
     /**
@@ -81,8 +81,9 @@ class StarshipController extends Controller
         }
 
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
+        $characters = Character::where('starship_id', $starship->id)->get();
 
-        return view('starship.show', compact('divisions', 'starship', 'character'));
+        return view('starship.show', compact('divisions', 'starship', 'character', 'characters'));
     }
 
     /**
@@ -105,12 +106,19 @@ class StarshipController extends Controller
      */
     public function update(UpdateStarshipRequest $request)
     {
+        //if you can find the Starship's captain, strip him of his captaincy
+        if (Character::find(Starship::find($request->starship_id)->captain_id))
+            Character::find(Starship::find($request->starship_id)->captain_id)->update(['is_captain' => false]);
+
         Starship::where('id', $request->starship_id)->update([
             'name' => $request->name,
             'model' => $request->model,
             'manufacturer' => $request->manufacturer,
             'captain_id' => $request->captain_id,
         ]);
+
+        //if the request mentions a captain, find him and make him captain
+        if ($request->captain_id > 0) Character::find($request->captain_id)->update(['is_captain' => true]);
 
         return back()->with('success', 'Starship updated!');
     }
@@ -345,7 +353,9 @@ class StarshipController extends Controller
     public function makeActive(Starship $starship)
     {
         $character = auth()->user()->characters->where('is_active', true)->first();
+        Starship::where('captain_id', $character->id)->update(['captain_id' => null]);
         $character->starship_id = $starship->id;
+        $character->is_captain = false;
         $character->save();
 
         return back()->with('success', $character->name . ' is now aboard the ' . $starship->name . '!');

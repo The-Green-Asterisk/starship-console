@@ -19,4 +19,3 @@ require('./modals/dice.js');
 require('./modals/registration.js');
 require('./modals/login.js');
 require('./divisions.js');
-require('./modals/crew.js');

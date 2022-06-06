@@ -258,7 +258,6 @@ if (document.getElementById('crew') != null){
                 body.appendChild(incomingModal.firstChild);
                 document.addEventListener('click', (e) => {clickOutside(e)});
                 document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-                window.activateCrew();
             })
         });
     });

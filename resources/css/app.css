@@ -433,6 +433,25 @@ p.error {
     flex-basis: auto;
 }
 
+#character-image-wrapper {
+    position:relative
+}
+#character-image-wrapper #overlay {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    border: 2px solid var(--ui-color);
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    cursor: pointer;
+}
+#character-image-wrapper #overlay:hover {
+    opacity: 1;
+}
 .character-image {
     background-image: url('/storage/img/default-image.svg');
     background-position: center;
@@ -445,10 +464,24 @@ p.error {
     border: 2px solid var(--ui-color);
     width: 250px;
     height: 250px;
-    cursor: pointer;
 }
 input.character-image {
     display: none;
+}
+
+img.division-title {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 2px solid var(--ui-color);
+}
+.div-img-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 20px;
 }
 
 

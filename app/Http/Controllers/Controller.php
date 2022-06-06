@@ -21,9 +21,9 @@ class Controller extends BaseController
 
     public function index()
     {
-        $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
+        // $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
 
-        return view('index', compact('character'));
+        return view('index');
     }
 
     public function broadcast()

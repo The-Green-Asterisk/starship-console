@@ -52,7 +52,7 @@ class DivisionController extends Controller
         $systems = $division->systems()->where('starship_id', $starship->id)->get();
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
 
-        return view('divisions.show', compact('division', 'systems', 'character'));
+        return view('divisions.show', compact('division', 'systems', 'character', 'starship'));
     }
 
     /**

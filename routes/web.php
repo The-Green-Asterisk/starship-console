@@ -13,6 +13,8 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
 use App\Http\Controllers\SystemController;
 use App\Models\Starship;
+use App\Models\User;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,7 @@ Route::get('/', function () {
     }
 })->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dm-dashboard/{starship?}', [DashboardController::class, 'dmIndex'])->middleware('auth');
 Route::post('/img/upload', [DashboardController::class, 'imageUpload'])->middleware('optimizeImages');
 Route::get('/new-character', [ModalController::class, 'newCharacter'])->middleware('auth');
 Route::post('/new-character', [CharacterController::class, 'store'])->middleware('auth');
@@ -50,12 +53,18 @@ Route::get('character-select/{character}', [CharacterController::class, 'makeAct
 Route::get('starship-select/{starship}', [StarshipController::class, 'makeActive'])->middleware('auth');
 Route::get('/character/{character}/division-select/{division}', [CharacterController::class, 'divisionSelect'])->middleware('auth');
 
+Route::get('/dm-mode', function () {
+    auth()->user()->is_dm = auth()->user()->is_dm ? false : true;
+    auth()->user()->save();
+    return view('modals.success', ['message' => 'DM Mode ' . (auth()->user()->is_dm ? 'activated' : 'deactivated') . '!']);
+})->middleware('auth');
+
 Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');
 Route::get('/starship/{starship}/division/{division}', [DivisionController::class, 'show'])->middleware('auth')->name('division');
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');
 Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->middleware('auth')->name('reset');
 Route::get('/starship/{starship}/crew-manifest', [ModalController::class, 'crewManifest'])->middleware('auth')->name('crew');
-Route::get('/starship/add-user/{email}', [ModalController::class, 'addUser'])->middleware('auth')->name('add-user');
+Route::get('/starship/add-user/{email}/{starship}', [ModalController::class, 'addUser'])->middleware('auth')->name('add-user');
 
 Route::get('/system/{system}/repair/{quickFix}', [SystemController::class, 'quickFix'])->middleware('auth')->name('quick-fix');
 

@@ -1,12 +1,12 @@
-<div class="{{ $system->getHpPercentage() > 25 ? 'hp' : 'hp danger' }}">
-    <label>{{ $system->name }}</label><br>
-    <progress value="{{ $system->getHpPercentage() }}" max="100" min="0" id="{{ $system->systems == null ? $system->id : 'ship-' . $system->id }}"></progress>
+<div class="{{ $system ? ($system->getHpPercentage() > 25 ? 'hp' : 'hp danger') : 'hp' }}">
+    <label>{{ $system ? $system->name : null }}</label><br>
+    <progress value="{{ $system ? $system->getHpPercentage() : '100' }}" max="100" min="0" id="{{ $system ? ($system->systems == null ? $system->id : 'ship-' . $system->id) : null }}"></progress>
     @if ($detail)
         <div class="detail-wrapper">
-            <span><span id="{{ $system->id }}detail">{{ $system->current_hp ?? $system->getCurrentHp() }}</span>/{{ $system->max_hp ?? $system->getMaxHp() }}</span>
-            <span id="{{ $system->id }}detail-percent">{{ number_format($system->getHpPercentage(), 0) }}%</span>
+            <span><span id="{{ $system->id ?? null }}detail">{{ $system ? ($system->current_hp ?? $system->getCurrentHp()) : null }}</span>/{{ $system ? ($system->max_hp ?? $system->getMaxHp()) : null }}</span>
+            <span id="{{ $system->id ?? null }}detail-percent">{{ $system ? (number_format($system->getHpPercentage(), 0)) : null }}%</span>
         </div>
-        @if ($system->description)
+        @if ($system ? $system->description : null)
             <span class="description">{{ $system->description ?? '' }}</span>
         @endif
     @endif

@@ -70,10 +70,9 @@ class ModalController extends Controller
     public function editStarship($id)
     {
         $starship = Starship::find($id);
+        $characters = Character::where('starship_id', $id)->get();
 
-        return view('modals.edit-starship', [
-            'starship' => $starship,
-        ]);
+        return view('modals.edit-starship', compact('starship', 'characters'));
     }
 
     public function deleteStarship($id)
@@ -95,20 +94,20 @@ class ModalController extends Controller
 
     public function crewManifest(Starship $starship)
     {
-        return view('modals.crew-manifest', [
-            'crew' => Character::where('starship_id', $starship->id)->get(),
-            'divisions' => $starship->divisions,
-            'captain' => $starship->captain(),
-        ]);
+        $crew = Character::where('starship_id', $starship->id)->get();
+        $divisions = $starship->divisions;
+        $captain = Character::where('id', $starship->captain_id)->first();
+
+        return view('modals.crew-manifest', compact('crew', 'divisions', 'captain'));
     }
 
-    public function addUser($email)
+    public function addUser($email, Starship $starship)
     {
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            $user->starships()->attach(auth()->user()->characters->where('is_active')->first()->starship);
-            $message = $user->name . ' has been brought aboard the ' . auth()->user()->characters->where('is_active')->first()->starship->name . '!';
+            $user->starships()->attach($starship->id);
+            $message = $user->name . ' has been brought aboard the ' . $starship->name . '!';
         }else{
             $message = 'User could not be found.';
         }
