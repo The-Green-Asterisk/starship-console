@@ -305,6 +305,7 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
             'is_dm' => true
         ]);
+        
         Starship::create([
             'id' => 1,
             'name' => 'Desert Rose',
@@ -322,6 +323,6 @@ class DatabaseSeeder extends Seeder
             'starship_id' => 1,
             'is_active' => true
         ]);
-        Starship::find(1)->captain_id = 1;
+        Starship::find(1)->get()->captain_id = 1;
     }
 }
