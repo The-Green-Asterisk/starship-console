@@ -24,11 +24,6 @@ class Starship extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function scopeCaptain($query)
-    {
-        return Character::where('is_captain', true)->where('starship_id', $this->id)->first();
-    }
-
     public function systems()
     {
         return $this->hasMany(System::class);

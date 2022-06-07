@@ -13,6 +13,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
 use App\Http\Controllers\SystemController;
 use App\Models\Starship;
+use App\Models\System;
 use App\Models\User;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -61,6 +62,10 @@ Route::get('/dm-mode', function () {
 
 Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');
 Route::get('/starship/{starship}/division/{division}', [DivisionController::class, 'show'])->middleware('auth')->name('division');
+Route::get('/starship/{starship}/division/{division}/new-system', [ModalController::class, 'addSystem'])->middleware('auth');
+Route::post('/starship/{starship}/division/{division}/new-system', [SystemController::class, 'store'])->middleware('auth');
+Route::get('/delete-system/{system}', [ModalController::class, 'deleteSystem'])->middleware('auth');
+Route::post('/delete-system', [SystemController::class, 'destroy'])->middleware('auth');
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');
 Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'resetDamage'])->middleware('auth')->name('reset');
 Route::get('/starship/{starship}/crew-manifest', [ModalController::class, 'crewManifest'])->middleware('auth')->name('crew');

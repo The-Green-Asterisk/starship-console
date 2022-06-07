@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\Division;
 use App\Models\Starship;
+use App\Models\System;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -92,6 +94,18 @@ class ModalController extends Controller
         ]);
     }
 
+    public function deleteSystem($id)
+    {
+        $message = 'Are you sure you want to delete this system? This is Un-Undoable!';
+        $yesButton = true;
+
+        return view('modals.delete-system', [
+            'system' => System::where('id', $id)->first(),
+            'message' => $message,
+            'yesButton' => $yesButton
+        ]);
+    }
+
     public function crewManifest(Starship $starship)
     {
         $crew = Character::where('starship_id', $starship->id)->get();
@@ -117,5 +131,10 @@ class ModalController extends Controller
         ];
 
         return $data;
+    }
+
+    public function addSystem(Starship $starship, Division $division)
+    {
+        return view('modals.new-system', compact('starship', 'division'));
     }
 }

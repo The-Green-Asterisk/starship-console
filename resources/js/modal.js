@@ -262,3 +262,27 @@ if (document.getElementById('crew') != null){
         });
     });
 }
+
+if (document.getElementById('new-system') != null){
+    document.getElementById('new-system').addEventListener('click', () => {
+        let divisionId = document.getElementById('new-system').value;
+        let starshipId = document.getElementById('starship-id').value;
+        fetch(`/starship/${starshipId}/division/${divisionId}/new-system`, getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            document.activeElement.blur();
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+            });
+        });
+    });
+}
+

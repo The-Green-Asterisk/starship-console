@@ -25,4 +25,9 @@ class Character extends Model
     {
         return $this->morphToMany(Division::class, 'divisionable');
     }
+
+    public function isCaptain()
+    {
+        return Starship::where('captain_id', $this->id)->exists();
+    }
 }

@@ -6,6 +6,7 @@ use App\Events\HpUpdate;
 use App\Http\Requests\StoreSystemRequest;
 use App\Http\Requests\UpdateSystemRequest;
 use App\Models\System;
+use Illuminate\Http\Request;
 
 class SystemController extends Controller
 {
@@ -37,7 +38,20 @@ class SystemController extends Controller
      */
     public function store(StoreSystemRequest $request)
     {
-        //
+        $system = System::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'division_action' => $request->division_action,
+            'max_hp' => $request->max_hp,
+            'current_hp' => $request->max_hp,
+            'starship_id' => $request->starship_id,
+        ]);
+
+        $system->divisions()->attach($request->division_id);
+
+        $system->save();
+
+        return back()->with('success', 'New system installed.');
     }
 
     /**
@@ -80,9 +94,11 @@ class SystemController extends Controller
      * @param  \App\Models\System  $system
      * @return \Illuminate\Http\Response
      */
-    public function destroy(System $system)
+    public function destroy(Request $request)
     {
-        //
+        System::where('id', $request->system)->first()->delete();
+
+        return back()->with('success', 'System removed.');
     }
 
     public function quickFix(System $system, $quickFix)

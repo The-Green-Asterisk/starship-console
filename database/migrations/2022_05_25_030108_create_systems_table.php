@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->text('division_action')->nullable();
             $table->integer('max_hp')->default(0);
             $table->integer('current_hp')->default(0);
             $table->foreignId('starship_id');

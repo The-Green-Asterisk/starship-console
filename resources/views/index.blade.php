@@ -29,7 +29,7 @@
     @yield('main')
     @auth
     <div class="bottom-buttons">
-        @if ((!auth()->user()->is_dm && $character) && ($character->divisions->contains(5) || $character->is_captain))
+        @if ((!auth()->user()->is_dm && $character) && ($character->divisions->contains(5) || $character->isCaptain()))
             @foreach ($character->starship->divisions as $division)
                 <a class="btn bottom" href="/starship/{{ $character->starship->id }}/division/{{ $division->id }}">{{ $division->name }}</a>
             @endforeach

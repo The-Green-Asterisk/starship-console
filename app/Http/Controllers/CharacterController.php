@@ -86,7 +86,6 @@ class CharacterController extends Controller
         Character::where('id', $request->character_id)->update([
             'name' => $request->name,
             'engineering_mod' => $request->engineering_mod,
-            'is_captain' => $request->starship_id != Character::find($request->character_id)->starship->id ? false : true,
             'starship_id' => $request->starship_id,
         ]);
 

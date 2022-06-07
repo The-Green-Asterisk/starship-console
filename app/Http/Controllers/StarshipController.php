@@ -106,9 +106,6 @@ class StarshipController extends Controller
      */
     public function update(UpdateStarshipRequest $request)
     {
-        //if you can find the Starship's captain, strip him of his captaincy
-        if (Character::find(Starship::find($request->starship_id)->captain_id))
-            Character::find(Starship::find($request->starship_id)->captain_id)->update(['is_captain' => false]);
 
         Starship::where('id', $request->starship_id)->update([
             'name' => $request->name,
@@ -116,9 +113,6 @@ class StarshipController extends Controller
             'manufacturer' => $request->manufacturer,
             'captain_id' => $request->captain_id,
         ]);
-
-        //if the request mentions a captain, find him and make him captain
-        if ($request->captain_id > 0) Character::find($request->captain_id)->update(['is_captain' => true]);
 
         return back()->with('success', 'Starship updated!');
     }
@@ -355,7 +349,6 @@ class StarshipController extends Controller
         $character = auth()->user()->characters->where('is_active', true)->first();
         Starship::where('captain_id', $character->id)->update(['captain_id' => null]);
         $character->starship_id = $starship->id;
-        $character->is_captain = false;
         $character->save();
 
         return back()->with('success', $character->name . ' is now aboard the ' . $starship->name . '!');

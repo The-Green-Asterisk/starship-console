@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('starship_id')->constrained()->nullable();
             $table->integer('engineering_mod')->nullable();
             $table->string('picture_url')->nullable();
-            $table->boolean('is_captain')->default(false);
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ class StoreSystemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->is_dm;
     }
 
     /**

@@ -294,7 +294,7 @@ progress::-webkit-progress-value {
     animation: danger 1s infinite;
 }
 
-input, select, option {
+input, select, option, textarea {
     font: var(--ui-font);
     color: var(--ui-color);
     background-color: #010513;
