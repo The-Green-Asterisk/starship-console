@@ -59,6 +59,14 @@ Route::get('/dm-mode', function () {
     auth()->user()->save();
     return view('modals.success', ['message' => 'DM Mode ' . (auth()->user()->is_dm ? 'activated' : 'deactivated') . '!']);
 })->middleware('auth');
+Route::get('/set-ui-color/{hex}', function ($hex) {
+    auth()->user()->ui_color = $hex;
+    auth()->user()->save();
+    return view('modals.success', ['message' => 'UI Color changed to ' . $hex . '!']);
+})->middleware('auth');
+Route::get('/get-ui-color', function () {
+    return auth()->user()->ui_color;
+})->middleware('auth');
 
 Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');
 Route::get('/starship/{starship}/division/{division}', [DivisionController::class, 'show'])->middleware('auth')->name('division');

@@ -1,0 +1,30 @@
+.color-select-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.color-select-wrapper div {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--ui-color);
+    border-radius: 100%;
+    cursor: pointer;
+}
+.color-select-wrapper input {
+    width: 200px;
+}
+#select-purple {
+    background-color: purple;
+}
+#select-red {
+    background-color: red;
+}
+#select-blue {
+    background-color: blue;
+}
+#select-aqua {
+    background-color: aqua;
+}
+#select-green {
+    background-color: #4caf50;
+}

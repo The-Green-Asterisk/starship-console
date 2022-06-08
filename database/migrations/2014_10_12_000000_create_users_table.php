@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_dm')->default(false);
+            $table->string('ui_color')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

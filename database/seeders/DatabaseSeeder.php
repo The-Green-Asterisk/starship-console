@@ -123,7 +123,6 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Grapplers',
                 'description' => 'The grapplers are used to hold and release objects. With grapplers at 25% or less, the crew will be unable to manipulate exterior objects in space.',
                 'division_action' => '<h3>Grapple</h3><p>Use the Grapplers to attempt to grapple anything on the ship\'s exterior within range. The target can make a DC 15 Dexterity save to avoid being grappled.</p>',
-                'division_action' => null,
                 'max_hp' => 15,
                 'current_hp' => 15
             ],
@@ -305,7 +304,7 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
             'is_dm' => true
         ]);
-        
+
         Starship::create([
             'id' => 1,
             'name' => 'Desert Rose',

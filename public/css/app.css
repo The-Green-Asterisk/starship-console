@@ -5,9 +5,8 @@
     justify-content: space-evenly;
     color: var(--ui-color);
 }
-.dice svg {
+/* .dice svg {
     transition:none;
-    background-image: radial-gradient(rgba(55, 255, 0, 0.3), rgba(55, 255, 0, 0), rgba(55, 255, 0, 0));
 }
 .dice svg:hover {
     transition:none;
@@ -18,7 +17,7 @@
     transition:none;
     filter: brightness(1.5);
     transform: scale(.9);
-}
+} */
 .dice-tray-title {
     color: var(--ui-color);
     font-size: .8em;
@@ -110,6 +109,37 @@
     margin-right: 1em;
 }
 
+.color-select-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.color-select-wrapper div {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--ui-color);
+    border-radius: 100%;
+    cursor: pointer;
+}
+.color-select-wrapper input {
+    width: 200px;
+}
+#select-purple {
+    background-color: purple;
+}
+#select-red {
+    background-color: red;
+}
+#select-blue {
+    background-color: blue;
+}
+#select-aqua {
+    background-color: aqua;
+}
+#select-green {
+    background-color: #4caf50;
+}
+
 :root {
     --sm-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
@@ -140,6 +170,24 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    filter: drop-shadow(1px 1px 5px var(--ui-color));
+    cursor: pointer;
+}
+svg:hover {
+    transition:none;
+    filter: brightness(1.75) drop-shadow(1px 1px 5px var(--ui-color));
+    transform: scale(1.15);
+}
+svg:active {
+    transition:none;
+    filter: brightness(1.5) drop-shadow(1px 1px 5px var(--ui-color));
+    transform: scale(.9);
 }
 .fadein {
     -webkit-animation-name: fadeIn;
@@ -286,27 +334,17 @@ body {
 }
 
 .logo {
+    color: var(--ui-color);
     width: 7em;
     margin-top: 1.5em;
-    background-image: radial-gradient(rgba(55, 255, 0, 0.3), rgba(55, 255, 0, 0), rgba(55, 255, 0, 0));
 }
-.logo:hover {
-    transition:none;
-    filter: brightness(1.5);
-    transform: scale(1.03);
-}
-.logo:active {
-    transition:none;
-    filter: brightness(1.5);
-    transform: scale(.9);
-}
+
 
 a {
     color: aliceblue;
     text-decoration: none;
 }
 a:hover {
-    color: aliceblue;
     text-decoration: underline;
 }
 
@@ -434,35 +472,32 @@ progress {
     width: 100%;
     height: 10px;
     border-radius: 5px;
-    box-shadow: 0 4px 6px -1px rgba(55, 255, 0, 0.6),
-    0 2px 4px -2px rgba(55, 255, 0, 0.6);
+    border:#0105136b 1px solid;
+    filter: drop-shadow(1px 1px 1px var(--ui-color));
 }
 progress::-webkit-progress-bar {
-    background-color: #d3ffc7;
+    background-color: #ffffff95;
     border-radius: 5px;
     box-shadow: var(--inner-shadow);
 }
 progress::-webkit-progress-value {
     background-color: var(--ui-color);
     border-radius: 5px;
-    box-shadow: 0 4px 6px -1px rgba(55, 255, 0, 0.3),
-    0 2px 4px -2px rgba(55, 255, 0, 0.3);
+    filter: drop-shadow(1px 1px 3px var(--ui-color));
 }
 .danger progress::-webkit-progress-value {
     background-color: red;
-    box-shadow: 0 4px 6px -1px rgba(255, 0, 0, 0.3),
-    0 2px 4px -2px rgba(255, 0, 0, 0.3);
+    filter: drop-shadow(1px 1px 3px #ff0000);
     -webkit-animation: danger 1s infinite;
             animation: danger 1s infinite;
 }
 .danger progress::-webkit-progress-bar {
-    background-color:rgba(255, 148, 148, 0.3);
+    background-color:#ac5b5b;
     -webkit-animation: danger 1s infinite;
             animation: danger 1s infinite;
 }
 .danger progress {
-    box-shadow: 0 4px 6px -1px rgba(254, 128, 128, 0.3),
-    0 2px 4px -2px rgba(248, 132, 132, 0.3);
+    filter: drop-shadow(1px 1px 3px #fe8080);
     -webkit-animation: danger 1s infinite;
             animation: danger 1s infinite;
 }
@@ -605,7 +640,8 @@ p.error {
 }
 
 #character-image-wrapper {
-    position:relative
+    position: relative;
+    color: var(--ui-color);
 }
 #character-image-wrapper #overlay {
     display: inline-flex;
@@ -624,16 +660,8 @@ p.error {
     opacity: 1;
 }
 .character-image {
-    background-image: url('/storage/img/default-image.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    -o-object-position: top;
-       object-position: top;
-    -o-object-fit: cover;
-       object-fit: cover;
     display: inline-block;
-    border-radius: 999px;
+    border-radius: 100%;
     border: 2px solid var(--ui-color);
     width: 250px;
     height: 250px;
