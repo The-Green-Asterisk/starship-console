@@ -54,6 +54,7 @@ svg:active {
     filter: brightness(1.5) drop-shadow(1px 1px 5px var(--ui-color));
     transform: scale(.9);
 }
+
 .fadein {
     animation-name: fadeIn;
     animation-duration: 1s;
@@ -205,15 +206,16 @@ button, .btn {
     background: transparent;
     margin: 2em 1em;
     display: inline-block;
-    padding: 1px 6px !important;
+    padding: 6px 6px !important;
     cursor: pointer;
     appearance: button;
     -webkit-appearance: button;
 	-moz-appearance: button;
     box-sizing: border-box;
-    line-height: inherit;
+    line-height: 12.9px;
     transition: none;
     white-space: nowrap;
+    text-align: center;
 }
 button path {
     transition: none;
