@@ -36,6 +36,23 @@ body {
     display: flex;
     flex-direction: column;
 }
+.password {
+    width: 100%;
+    display: flex;
+    color: var(--ui-color);
+    align-items: center;
+}
+.password input {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    flex-grow: 1;
+}
+.password svg{
+    width: 2rem;
+    height: 2rem;
+    flex-grow: 0;
+}
 svg {
     display: block;
     width: 100%;

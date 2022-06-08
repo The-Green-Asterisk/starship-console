@@ -137,4 +137,9 @@ class ModalController extends Controller
     {
         return view('modals.new-system', compact('starship', 'division'));
     }
+
+    public function editSystem(System $system)
+    {
+        return view('modals.edit-system', compact('system'));
+    }
 }

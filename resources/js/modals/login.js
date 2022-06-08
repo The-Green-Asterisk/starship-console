@@ -1,5 +1,7 @@
 window.activateLogin = () => {
     const registrationForm = document.getElementById('login-form');
+    const seePass = document.getElementById('see-pass');
+
     registrationForm.addEventListener('submit', (e) => {
         e.preventDefault();
         fetch('/login',{
@@ -24,5 +26,14 @@ window.activateLogin = () => {
                 }
             });
         });
+    });
+
+    seePass.addEventListener('click', () => {
+        const pass = document.getElementById('password');
+        if (pass.type === 'password') {
+            pass.type = 'text';
+        } else {
+            pass.type = 'password';
+        }
     });
 };

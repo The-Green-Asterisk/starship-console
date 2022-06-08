@@ -286,3 +286,27 @@ if (document.getElementById('new-system') != null){
     });
 }
 
+if (document.getElementsByClassName('edit-system') != null){
+    let editSystemButtons = document.getElementsByClassName('edit-system');
+    for (let i = 0; i < editSystemButtons.length; i++){
+        editSystemButtons[i].addEventListener('click', () => {
+            let systemId = editSystemButtons[i].value;
+            fetch(`/edit-system/${systemId}`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => {
+                document.activeElement.blur();
+                res.text()
+                .then((data) => {
+                    let incomingModal = document.createElement('div');
+                    incomingModal.innerHTML = data;
+                    body.appendChild(incomingModal.firstChild);
+                    document.addEventListener('click', (e) => {clickOutside(e)});
+                    document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+                });
+            });
+        });
+    }
+}

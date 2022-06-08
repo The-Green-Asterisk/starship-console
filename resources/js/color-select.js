@@ -3,6 +3,7 @@ import { getSecure } from './app.js';
 const root = document.querySelector(':root');
 const selectPurple = document.querySelector('#select-purple');
 const selectRed = document.querySelector('#select-red');
+const selectPink = document.querySelector('#select-pink');
 const selectBlue = document.querySelector('#select-blue');
 const selectAqua = document.querySelector('#select-aqua');
 const selectGreen = document.querySelector('#select-green');
@@ -27,7 +28,7 @@ fetch('/get-ui-color/', getSecure)
 
 if (selectPurple !== null) {
     selectPurple.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', 'purple');
+        root.style.setProperty('--ui-color', '#ec42f5');
         fetch('/set-ui-color/purple/', getSecure);
     });
 }
@@ -35,6 +36,12 @@ if (selectPurple !== null) {
 if (selectRed !== null) {
     selectRed.addEventListener('click', () => {
         root.style.setProperty('--ui-color', 'red');
+        fetch('/set-ui-color/red/', getSecure);
+    });
+}
+if (selectPink !== null) {
+    selectPink.addEventListener('click', () => {
+        root.style.setProperty('--ui-color', '#fc68a1');
         fetch('/set-ui-color/red/', getSecure);
     });
 }
@@ -61,10 +68,15 @@ if (selectGreen !== null) {
 }
 
 if (selectCustom !== null) {
-    selectCustom.addEventListener('change', () => {
+    let handleColors = () => {
         let hexValue = selectCustom.value.replace('#', '');
         if (hexValue.length < 3) hexValue = '4caf50';
-        root.style.setProperty('--ui-color', '#' + hexValue);
-        fetch(`/set-ui-color/${hexValue}/`, getSecure);
-    });
+        if (hexCode.test(hexValue)) {
+            root.style.setProperty('--ui-color', '#' + hexValue);
+            fetch(`/set-ui-color/${hexValue}/`, getSecure);
+        }
+    };
+    selectCustom.addEventListener('keyup', ()=> {setTimeout(handleColors);});
+    selectCustom.addEventListener('change', ()=> {setTimeout(handleColors);});
+    selectCustom.addEventListener('paste', ()=> {setTimeout(handleColors);});
 }

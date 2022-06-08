@@ -125,10 +125,13 @@
     width: 200px;
 }
 #select-purple {
-    background-color: purple;
+    background-color: #ec42f5;
 }
 #select-red {
     background-color: red;
+}
+#select-pink {
+    background-color: #fc68a1;
 }
 #select-blue {
     background-color: blue;
@@ -170,6 +173,23 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+.password {
+    width: 100%;
+    display: flex;
+    color: var(--ui-color);
+    align-items: center;
+}
+.password input {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    flex-grow: 1;
+}
+.password svg{
+    width: 2rem;
+    height: 2rem;
+    flex-grow: 0;
 }
 svg {
     display: block;

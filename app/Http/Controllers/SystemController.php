@@ -83,9 +83,21 @@ class SystemController extends Controller
      * @param  \App\Models\System  $system
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSystemRequest $request, System $system)
+    public function update(UpdateSystemRequest $request)
     {
-        //
+        $system = System::find($request->system_id);
+
+        $system->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'division_action' => $request->division_action,
+            'max_hp' => $request->max_hp,
+            'current_hp' => $request->current_hp > $request->max_hp ? $request->max_hp : $request->current_hp,
+        ]);
+
+        $system->save();
+
+        return back()->with('success', 'System updated.');
     }
 
     /**
