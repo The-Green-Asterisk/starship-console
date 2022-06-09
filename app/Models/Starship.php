@@ -105,7 +105,9 @@ class Starship extends Model
             ])->render()
         ];
 
-        HpUpdate::dispatch($response);
+        if (auth()->user()->characters->where('is_active', true)->first()->starship->id == $this->id || $this->dm_id == auth()->user()->id) {
+            HpUpdate::dispatch($response);
+        }
     }
 
     public function resetDamage()

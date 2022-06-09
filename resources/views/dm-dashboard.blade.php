@@ -44,7 +44,7 @@
                 </div>
             @endif
         @endforeach
-        <input style="width: calc(100% - 3em)" type="email" name="email" id="email-invite" placeholder="Invite user aboard by email">
+        <input type="email" name="email" id="email-invite" placeholder="Invite user aboard by email">
         <x-color-select></x-color-select>
     </div>
 @endsection

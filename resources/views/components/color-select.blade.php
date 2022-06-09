@@ -6,5 +6,5 @@
     <div id="select-blue"></div>
     <div id="select-aqua"></div>
     <div id="select-green"></div>
-    <input type="text" id="select-custom" placeholder="Custom color hex value">
 </div>
+<input type="text" id="select-custom" placeholder="Custom color hex value">

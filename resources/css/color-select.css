@@ -10,9 +10,6 @@
     border-radius: 100%;
     cursor: pointer;
 }
-.color-select-wrapper input {
-    width: 200px;
-}
 #select-purple {
     background-color: #ec42f5;
 }

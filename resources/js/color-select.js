@@ -42,7 +42,7 @@ if (selectRed !== null) {
 if (selectPink !== null) {
     selectPink.addEventListener('click', () => {
         root.style.setProperty('--ui-color', '#fc68a1');
-        fetch('/set-ui-color/red/', getSecure);
+        fetch('/set-ui-color/fc68a1/', getSecure);
     });
 }
 

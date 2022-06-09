@@ -331,7 +331,7 @@ input, select, option, textarea {
     background-color: #010513;
     border:2px solid var(--ui-color);
     border-radius: 5px;
-    width: calc(100% - 1em);
+    width: calc(100% - 3em);
     margin: 2em 1em;
 }
 
