@@ -20,7 +20,8 @@ class SessionsController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->getMessageBag(), 200);
         }else{
-            if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']], $data['remember_me'])) {
+                session()->regenerate();
                 return response()->json([
                     'redirect'=> 'starship/' . auth()->user()->characters->where('is_active')->first()->starship->id
                 ]);

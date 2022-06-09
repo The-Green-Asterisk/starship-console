@@ -12,7 +12,8 @@ window.activateLogin = () => {
             },
             body: JSON.stringify({
                 email: document.getElementById('email').value,
-                password: document.getElementById('password').value
+                password: document.getElementById('password').value,
+                remember_me: document.getElementById('remember-me').checked
             })
         })
         .then((err) => {
