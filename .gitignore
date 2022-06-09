@@ -26,4 +26,5 @@ Homestead.json
 /.idea
 /.vscode
 
-public/
+public/js/
+public/css/
