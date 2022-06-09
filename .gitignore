@@ -25,6 +25,3 @@ Homestead.json
 .env.backup
 /.idea
 /.vscode
-
-public/js/
-public/css/
