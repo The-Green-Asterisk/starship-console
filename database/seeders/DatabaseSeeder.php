@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 9,
                 'starship_id' => 1,
                 'name' => 'Fusion Beams',
-                'description' => 'Ranged Weapon Attack: +6 to hit, one target. Hit: 3d10 piercing damage. When the fusion beams are at 25% or less, the ship is unable to fire them.',
+                'description' => 'Range 3000 ft: +6 to hit, one target. Hit: 10d8 piercing damage. Fixed forward position. When the fusion beams are at 25% or less, the ship is unable to fire them.',
                 'division_action' => null,
                 'max_hp' => 15,
                 'current_hp' => 15
@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 10,
                 'starship_id' => 1,
                 'name' => 'Heavy Lasers',
-                'description' => 'Ranged Weapon Attack: +5 to hit, one target. Hit: 5d10 bludgeoning damage. When the heavy lasers are at 25% or less, the ship is unable to fire them.',
+                'description' => 'Range 4000 ft: +5 to hit, one target. Hit: 8d8 fire damage. Turreted movement. When the heavy lasers are at 25% or less, the ship is unable to fire them.',
                 'division_action' => null,
                 'max_hp' => 15,
                 'current_hp' => 15
@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 11,
                 'starship_id' => 1,
                 'name' => 'Shields',
-                'description' => 'The shields are used to protect the ship from damage. Shields automatically subtract 15 points of damage from a hit\'s total. With shields at 25% or less, this protection is no longer offered.',
+                'description' => 'The shields are used to protect the ship from damage. Shields automatically subtract 20 points of damage from a hit\'s total. With shields at 25% or less, this protection is no longer offered.',
                 'division_action' => null,
                 'max_hp' => 15,
                 'current_hp' => 15

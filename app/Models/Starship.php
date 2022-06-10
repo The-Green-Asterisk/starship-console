@@ -68,7 +68,7 @@ class Starship extends Model
         $engDamage = 0;
         $commsDamage = 0;
 
-        if ($this->systems->where('name', 'Shields')->first()->getHpPercentage() > 25) $damage = $damage - 15;
+        if ($this->systems->where('name', 'Shields')->first()->getHpPercentage() > 25) $damage = $damage - 20;
 
         for ($i = 0; $i < $damage ; $i++) {
             $system = $this->systems()->inRandomOrder()->first();
