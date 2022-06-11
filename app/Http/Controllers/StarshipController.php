@@ -226,7 +226,7 @@ class StarshipController extends Controller
             [
                 'starship_id' => $starship->id,
                 'name' => 'Fusion Beams',
-                'description' => 'Ranged Weapon Attack: +6 to hit, one target. Hit: 3d10 piercing damage. When the fusion beams are at 25% or less, the ship is unable to fire them.',
+                'description' => 'Range 3000 ft: +6 to hit, one target. Hit: 10d8 piercing damage. Fixed forward position. When the fusion beams are at 25% or less, the ship is unable to fire them.',
                 'division_action' => null,
                 'max_hp' => 15,
                 'current_hp' => 15
@@ -234,7 +234,7 @@ class StarshipController extends Controller
             [
                 'starship_id' => $starship->id,
                 'name' => 'Heavy Lasers',
-                'description' => 'Ranged Weapon Attack: +5 to hit, one target. Hit: 5d10 bludgeoning damage. When the heavy lasers are at 25% or less, the ship is unable to fire them.',
+                'description' => 'Range 4000 ft: +5 to hit, one target. Hit: 8d8 fire damage. Turreted movement. When the heavy lasers are at 25% or less, the ship is unable to fire them.',
                 'division_action' => null,
                 'max_hp' => 15,
                 'current_hp' => 15
