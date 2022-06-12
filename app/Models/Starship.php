@@ -105,7 +105,7 @@ class Starship extends Model
             ])->render()
         ];
 
-        if (auth()->user()->characters->where('is_active', true)->first()->starship->id == $this->id || $this->dm_id == auth()->user()->id) {
+        if ($this->dm_id == auth()->user()->id || auth()->user()->characters->where('is_active', true)->first()->starship->id == $this->id) {
             HpUpdate::dispatch($response);
         }
     }
