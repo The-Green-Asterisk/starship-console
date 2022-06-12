@@ -1,9 +1,13 @@
 require('./bootstrap');
 
-Echo.join(`presenceStarshipConsole.${document.getElementById('starship-id').value}`)
-    .listen('HpUpdate', (data) => {
-        handleDamage(data.data);
-    });
+const starshipId = document.getElementById('starship-id') ? document.getElementById('starship-id').value : null;
+
+if (starshipId != null) {
+    Echo.join(`presenceStarshipConsole.${starshipId}`)
+        .listen('HpUpdate', (data) => {
+            handleDamage(data.data);
+        });
+}
 
 const d = (n) => {return Math.floor(Math.random() * n) + 1};
 const body = document.getElementById('body');

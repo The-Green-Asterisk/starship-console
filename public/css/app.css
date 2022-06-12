@@ -179,8 +179,6 @@ body {
     align-items: center;
 }
 .password input, .remember-me label {
-    margin-left: 4px;
-    width: 100%;
     height: auto;
     flex-grow: 1;
     text-align: left;
@@ -191,6 +189,7 @@ body {
     margin: 0 1em;
 }
 .password svg{
+    margin-right: 1em;
     width: 2rem;
     height: 2rem;
     flex-grow: 0;

@@ -1,4 +1,4 @@
-import { getSecure } from "./app";
+import { getSecure, starshipId } from "./app";
 
 var closeModal = () => {
     let modal = document.getElementById('modal');
@@ -244,7 +244,6 @@ if (document.getElementById('delete-starship') != null){
 
 if (document.getElementById('crew') != null){
     document.getElementById('crew').addEventListener('click', () => {
-        let starshipId = document.getElementById('starship-id').value;
         fetch(`/starship/${starshipId}/crew-manifest`, getSecure)
         .catch((err) => {
             console.log(err);
@@ -266,7 +265,6 @@ if (document.getElementById('crew') != null){
 if (document.getElementById('new-system') != null){
     document.getElementById('new-system').addEventListener('click', () => {
         let divisionId = document.getElementById('new-system').value;
-        let starshipId = document.getElementById('starship-id').value;
         fetch(`/starship/${starshipId}/division/${divisionId}/new-system`, getSecure)
         .catch((err) => {
             console.log(err);
