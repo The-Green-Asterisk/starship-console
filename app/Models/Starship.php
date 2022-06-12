@@ -110,11 +110,27 @@ class Starship extends Model
 
     public function resetDamage()
     {
+        $response = [];
+
         for ($i = 0; $i < $this->systems()->where('starship_id', $this->id)->count() ; $i++) {
             $system = $this->systems()->where('starship_id', $this->id)->get()[$i];
             $system->current_hp = $system->max_hp;
             $system->save();
+
+            $response[] = [
+                'systemId' => $system->id,
+                'hp' => $system->getHpPercentage(),
+                'current' => $system->current_hp
+            ];
         }
+
+        $response[] = [
+            'starshipId' => $this->id,
+            'hp' => $this->getHpPercentage(),
+            'current' => $this->getCurrentHp()
+        ];
+
+        broadcast(new HpUpdate($response));
     }
 
     public function index()

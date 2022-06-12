@@ -21,7 +21,7 @@
                 <a href="/logout" class="btn">Log Out</a>
                 <button id="roll" value="{{ $starship->id ?? 0 }}">Dice</button>
                 @if (auth()->user()->is_dm)
-                    <a href="/starship/{{ $starship->id ?? 0 }}/reset-damage" class="btn">Reset</a>
+                    <button id="reset">Reset</button>
                 @endif
                 <button id="crew">Crew</button>
             </div>

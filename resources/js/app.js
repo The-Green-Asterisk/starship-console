@@ -52,5 +52,10 @@ var handleDamage = (e) => {
         hpbox[i].querySelector('progress').value <= 25 ? hpbox[i].className = 'hp danger' : hpbox[i].className = 'hp';
 };
 
+if (document.getElementById('reset') != null) {
+    document.getElementById('reset').addEventListener('click', () => {
+        fetch(`/starship/${starshipId}/reset-damage`, getSecure)
+    });
+};
 
 export { getSecure, postSecure, body, d };

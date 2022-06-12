@@ -152,7 +152,7 @@ class StarshipController extends Controller
     {
         $starship->resetDamage();
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     public function addDefaultSystems(Starship $starship)
