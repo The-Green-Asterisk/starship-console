@@ -92,7 +92,7 @@ class Starship extends Model
             $system->save();
         }
         $response[] = [
-            'systemId' => $this->id,
+            'starshipId' => $this->id,
             'hp' => $this->getHpPercentage(),
             'current' => $this->getCurrentHp(),
             'officerDamage' => view('modals.officer-damage', [
@@ -105,9 +105,7 @@ class Starship extends Model
             ])->render()
         ];
 
-        if ($this->dm_id == auth()->user()->id || auth()->user()->characters->where('is_active', true)->first()->starship->id == $this->id) {
-            HpUpdate::dispatch($response);
-        }
+        broadcast(new HpUpdate($response));
     }
 
     public function resetDamage()

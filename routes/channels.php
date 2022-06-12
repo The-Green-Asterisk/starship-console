@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('console-update', function () {
-    return true;
+Broadcast::channel('presenceStarshipConsole.{starshipId}', function ($user, $starshipId) {
+    if ($user->is_dm || $user->characters->where('is_active', true)->where('starship_id', $starshipId)->exists())
+        return $user->toArray();
 });

@@ -1,6 +1,6 @@
 require('./bootstrap');
 
-Echo.channel('starship-console')
+Echo.join(`presenceStarshipConsole.${document.getElementById('starship-id').value}`)
     .listen('HpUpdate', (data) => {
         handleDamage(data.data);
     });
@@ -25,7 +25,7 @@ window.onbeforeunload = () => {
 };
 
 var handleDamage = (e) => {
-    if (document.getElementById("ship-" + e[e.length - 1].systemId) != null && document.getElementById("ship-" + e[e.length - 1].systemId).value > e[e.length - 1].hp) {
+    if (document.getElementById("ship-" + e[e.length - 1].starshipId) != null && document.getElementById("ship-" + e[e.length - 1].starshipId).value > e[e.length - 1].hp) {
         body.className = 'shake';
         setTimeout(() => {
             body.className = '';
@@ -41,7 +41,7 @@ var handleDamage = (e) => {
             document.getElementById(e[i].systemId + 'detail-percent').innerText = e[i].hp.toFixed(0) + '%';
         }
     }
-    if (e.length>1) document.getElementById("ship-" + e[e.length - 1].systemId).value = e[e.length - 1].hp;
+    if (e.length>1) document.getElementById("ship-" + e[e.length - 1].starshipId).value = e[e.length - 1].hp;
 
     let  hpbox = document.getElementsByClassName('hp' || 'hp danger');
     for (let i = 0; i < hpbox.length; i++)

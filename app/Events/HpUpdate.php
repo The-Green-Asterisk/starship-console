@@ -33,6 +33,6 @@ class HpUpdate implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('starship-console');
+        return new PresenceChannel('presenceStarshipConsole.' . last($this->data)['starshipId']);
     }
 }
