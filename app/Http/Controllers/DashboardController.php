@@ -22,6 +22,7 @@ class DashboardController extends Controller
             'starships' => auth()->user()->starships()->get(),
             'character' => $character,
             'starship' => $character->starship ?? null,
+            'title' => auth()->user()->name . ' Dashboard'
         ];
 
         return view('dashboard')->with($data);
@@ -37,6 +38,7 @@ class DashboardController extends Controller
             'starships' => Starship::where('dm_id', auth()->user()->id)->get(),
             'starshipId' => $starship->id,
             'starship' => $starship,
+            'title' => auth()->user()->name . ' Dashboard > DM Mode'
         ];
 
         return view('dm-dashboard')->with($data);

@@ -83,7 +83,16 @@ class StarshipController extends Controller
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
         $characters = Character::where('starship_id', $starship->id)->get();
 
-        return view('starship.show', compact('divisions', 'starship', 'character', 'characters'));
+        $title = $starship->name;
+
+        return view('starship.show',
+            compact(
+                    'divisions',
+                    'starship',
+                    'character',
+                    'characters',
+                    'title'
+                ));
     }
 
     /**
