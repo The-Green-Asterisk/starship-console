@@ -1,14 +1,6 @@
 require('./bootstrap');
 
-const starshipId = document.getElementById('starship-id') ? document.getElementById('starship-id').value : null;
-
-if (starshipId != null) {
-    Echo.join(`presenceStarshipConsole.${starshipId}`)
-        .listen('HpUpdate', (data) => {
-            handleDamage(data.data);
-        });
-}
-
+const starshipId = (document.getElementById('starship-id') ? document.getElementById('starship-id').value : null);
 const d = (n) => {return Math.floor(Math.random() * n) + 1};
 const body = document.getElementById('body');
 const getSecure = {
@@ -23,6 +15,13 @@ const postSecure = {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
 };
+
+if (starshipId != null) {
+    Echo.join(`presenceStarshipConsole.${starshipId}`)
+        .listen('HpUpdate', (data) => {
+            handleDamage(data.data);
+        });
+}
 
 window.onbeforeunload = () => {
     body.className = 'fadeout';
@@ -58,4 +57,4 @@ if (document.getElementById('reset') != null) {
     });
 };
 
-export { getSecure, postSecure, body, d };
+export { getSecure, postSecure, body, d, starshipId };

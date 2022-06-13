@@ -200,7 +200,6 @@ if (document.getElementById('new-starship') != null){
 
 if (document.getElementById('edit-starship') != null){
     document.getElementById('edit-starship').addEventListener('click', () => {
-        let starshipId = document.getElementById('starship-select').value;
         fetch(`/edit-starship/${starshipId}`, getSecure)
         .catch((err) => {
             console.log(err);
@@ -222,7 +221,6 @@ if (document.getElementById('edit-starship') != null){
 
 if (document.getElementById('delete-starship') != null){
     document.getElementById('delete-starship').addEventListener('click', () => {
-        let starshipId = document.getElementById('starship-select').value;
         fetch(`/delete-starship/${starshipId}`, getSecure)
         .catch((err) => {
             console.log(err);
