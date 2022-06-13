@@ -81,7 +81,7 @@ Route::get('/starship/{starship}/reset-damage', [StarshipController::class, 'res
 Route::get('/starship/{starship}/crew-manifest', [ModalController::class, 'crewManifest'])->middleware('auth')->name('crew');
 Route::get('/starship/add-user/{email}/{starship}', [ModalController::class, 'addUser'])->middleware('auth')->name('add-user');
 
-Route::get('/system/{system}/repair/{quickFix}', [SystemController::class, 'quickFix'])->middleware('auth')->name('quick-fix');
+Route::get('/system/{system}/repair/{quickFix}/{dice}', [SystemController::class, 'quickFix'])->middleware('auth')->name('quick-fix');
 
 Route::get('/roll/{starship}', [ModalController::class, 'roll'])->middleware('auth');
 

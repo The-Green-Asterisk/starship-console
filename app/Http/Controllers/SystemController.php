@@ -113,10 +113,44 @@ class SystemController extends Controller
         return back()->with('success', 'System removed.');
     }
 
-    public function quickFix(System $system, $quickFix)
+    public function quickFix(System $system, $quickFix, $dice)
     {
+        switch ($dice) {
+            case 'd4':
+                $dice = DiceController::d4(1);
+                break;
+            case 'd6':
+                $dice = DiceController::d6(1);
+                break;
+            case 'd8':
+                $dice = DiceController::d8(1);
+                break;
+            case 'd10':
+                $dice = DiceController::d10(1);
+                break;
+            case 'd12':
+                $dice = DiceController::d12(1);
+                break;
+            case 'd20':
+                $dice = DiceController::d20(1);
+                break;
+            case 'd100':
+                $dice = DiceController::d100(1);
+                break;
+        }
+
         $system = System::find($system->id);
-        $system->current_hp += ($quickFix + auth()->user()->characters->where('is_active', true)->first()->engineering_mod);
+        $firstRoll = $quickFix + auth()->user()->characters->where('is_active', true)->first()->engineering_mod;
+        if ($this->starship->systems->where('name', 'Plumbing')->first()->getHpPercentage() < 25) {
+            //disadvantage roll if Plumbing is damaged
+            $secondRoll = $dice + auth()->user()->characters->where('is_active', true)->first()->engineering_mod;
+            $secondRoll < $firstRoll
+                ? $system->current_hp = $system->current_hp += $secondRoll
+                : $system->current_hp = $system->current_hp += $firstRoll;
+        }else{
+            $system->current_hp += $firstRoll;
+        }
+
         $system->save();
 
         $response[] = [
