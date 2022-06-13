@@ -83,7 +83,7 @@ class StarshipController extends Controller
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
         $characters = Character::where('starship_id', $starship->id)->get();
 
-        $title = $starship->name;
+        $title = $starship->name . (auth()->user()->is_dm ? ' > DM Mode' : '');
 
         return view('starship.show',
             compact(
