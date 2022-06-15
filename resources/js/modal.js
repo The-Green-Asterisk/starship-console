@@ -306,3 +306,8 @@ if (document.getElementsByClassName('edit-system') != null){
         });
     }
 }
+
+export {
+    clickOutside,
+    closeModal,
+};

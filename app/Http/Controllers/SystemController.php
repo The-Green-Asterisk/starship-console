@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\HpUpdate;
 use App\Http\Requests\StoreSystemRequest;
 use App\Http\Requests\UpdateSystemRequest;
+use App\Models\Starship;
 use App\Models\System;
 use Illuminate\Http\Request;
 
@@ -141,7 +142,7 @@ class SystemController extends Controller
 
         $system = System::find($system->id);
         $firstRoll = $quickFix + auth()->user()->characters->where('is_active', true)->first()->engineering_mod;
-        if ($this->starship->systems->where('name', 'Plumbing')->first()->getHpPercentage() < 25) {
+        if (Starship::find($system->starship_id)->systems->where('name', 'Plumbing')->first()->getHpPercentage() < 25) {
             //disadvantage roll if Plumbing is damaged
             $secondRoll = $dice + auth()->user()->characters->where('is_active', true)->first()->engineering_mod;
             $secondRoll < $firstRoll
