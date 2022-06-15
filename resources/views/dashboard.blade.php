@@ -76,7 +76,9 @@
                 DM Mode
             </label>
             <h3>No active characters</h3>
-            <button id="new-character" title="Add new character">&NonBreakingSpace;+&NonBreakingSpace;</button>
+            @if (auth()->user()->starships->count() > 0)
+                <button id="new-character" title="Add new character">&NonBreakingSpace;+&NonBreakingSpace;</button>
+            @endif
             <div class="select-div">
                 <select id="starship-select">
                     <option value="" selected disabled>Starships</option>
