@@ -90,7 +90,8 @@
     display: flex;
     align-items: center;
 }
-.crew-members  img {
+.crew-members  img, .crew-members  svg {
+    color: var(--ui-color);
     width: 40px;
     height: 40px;
     border-radius: 100%;
@@ -103,11 +104,12 @@
     gap: 1em;
 }
 .captain-image {
+    color: var(--ui-color);
     width: 80px;
     height: 80px;
     border-radius: 100%;
     border: 2px solid var(--ui-color);
-    margin-right: 1em;
+    margin: 0 auto;
 }
 
 .color-select-wrapper {
@@ -702,11 +704,16 @@ img.division-title {
     border: 2px solid var(--ui-color);
 }
 .div-img-wrapper {
+    color: var(--ui-color);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-items: center;
+    height: 20px;
+}
+.div-img-wrapper svg {
+    width: 20px;
     height: 20px;
 }
 

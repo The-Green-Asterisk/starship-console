@@ -501,11 +501,16 @@ img.division-title {
     border: 2px solid var(--ui-color);
 }
 .div-img-wrapper {
+    color: var(--ui-color);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-items: center;
+    height: 20px;
+}
+.div-img-wrapper svg {
+    width: 20px;
     height: 20px;
 }
 
