@@ -98,6 +98,10 @@
     border: 2px solid var(--ui-color);
     margin-right: 1em;
 }
+.crew-members svg:hover {
+    transform: none;
+    filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
+}
 .manifest-divisions {
     display: flex;
     margin-left: 2em;
@@ -110,6 +114,10 @@
     border-radius: 100%;
     border: 2px solid var(--ui-color);
     margin: 0 auto;
+}
+.captain-image:hover {
+    transform: none;
+    filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
 }
 
 .color-select-wrapper {
@@ -715,6 +723,10 @@ img.division-title {
 .div-img-wrapper svg {
     width: 20px;
     height: 20px;
+}
+.div-img-wrapper svg:hover {
+    transform: none;
+    filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
 }
 
 

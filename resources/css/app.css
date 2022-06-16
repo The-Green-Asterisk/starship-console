@@ -513,6 +513,10 @@ img.division-title {
     width: 20px;
     height: 20px;
 }
+.div-img-wrapper svg:hover {
+    transform: none;
+    filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
+}
 
 
 @media screen and (max-width: 600px) {
