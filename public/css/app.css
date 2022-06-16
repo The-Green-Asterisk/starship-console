@@ -101,6 +101,7 @@
 .crew-members svg:hover {
     transform: none;
     filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
+    cursor: default;
 }
 .manifest-divisions {
     display: flex;
@@ -118,6 +119,7 @@
 .captain-image:hover {
     transform: none;
     filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
+    cursor: default;
 }
 
 .color-select-wrapper {
@@ -723,6 +725,7 @@ img.division-title {
 .div-img-wrapper svg {
     width: 20px;
     height: 20px;
+    cursor: default;
 }
 .div-img-wrapper svg:hover {
     transform: none;

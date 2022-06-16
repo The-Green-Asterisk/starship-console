@@ -512,6 +512,7 @@ img.division-title {
 .div-img-wrapper svg {
     width: 20px;
     height: 20px;
+    cursor: default;
 }
 .div-img-wrapper svg:hover {
     transform: none;
