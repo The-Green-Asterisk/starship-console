@@ -67,6 +67,9 @@ Route::get('/set-ui-color/{hex}', function ($hex) {
 Route::get('/get-ui-color', function () {
     return auth()->user()->ui_color;
 })->middleware('auth');
+Route::get('/orientation', function () {
+    return view('modals.orientation');
+})->middleware('guest');
 
 Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');
 Route::get('/starship/{starship}/division/{division}', [DivisionController::class, 'show'])->middleware('auth')->name('division');

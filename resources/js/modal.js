@@ -307,6 +307,25 @@ if (document.getElementsByClassName('edit-system') != null){
     }
 }
 
+if (document.getElementById('welcome-logo') != null){
+    document.getElementById('welcome-logo').addEventListener('click', () => {
+        fetch('/orientation', getSecure)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            res.text()
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => {clickOutside(e)});
+            });
+        });
+    });
+}
+
 export {
     clickOutside,
     closeModal,

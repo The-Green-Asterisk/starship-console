@@ -8,10 +8,12 @@ if (document.getElementById('character-select') != null){
 }
 if (document.getElementById('starship-select') != null){
     document.getElementById('starship-select').addEventListener('change', () => {
-        let starshipId = document.getElementById('starship-select').value;
-        document.querySelector('#dm-mode').checked == true
-        ? window.location.href = `/dm-dashboard/${starshipId}`
-        : window.location.href = `/starship-select/${starshipId}`;
+        if (document.getElementById('character-select') != null) {
+            let starshipId = document.getElementById('starship-select').value;
+            document.querySelector('#dm-mode').checked == true
+            ? window.location.href = `/dm-dashboard/${starshipId}`
+            : window.location.href = `/starship-select/${starshipId}`;
+        }
     });
 }
 
