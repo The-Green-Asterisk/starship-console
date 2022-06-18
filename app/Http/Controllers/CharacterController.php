@@ -109,7 +109,8 @@ class CharacterController extends Controller
                 $starship->save();
             }
         }
-        $this->makeActive(auth()->user()->characters->first());
+        if (auth()->user()->characters->count() > 0)
+            $this->makeActive(auth()->user()->characters->first());
 
         return back()->with('success', 'Character deleted!');
     }

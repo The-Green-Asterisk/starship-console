@@ -49,13 +49,8 @@ class ModalController extends Controller
 
     public function deleteCharacter($id)
     {
-        if (auth()->user()->characters->count() <= 1) {
-            $message = 'You cannot delete your only character.';
-            $yesButton = false;
-        }else{
-            $message = 'Are you sure you want to delete this character? This is Un-Undoable!';
-            $yesButton = true;
-        }
+        $message = 'Are you sure you want to delete this character? This is Un-Undoable!';
+        $yesButton = true;
 
         return view('modals.delete-character', [
             'character' => $id,
