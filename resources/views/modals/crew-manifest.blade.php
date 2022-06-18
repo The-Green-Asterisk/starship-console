@@ -24,6 +24,9 @@
                             <p>{{ $division->name }}</p>
                         @endif
                     @endforeach
+                    @if ($crewmember->divisions->count() <= 0)
+                        <p>Passenger</p>
+                    @endif
                 </div>
             </div>
         @endforeach
