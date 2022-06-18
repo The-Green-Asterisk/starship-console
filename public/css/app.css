@@ -707,6 +707,7 @@ p.error {
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     cursor: pointer;
+    z-index: 3;
 }
 #character-image-wrapper #overlay:hover {
     opacity: 1;
@@ -717,6 +718,10 @@ p.error {
     border: 2px solid var(--ui-color);
     width: 250px;
     height: 250px;
+}
+.character-image:hover {
+    transform: none;
+    filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
 }
 input.character-image {
     display: none;
