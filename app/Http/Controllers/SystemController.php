@@ -163,7 +163,7 @@ class SystemController extends Controller
         $response[] = [
             'starshipId' => $system->starship->id,
             'hp' => $system->starship->getHpPercentage(),
-            'current' => $system->starship->current_hp
+            'current' => $system->starship->getCurrentHp()
         ];
 
         HpUpdate::dispatch($response);

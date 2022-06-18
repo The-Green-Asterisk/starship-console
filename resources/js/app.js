@@ -44,7 +44,12 @@ var handleDamage = (e) => {
             document.getElementById(e[i].systemId + 'detail-percent').innerText = e[i].hp.toFixed(0) + '%';
         }
     }
-    if (e.length>1) document.getElementById("ship-" + e[e.length - 1].starshipId).value = e[e.length - 1].hp;
+    if (e.length > 1) {
+        console.log(e);
+        document.getElementById('ship-' + e[e.length - 1].starshipId).value = e[e.length - 1].hp;
+        document.getElementById('ship-' + e[e.length - 1].starshipId + 'detail').innerText = e[e.length - 1].current;
+        document.getElementById('ship-' + e[e.length - 1].starshipId + 'detail-percent').innerText = e[e.length - 1].hp.toFixed(0) + '%';
+    }
 
     let  hpbox = document.getElementsByClassName('hp' || 'hp danger');
     for (let i = 0; i < hpbox.length; i++)
