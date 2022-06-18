@@ -151,6 +151,8 @@ class SystemController extends Controller
         }else{
             $system->current_hp += $firstRoll;
         }
+        if ($system->current_hp > $system->max_hp)
+            $system->current_hp = $system->max_hp;
 
         $system->save();
 
