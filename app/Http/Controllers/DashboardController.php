@@ -17,15 +17,17 @@ class DashboardController extends Controller
         if (auth()->user()->is_dm) return redirect('/dm-dashboard/' . ($ship ? $ship->id : ''));
 
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
-        $data = [
-            'divisions' => Division::all(),
-            'starships' => auth()->user()->starships()->get(),
-            'character' => $character,
-            'starship' => $character->starship ?? null,
-            'title' => auth()->user()->name . ' Dashboard'
-        ];
+        $divisions = Division::all();
+        $starships = auth()->user()->starships;
+        $starship = $character->starship ?? null;
+        $title = auth()->user()->name . ' Dashboard';
 
-        return view('dashboard')->with($data);
+        return view('dashboard', compact(
+            'title',
+            'character',
+            'divisions',
+            'starships',
+            'starship'));
     }
 
     public function dmIndex(Starship $starship)

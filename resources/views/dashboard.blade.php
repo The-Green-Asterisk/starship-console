@@ -29,8 +29,8 @@
             <h3>Active Character:</h3>
             <div class="select-div">
                 <select id="character-select">
-                    @foreach (auth()->user()->characters as $character)
-                        <option value="{{ $character->id }}" {{ $character->is_active == true ? 'selected' : '' }}>{{ $character->name }}</option>
+                    @foreach (auth()->user()->characters as $char)
+                        <option value="{{ $char->id }}" {{ $char->is_active == true ? 'selected' : '' }}>{{ $char->name }}</option>
                     @endforeach
                 </select>
                 <button id="new-character" title="Add new character">&NonBreakingSpace;+&NonBreakingSpace;</button>
