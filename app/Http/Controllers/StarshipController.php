@@ -336,6 +336,11 @@ class StarshipController extends Controller
             ],
             [
                 'starship_id' => $starship->id,
+                'name' => 'Gravity Plating',
+                'description' => 'The gravity plating lining the bottom of the ship\'s interior give it a planet-like gravitational pull for easier maneuverability throughout the ship. When the gravity plating is at 25% or lower, anything not bolted to the floor will start floating and everyone has to make a DC 12 Dexterity check before moving anywhere within the ship. Upon failure, they may float into a wall, get tangled in wires, flail uncontrolably, or similar zero-gravity effects at the DM\'s discretion.'
+            ],
+            [
+                'starship_id' => $starship->id,
                 'name' => 'Networking',
                 'description' => 'The networking system connects the computer core to the internet. It connects to the galactic internet through a series photonic signals that also sync with the GravRings. A skilled mage can use the networking system to hack into remote systems. With the computer core at 25% or less, the crew will not be able to access any new data or remote systems.',
                 'division_action' => '<h3>Hack</h3><p>Use the ship\'s networking system to hack into remote systems in one action. The remote creature must make a DC 14 Wisdom saving throw to counter the attack. Upon success, the Comms officer may use any available spell against any creature connected to the hacked ship or the ship itself ignoring range or sight requirement. The hack lasts until it is dropped or concentration is lost. The Comms officer must make a concentration check after every time the ship is hit.</p>',
