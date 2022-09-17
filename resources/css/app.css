@@ -32,9 +32,9 @@ html {
 }
 body {
     margin: 0;
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    padding: .5em;
 }
 .password, .remember-me {
     width: 100%;
@@ -218,7 +218,7 @@ a:hover {
 }
 
 .btn.bottom, button.bottom {
-    margin-top: 0;
+    margin-bottom: 0;
 }
 button, .btn {
     font: 1em var(--ui-font);
@@ -285,7 +285,7 @@ div.sections {
 }
 section {
     display: block;
-    margin: 2em 0;
+    margin: 1em 0 2em 0;
     width: 200px;
 }
 section h1,

@@ -4,6 +4,7 @@
     <div class="heading">
         <h1>DM Dashboard</h1>
     </div>
+    @include('components.nav-buttons')
     <div class="dash sections">
         <label for="dm-mode" class="checkbox-label" style="width: fit-content">
             <input type="checkbox" id="dm-mode" name="dm-mode" class="dm-mode" @if (auth()->user()->is_dm) checked @endif>
@@ -44,7 +45,7 @@
                 </div>
             @endif
         @endforeach
-        <input type="email" name="email" id="email-invite" placeholder="Invite user aboard by email">
+        <input type="email" name="email" id="email-invite" placeholder="Invite user aboard by email address">
         <x-color-select></x-color-select>
     </div>
 @endsection

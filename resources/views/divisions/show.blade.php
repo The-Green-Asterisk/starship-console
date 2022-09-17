@@ -5,6 +5,7 @@
     <h1>{{ $division->name }}</h1>
 </div>
 <p style="text-align: center">If systems reach 0% they will be irreparable without first stopping at a ship yard for replacement parts.</p>
+@include('components.nav-buttons')
 <div class="sections">
     @foreach ($systems as $system)
         <div class="systems">

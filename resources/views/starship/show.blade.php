@@ -4,6 +4,7 @@
     <div class="heading">
         <h1>Systems Overview</h1>
     </div>
+    @include('components.nav-buttons')
     <div class="sections">
         @foreach ($divisions as $division)
         <section name="{{ $division->name }}">
