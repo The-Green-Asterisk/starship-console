@@ -177,7 +177,6 @@ class StarshipController extends Controller
                 'starship_id' => $starship->id,
                 'name' => 'Steering',
                 'description' => 'The steering system determines the direction of your starship\'s thrust. It allows the pilot to make fine adjustments to the ships\'s more immediate course and speed. With steering systems at 25% or less, the pilot has disadvantage on any skill check involving maneuvering distances less than one AU or dodging danger.',
-                'description' => 'The steering system determines the direction of your starship\'s thrust. It allows the pilot to make fine adjustments to the ships\'s more immediate course and speed. With steering systems at 25% or less, the pilot has disadvantage on any skill check involving maneuvering distances less than one AU or dodging danger.',
                 'division_action' => '<h3>Evasive maneuvers</h3><p>Impose disadvantage on enemy combatants by weaving through space in a random pattern. DC 14 Dexterity (Piloting) skill check.</p>',
                 'max_hp' => 15,
                 'current_hp' => 15
@@ -337,7 +336,10 @@ class StarshipController extends Controller
             [
                 'starship_id' => $starship->id,
                 'name' => 'Gravity Plating',
-                'description' => 'The gravity plating lining the bottom of the ship\'s interior give it a planet-like gravitational pull for easier maneuverability throughout the ship. When the gravity plating is at 25% or lower, anything not bolted to the floor will start floating and everyone has to make a DC 12 Dexterity check before moving anywhere within the ship. Upon failure, they may float into a wall, get tangled in wires, flail uncontrolably, or similar zero-gravity effects at the DM\'s discretion.'
+                'description' => 'The gravity plating lining the bottom of the ship\'s interior give it a planet-like gravitational pull for easier maneuverability throughout the ship. When the gravity plating is at 25% or lower, anything not bolted to the floor will start floating and everyone has to make a DC 12 Dexterity check before moving anywhere within the ship. Upon failure, they may float into a wall, get tangled in wires, flail uncontrolably, or similar zero-gravity effects at the DM\'s discretion.',
+                'division_action' => null,
+                'max_hp' => 15,
+                'current_hp' => 15
             ],
             [
                 'starship_id' => $starship->id,

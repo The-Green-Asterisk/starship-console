@@ -7,6 +7,7 @@ use App\Models\Division;
 use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
+use App\Notifications\Notify;
 use Illuminate\Http\Request;
 
 class ModalController extends Controller
@@ -117,6 +118,11 @@ class ModalController extends Controller
         if ($user) {
             $user->starships()->attach($starship->id);
             $message = $user->name . ' has been brought aboard the ' . $starship->name . '!';
+            $user->notify(new Notify(
+                'You have been brought aboard the ' . $starship->name . '!',
+                '/dashboard',
+                $user->id
+            ));
         }else{
             $message = 'User could not be found.';
         }

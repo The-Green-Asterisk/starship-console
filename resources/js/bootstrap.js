@@ -19,3 +19,4 @@ require('./modals/registration.js');
 require('./modals/login.js');
 require('./divisions.js');
 require('./color-select.js');
+require('./notifications.js');

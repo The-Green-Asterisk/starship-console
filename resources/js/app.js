@@ -1,6 +1,9 @@
 require('./bootstrap');
+import { checkIndicator } from './notifications';
 
+window.checkIndicator = () => { checkIndicator() };
 const starshipId = (document.getElementById('starship-id') ? document.getElementById('starship-id').value : null);
+const userId = (document.getElementById('user-id') ? document.getElementById('user-id').value : null);
 const d = (n) => {return Math.floor(Math.random() * n) + 1};
 const body = document.getElementById('body');
 const getSecure = {
@@ -15,6 +18,27 @@ const postSecure = {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
 };
+
+if (userId != null) {
+    Echo.private(`App.Models.User.${userId}`)
+        .notification((notification) => {
+            const notif = document.createElement('div');
+            notif.className = 'drawer';
+            notif.appendChild(document.createTextNode(notification.message))
+            notif.setAttribute('style', 'display: block;');
+            const anchor = document.createElement('a');
+            anchor.href = notification.action;
+            anchor.appendChild(notif);
+            document.getElementById('notif-button').appendChild(anchor);
+            setTimeout(() => {
+                window.checkIndicator();
+                notif.className = 'drawer fadeout';
+                setTimeout(() => {
+                    document.getElementById('notif-button').removeChild(anchor);
+                }, 1000)
+            }, 3000)
+        });
+}
 
 if (starshipId != null) {
     Echo.join(`presenceStarshipConsole.${starshipId}`)
@@ -45,7 +69,6 @@ var handleDamage = (e) => {
         }
     }
     if (e.length > 1) {
-        console.log(e);
         document.getElementById('ship-' + e[e.length - 1].starshipId).value = e[e.length - 1].hp;
         document.getElementById('ship-' + e[e.length - 1].starshipId + 'detail').innerText = e[e.length - 1].current;
         document.getElementById('ship-' + e[e.length - 1].starshipId + 'detail-percent').innerText = e[e.length - 1].hp.toFixed(0) + '%';
@@ -59,6 +82,7 @@ var handleDamage = (e) => {
 if (document.getElementById('reset') != null) {
     document.getElementById('reset').addEventListener('click', () => {
         fetch(`/starship/${starshipId}/reset-damage`, getSecure)
+        fetch(`/notify`);
     });
 };
 

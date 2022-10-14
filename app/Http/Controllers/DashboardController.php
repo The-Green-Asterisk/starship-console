@@ -6,6 +6,7 @@ use App\Models\Character;
 use App\Models\Division;
 use App\Models\Starship;
 use App\Models\User;
+use App\Notifications\Notify;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 

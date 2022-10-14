@@ -5,7 +5,7 @@ var closeModal = () => {
     if (modal != null){
         modal.className = 'modal fadeout';
         setTimeout(() => {
-            modal.parentElement.removeChild(modal);
+            modal.remove();
             document.removeEventListener('click', clickOutside);
         }, 350);
     }

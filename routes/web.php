@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\ModalController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\SystemController;
 use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
+use App\Notifications\Notify;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -55,7 +57,7 @@ Route::get('starship-select/{starship}', [StarshipController::class, 'makeActive
 Route::get('/character/{character}/division-select/{division}', [CharacterController::class, 'divisionSelect'])->middleware('auth');
 
 Route::get('/dm-mode', function () {
-    auth()->user()->is_dm = auth()->user()->is_dm ? false : true;
+    auth()->user()->is_dm = !auth()->user()->is_dm;
     auth()->user()->save();
     return view('modals.success', ['message' => 'DM Mode ' . (auth()->user()->is_dm ? 'activated' : 'deactivated') . '!']);
 })->middleware('auth');
@@ -95,3 +97,8 @@ Route::get('/login', [ModalController::class, 'login'])->name('login')->middlewa
 Route::get('/logout', [SessionsController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/success/{message}', [ModalController::class, 'success'])->name('success');
+
+Route::get('/get-notifications', [NotificationController::class, 'index'])->middleware('auth');
+Route::get('/get-notifications-raw', [NotificationController::class, 'indexRaw'])->middleware('auth');
+Route::get('/archive-notification/{id}', [NotificationController::class, 'archive'])->middleware('auth');
+Route::get('/read-notification/{id}', [NotificationController::class, 'read'])->middleware('auth');
