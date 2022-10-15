@@ -21,7 +21,7 @@ const checkIndicator = () => {
 notifButton.addEventListener('click', () => {
     let notifDrawer = document.getElementById('notif-drawer');
     if (notifDrawer == null) {
-        fetchNotifications();
+        fetchNotifications(false);
     } else {
         notifDrawer.remove();
     }
@@ -31,28 +31,50 @@ body.addEventListener('click', (e) => {
     if (notifDrawer != null && !notifDrawer.contains(e.target)) notifDrawer.remove();
 });
 
-const fetchNotifications = () => {
-    fetch(`/get-notifications`, getSecure)
-        .then(res => {
+const fetchNotifications = (viewArchive) => {
+    fetch(`/get-notifications/${viewArchive ? 1 : 0}`, getSecure)
+        .then(async res => {
             res.text()
             .then(notifications => {
                 let incoming = document.createElement('div')
                 incoming.innerHTML = notifications;
                 notifButton.after(incoming.firstChild);
+                if (!viewArchive) {
+                    document.getElementById('view-archive').addEventListener('click', getArchive);
+                }
             });
         });
 }
 
-window.read = (id) => {
-    fetch(`/read-notification/${id}`);
+const getArchive = () => {
+    document.getElementById('view-archive').removeEventListener('click', getArchive);
+    document.getElementById('notif-drawer').remove();
+    fetchNotifications(true);
+}
+
+window.read = async (id) => {
+    let read;
+    let archived;
+    await fetch(`/read-notification/${id}`).then(res => res.json().then(r => {read = r.read, archived = r.archived}));
     let notification = document.getElementById(`notification-${id}`);
-    notification.className = 'notification not-bold';
+    let readButton = document.getElementById(`read-button-${id}`);
+    notification.className = read ? archived ? 'read archived' : 'read' : archived ? 'archived notification' : 'notification';
+    readButton.innerText = read ? 'Mark as UnRead' : 'Mark as Read';
     checkIndicator();
 };
-window.archive = (id) => {
-    fetch(`/archive-notification/${id}`);
-    let notification = document.getElementById(`notification-div-${id}`);
-    notification.style.display = 'none';
+window.archive = async (id, viewArchive) => {
+    let read;
+    let archived;
+    await fetch(`/archive-notification/${id}`).then(res => res.json().then(a => {archived = a.archived, read = a.read}));
+    let notificationBox = document.getElementById(`notification-div-${id}`);
+    let notification = document.getElementById(`notification-${id}`);
+    let archiveButton = document.getElementById(`archive-button-${id}`);
+    if (viewArchive) {
+        notification.className = archived ? read ? 'read archived' : 'archived' : read ? 'read' : 'notification';
+        archiveButton.innerText = archived ? 'UnArchive' : 'Archive';
+    } else {
+        notificationBox.style.display = 'none';
+    }
     checkIndicator();
 };
 

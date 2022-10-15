@@ -53,7 +53,7 @@ Route::post('/edit-starship', [StarshipController::class, 'update'])->middleware
 Route::get('/delete-starship/{starshipId}', [ModalController::class, 'deleteStarship'])->middleware('auth');
 Route::post('/delete-starship', [StarshipController::class, 'destroy'])->middleware('auth');
 Route::get('character-select/{character}', [CharacterController::class, 'makeActive'])->middleware('auth');
-Route::get('starship-select/{starship}', [StarshipController::class, 'makeActive'])->middleware('auth');
+Route::get('starship-select/{starship}/{character?}', [StarshipController::class, 'makeActive'])->middleware('auth');
 Route::get('/character/{character}/division-select/{division}', [CharacterController::class, 'divisionSelect'])->middleware('auth');
 
 Route::get('/dm-mode', function () {
@@ -98,7 +98,7 @@ Route::get('/logout', [SessionsController::class, 'logout'])->name('logout')->mi
 
 Route::get('/success/{message}', [ModalController::class, 'success'])->name('success');
 
-Route::get('/get-notifications', [NotificationController::class, 'index'])->middleware('auth');
+Route::get('/get-notifications/{viewArchive}', [NotificationController::class, 'indexOrArchive'])->middleware('auth');
 Route::get('/get-notifications-raw', [NotificationController::class, 'indexRaw'])->middleware('auth');
 Route::get('/archive-notification/{id}', [NotificationController::class, 'archive'])->middleware('auth');
 Route::get('/read-notification/{id}', [NotificationController::class, 'read'])->middleware('auth');

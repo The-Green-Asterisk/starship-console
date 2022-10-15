@@ -30,7 +30,8 @@ class Notify extends Notification implements ShouldBroadcast
         $notification = new NotificationModel();
         $notification->user_id = $userId;
         $notification->body = $this->message;
-        $notification->action = $this->action;
+        $notification->save();
+        $notification->action = $this->action . "?n=" . $notification->id;
         $notification->save();
     }
 

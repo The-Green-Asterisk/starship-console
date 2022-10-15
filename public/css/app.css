@@ -786,11 +786,18 @@ img.division-title {
     filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
 }
 
-.bold {
-    font-weight: bolder;
-}
-.not-bold {
+.read {
     font-weight: normal;
+    color: #c5c5c5;
+}
+.archived {
+    font-weight: lighter;
+    font-size: smaller;
+    font-style: italic;
+    color: #a9a9a9;
+}
+.notification {
+    font-weight: bolder;
 }
 
 

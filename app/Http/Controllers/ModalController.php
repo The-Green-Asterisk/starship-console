@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Character;
 use App\Models\Division;
+use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
@@ -119,7 +120,7 @@ class ModalController extends Controller
             $user->starships()->attach($starship->id);
             $message = $user->name . ' has been brought aboard the ' . $starship->name . '!';
             $user->notify(new Notify(
-                'You have been brought aboard the ' . $starship->name . '!',
+                'You have been brought aboard the ' . $starship->name . '! Please visit your dashboard to assign a character to this starship.',
                 '/dashboard',
                 $user->id
             ));

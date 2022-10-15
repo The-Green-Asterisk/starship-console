@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Character;
 use App\Models\Division;
+use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\User;
 use App\Notifications\Notify;
@@ -15,7 +16,20 @@ class DashboardController extends Controller
     public function index()
     {
         $ship = Starship::where('dm_id', auth()->user()->id)->first();
-        if (auth()->user()->is_dm) return redirect('/dm-dashboard/' . ($ship ? $ship->id : ''));
+        if (auth()->user()->is_dm) return redirect(
+            '/dm-dashboard/' .
+            ($ship
+                ? $ship->id
+                : '') .
+            (request()->query()
+                ? '?n=' . request()->query('n')
+                : ''));
+
+        if (request()->query('n'))
+        {
+            $n = Notification::find(request()->query('n'));
+            $n->read ?? $n->read();
+        }
 
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
         $divisions = Division::all();
@@ -33,6 +47,12 @@ class DashboardController extends Controller
 
     public function dmIndex(Starship $starship)
     {
+        if (request()->query('n'))
+        {
+            $n = Notification::find(request()->query('n'));
+            $n->read ?? $n->read();
+        }
+
         if (!auth()->user()->is_dm) return redirect('/dashboard');
 
         $data = [
