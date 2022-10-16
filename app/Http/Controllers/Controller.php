@@ -16,13 +16,11 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        // $this->data = $this->getAllHps();
+        //
     }
 
     public function index()
     {
-        // $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
-
         return view('index');
     }
 

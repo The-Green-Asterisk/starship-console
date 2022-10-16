@@ -32,6 +32,7 @@ class Notify extends Notification implements ShouldBroadcast
         $notification->body = $this->message;
         $notification->save();
         $notification->action = $this->action . "?n=" . $notification->id;
+        $this->action = $notification->action; //this is to assure that the notification is marked as read if clicked while popped up
         $notification->save();
     }
 

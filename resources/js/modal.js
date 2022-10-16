@@ -1,6 +1,6 @@
-import { getSecure, starshipId } from "./app";
+import { getSecure, starshipId, body } from "./app";
 
-var closeModal = () => {
+const closeModal = () => {
     let modal = document.getElementById('modal');
     if (modal != null){
         modal.className = 'modal fadeout';
@@ -10,13 +10,26 @@ var closeModal = () => {
         }, 350);
     }
 };
-var clickOutside = (ev) => {
+const clickOutside = (ev) => {
     ev.stopImmediatePropagation();
     let dialog = document.getElementById('modal-dialog');
     if (dialog != null && !dialog.contains(ev.target)){
         closeModal();
     }
 };
+const flashModal = (res, goToAfter) => {
+    res.text()
+    .then((data) => {
+        let modal = document.createElement('div')
+        modal.innerHTML = data;
+        body.appendChild(modal.firstChild);
+        setTimeout(() => {
+            document.getElementById('modal').remove();
+            if (goToAfter) window.location.href = goToAfter;
+        }, 3000);
+    });
+}
+
 window.success = (message) => {
         fetch(`/success/${message}`, getSecure)
         .catch((err) => {
@@ -24,15 +37,7 @@ window.success = (message) => {
             alert('Something went wrong');
         })
         .then((res) => {
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                setTimeout(() => {
-                    closeModal();
-                }, 3000);
-            });
+            flashModal(res);
         });
     };
 
@@ -329,4 +334,5 @@ if (document.getElementById('welcome-logo') != null){
 export {
     clickOutside,
     closeModal,
+    flashModal
 };

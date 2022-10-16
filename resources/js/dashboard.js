@@ -1,4 +1,5 @@
 import { getSecure } from "./app";
+import { showModal } from "./modal";
 
 if (document.getElementById('character-select') != null){
     document.getElementById('character-select').addEventListener('change', () => {
@@ -23,19 +24,7 @@ if (document.getElementsByClassName('division-checkboxes') != null){
             let characterId = checkboxes[i].querySelector('#division-character-id').value;
             let divisionId = checkboxes[i].querySelector('input').value;
             let url = `/character/${characterId}/division-select/${divisionId}`;
-            fetch(url, getSecure)
-            .then((res) => {
-                res.text()
-                .then((data) => {
-                    let modal = document.createElement('div')
-                    modal.innerHTML = data;
-                    document.getElementById('body').appendChild(modal.firstChild);
-                    setTimeout(() => {
-                        document.getElementById('body').removeChild(document.getElementById('modal'));
-                        location.reload();
-                    }, 2000);
-                });
-            });
+            fetch(url, getSecure);
         });
     }
 }
@@ -44,16 +33,7 @@ if (document.getElementById('dm-mode') != null){
     document.getElementById('dm-mode').addEventListener('change', () => {
         fetch('/dm-mode', getSecure)
         .then((res) => {
-            res.text()
-            .then((data) => {
-                let modal = document.createElement('div')
-                modal.innerHTML = data;
-                document.getElementById('body').appendChild(modal.firstChild);
-                setTimeout(() => {
-                    document.getElementById('body').removeChild(document.getElementById('modal'));
-                    window.location.href = '/dashboard';
-                }, 2000);
-            });
+            showModal(res, '/dashboard');
         });
     });
 }

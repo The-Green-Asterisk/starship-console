@@ -26,6 +26,23 @@ class NotificationController extends Controller
         return auth()->user()->notifications->where('archived', false)->values()->toArray();
     }
 
+    public function read(Notification $notification)
+    {
+        $notification->read();
+        $archived = $notification->archived;
+        $read = $notification->read;
+
+        return compact('archived', 'read');
+    }
+    public function archive(Notification $notification)
+    {
+        $notification->archive();
+        $archived = $notification->archived;
+        $read = $notification->read;
+
+        return compact('archived', 'read');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

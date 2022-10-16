@@ -28,7 +28,7 @@ class DashboardController extends Controller
         if (request()->query('n'))
         {
             $n = Notification::find(request()->query('n'));
-            $n->read ?? $n->read();
+            if (!$n->read) $n->read();
         }
 
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
@@ -47,10 +47,10 @@ class DashboardController extends Controller
 
     public function dmIndex(Starship $starship)
     {
-        if (request()->query('n'))
+        if (request()->query())
         {
             $n = Notification::find(request()->query('n'));
-            $n->read ?? $n->read();
+            if (!$n->read) $n->read();
         }
 
         if (!auth()->user()->is_dm) return redirect('/dashboard');
@@ -86,5 +86,23 @@ class DashboardController extends Controller
         $character->save();
 
         return back()->with('success','Character image successfully uploaded!');
+    }
+
+    public function dmMode()
+    {
+        $user = User::find(auth()->id());
+        $user->is_dm = !$user->is_dm;
+        $user->save();
+
+        return view('modals.success', ['message' => 'DM Mode ' . (auth()->user()->is_dm ? 'activated' : 'deactivated') . '!']);
+    }
+
+    public function setUiColor($hex)
+    {
+        $user = User::find(auth()->id());
+        $user->ui_color = $hex;
+        $user->save();
+
+        return view('modals.success', ['message' => 'UI Color changed to ' . $hex . '!']);
     }
 }

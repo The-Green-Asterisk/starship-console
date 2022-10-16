@@ -1,4 +1,5 @@
 import { getSecure } from './app.js';
+import { flashModal } from './modal.js';
 
 const root = document.querySelector(':root');
 const selectPurple = document.querySelector('#select-purple');
@@ -29,41 +30,41 @@ fetch('/get-ui-color/', getSecure)
 if (selectPurple !== null) {
     selectPurple.addEventListener('click', () => {
         root.style.setProperty('--ui-color', '#ec42f5');
-        fetch('/set-ui-color/purple/', getSecure);
+        fetch('/set-ui-color/purple/', getSecure).then((res) => flashModal(res));
     });
 }
 
 if (selectRed !== null) {
     selectRed.addEventListener('click', () => {
         root.style.setProperty('--ui-color', 'red');
-        fetch('/set-ui-color/red/', getSecure);
+        fetch('/set-ui-color/red/', getSecure).then((res) => flashModal(res));
     });
 }
 if (selectPink !== null) {
     selectPink.addEventListener('click', () => {
         root.style.setProperty('--ui-color', '#fc68a1');
-        fetch('/set-ui-color/fc68a1/', getSecure);
+        fetch('/set-ui-color/fc68a1/', getSecure).then((res) => flashModal(res));
     });
 }
 
 if (selectBlue !== null) {
     selectBlue.addEventListener('click', () => {
         root.style.setProperty('--ui-color', 'blue');
-        fetch('/set-ui-color/blue/', getSecure);
+        fetch('/set-ui-color/blue/', getSecure).then((res) => flashModal(res));
     });
 }
 
 if (selectAqua !== null) {
     selectAqua.addEventListener('click', () => {
         root.style.setProperty('--ui-color', 'aqua');
-        fetch('/set-ui-color/aqua/', getSecure);
+        fetch('/set-ui-color/aqua/', getSecure).then((res) => flashModal(res));
     });
 }
 
 if (selectGreen !== null) {
     selectGreen.addEventListener('click', () => {
         root.style.setProperty('--ui-color', '#4caf50');
-        fetch('/set-ui-color/4caf50/', getSecure);
+        fetch('/set-ui-color/4caf50/', getSecure).then((res) => flashModal(res));
     });
 }
 

@@ -25,16 +25,15 @@ if (userId != null) {
             const notif = document.createElement('div');
             notif.className = 'notif-drawer';
             notif.appendChild(document.createTextNode(notification.message))
-            notif.setAttribute('style', 'display: block;');
             const anchor = document.createElement('a');
             anchor.href = notification.action;
             anchor.appendChild(notif);
-            document.getElementById('notif-button').appendChild(anchor);
+            body.appendChild(anchor);
             setTimeout(() => {
                 window.checkIndicator();
                 notif.className = 'notif-drawer fadeout';
                 setTimeout(() => {
-                    document.getElementById('notif-button').removeChild(anchor);
+                    body.removeChild(anchor);
                 }, 1000)
             }, 3000)
         });
@@ -52,7 +51,8 @@ window.onbeforeunload = () => {
 };
 
 var handleDamage = (e) => {
-    if (document.getElementById("ship-" + e[e.length - 1].starshipId) != null && document.getElementById("ship-" + e[e.length - 1].starshipId).value > e[e.length - 1].hp) {
+    if (document.getElementById("ship-" + e[e.length - 1].starshipId) != null &&
+        document.getElementById("ship-" + e[e.length - 1].starshipId).value > e[e.length - 1].hp) {
         body.className = 'shake';
         setTimeout(() => {
             body.className = '';

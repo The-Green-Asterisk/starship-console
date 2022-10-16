@@ -9,6 +9,7 @@ use App\Models\Starship;
 use App\Events\Success;
 use App\Models\Division;
 use App\Models\User;
+use App\Notifications\Notify;
 
 class CharacterController extends Controller
 {
@@ -136,6 +137,17 @@ class CharacterController extends Controller
 
         $character->save();
 
-        return view('modals.success', ['message' => 'Division updated!']);
+        $character->user->notify(new Notify(
+            "$character->name has been " . ($character->divisions()->find($division) ? "assigned to " : "unassigned from ") . "$division->name aboard the " . $character->starship->name . ".",
+            $character->user->is_dm ? "/dm-dashboard/$character->starship_id" : "/dashboard/$character->starship_id",
+            $character->user->id
+        ));
+        if ($character->user_id != $character->starship->dm_id) {
+            $character->starship->dm->notify(new Notify(
+                "$character->name has been " . ($character->divisions()->find($division) ? "assigned to " : "unassigned from ") . "$division->name aboard the " . $character->starship->name . ".",
+                "/dm-dashboard/$character->starship_id",
+                $character->starship->dm_id
+            ));
+        }
     }
 }
