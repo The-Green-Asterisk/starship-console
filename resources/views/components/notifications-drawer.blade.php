@@ -1,4 +1,9 @@
 <div class="notif-drawer" id="notif-drawer">
+    @if ($notifications)
+        <small>
+            <a href="#" onclick="markAllAsRead()">Mark All As Read</a>
+        </small>
+    @endif
     @foreach ($notifications as $notification)
         <div class="notification-div" id="notification-div-{{ $notification->id }}">
             <a href="{{ $notification->action }}" onclick="fetch('/read-notification/{{ $notification->id }}');">

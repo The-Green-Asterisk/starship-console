@@ -62,6 +62,17 @@ window.read = async (id) => {
     readButton.innerText = read ? 'Mark as UnRead' : 'Mark as Read';
     checkIndicator();
 };
+window.markAllAsRead = () => {
+    fetch(`/get-notifications-raw`, getSecure)
+        .then(res => {
+            res.json()
+            .then(notifications => {
+                notifications.forEach(notification => {
+                    if (!notification.read) window.read(notification.id);
+                });
+            });
+        });
+};
 window.archive = async (id, viewArchive) => {
     let read;
     let archived;
