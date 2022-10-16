@@ -16,7 +16,7 @@
         </div>
     @endforeach
     @if ($notifications->count() <= 0)
-        No new notifications yet!
+        <p>No new notifications yet!</p>
     @endif
     @if (!$viewArchive)
         <small>
