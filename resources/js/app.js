@@ -23,7 +23,7 @@ if (userId != null) {
     Echo.private(`App.Models.User.${userId}`)
         .notification((notification) => {
             const notif = document.createElement('div');
-            notif.className = 'drawer';
+            notif.className = 'notif-drawer';
             notif.appendChild(document.createTextNode(notification.message))
             notif.setAttribute('style', 'display: block;');
             const anchor = document.createElement('a');
@@ -32,7 +32,7 @@ if (userId != null) {
             document.getElementById('notif-button').appendChild(anchor);
             setTimeout(() => {
                 window.checkIndicator();
-                notif.className = 'drawer fadeout';
+                notif.className = 'notif-drawer fadeout';
                 setTimeout(() => {
                     document.getElementById('notif-button').removeChild(anchor);
                 }, 1000)

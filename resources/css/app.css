@@ -570,6 +570,15 @@ img.division-title {
 .notification {
     font-weight: bolder;
 }
+.notification-div {
+    padding: 0 5px;
+}
+.notification-div:hover {
+    background-color: rgba(240, 248, 255, 0.159);
+}
+hr {
+    border-color: var(--ui-color);
+}
 
 
 @media screen and (max-width: 600px) {

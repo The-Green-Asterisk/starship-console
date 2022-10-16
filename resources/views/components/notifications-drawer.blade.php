@@ -1,6 +1,6 @@
 <div class="notif-drawer" id="notif-drawer">
     @foreach ($notifications as $notification)
-        <div id="notification-div-{{ $notification->id }}">
+        <div class="notification-div" id="notification-div-{{ $notification->id }}">
             <a href="{{ $notification->action }}" onclick="fetch('/read-notification/{{ $notification->id }}');">
                 <p class="{{ $notification->read ? 'read' : 'notification' }} {{ $notification->archived ? 'archived' : '' }}" id="notification-{{ $notification->id }}">
                     {{ $notification->body }}

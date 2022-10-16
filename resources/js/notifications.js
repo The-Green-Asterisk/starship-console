@@ -18,14 +18,14 @@ const checkIndicator = () => {
         });
 };
 
-notifButton.addEventListener('click', () => {
+notifButton ? notifButton.addEventListener('click', () => {
     let notifDrawer = document.getElementById('notif-drawer');
     if (notifDrawer == null) {
         fetchNotifications(false);
     } else {
         notifDrawer.remove();
     }
-});
+}): null;
 body.addEventListener('click', (e) => {
     let notifDrawer = document.getElementById('notif-drawer');
     if (notifDrawer != null && !notifDrawer.contains(e.target)) notifDrawer.remove();

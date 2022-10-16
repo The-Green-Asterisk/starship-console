@@ -13,6 +13,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
 use App\Http\Controllers\SystemController;
+use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
@@ -100,5 +101,23 @@ Route::get('/success/{message}', [ModalController::class, 'success'])->name('suc
 
 Route::get('/get-notifications/{viewArchive}', [NotificationController::class, 'indexOrArchive'])->middleware('auth');
 Route::get('/get-notifications-raw', [NotificationController::class, 'indexRaw'])->middleware('auth');
-Route::get('/archive-notification/{id}', [NotificationController::class, 'archive'])->middleware('auth');
-Route::get('/read-notification/{id}', [NotificationController::class, 'read'])->middleware('auth');
+Route::get('/archive-notification/{n}', function (Notification $n){
+    $n->archived = !$n->archived;
+    $n->date_archived = new DateTime();
+    $n->save();
+
+    $archived = $n->archived;
+    $read = $n->read;
+
+    return compact('archived', 'read');
+})->middleware('auth');
+Route::get('/read-notification/{n}', function (Notification $n){
+    $n->read = !$n->read;
+    $n->date_read = new DateTime();
+    $n->save();
+
+    $archived = $n->archived;
+    $read = $n->read;
+
+    return compact('archived', 'read');
+})->middleware('auth');

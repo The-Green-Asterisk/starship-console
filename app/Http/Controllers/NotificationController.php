@@ -16,8 +16,8 @@ class NotificationController extends Controller
     public function indexOrArchive($viewArchive)
     {
         $viewArchive
-            ? $notifications = auth()->user()->notifications
-            : $notifications = auth()->user()->notifications->where('archived', false);
+            ? $notifications = auth()->user()->notifications->sortByDesc('created_at')
+            : $notifications = auth()->user()->notifications->where('archived', false)->sortByDesc('created_at');
 
         return view('components.notifications-drawer', compact('notifications', 'viewArchive'));
     }
@@ -90,33 +90,5 @@ class NotificationController extends Controller
     public function destroy(Notification $notification)
     {
         //
-    }
-
-    public function read($id)
-    {
-        if ($id == null) return;
-
-        $notification = Notification::find($id);
-        $notification->read = !$notification->read;
-        $notification->save();
-
-        // ddd($notification);
-
-        $archived = $notification->archived;
-        $read = $notification->read;
-
-        return compact('archived', 'read');
-    }
-
-    public function archive($id)
-    {
-        $notification = Notification::find($id);
-        $notification->archived = !$notification->archived;
-        $notification->save();
-
-        $archived = $notification->archived;
-        $read = $notification->read;
-
-        return compact('archived', 'read');
     }
 }

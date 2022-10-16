@@ -116,7 +116,9 @@ class ModalController extends Controller
     {
         $user = User::where('email', $email)->first();
 
-        if ($user) {
+        if ($user->starships()->find($starship)) {
+            $message = $user->name . ' is already aboard the ' . $starship->name . '. Make sure they have created a character and assigned it to the ' . $starship->name . '.';
+        } else if ($user) {
             $user->starships()->attach($starship->id);
             $message = $user->name . ' has been brought aboard the ' . $starship->name . '!';
             $user->notify(new Notify(
