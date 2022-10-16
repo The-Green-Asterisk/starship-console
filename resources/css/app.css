@@ -517,7 +517,7 @@ input.character-image {
     z-index: 20;
 }
 .notif-drawer {
-    position: absolute;
+    position: fixed;
     top: 5em;
     right: 2em;
     width: 250px;
