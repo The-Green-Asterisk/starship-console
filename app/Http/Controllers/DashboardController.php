@@ -94,7 +94,7 @@ class DashboardController extends Controller
         $user->is_dm = !$user->is_dm;
         $user->save();
 
-        return view('modals.success', ['message' => 'DM Mode ' . (auth()->user()->is_dm ? 'activated' : 'deactivated') . '!']);
+        return view('modals.success', ['message' => 'DM Mode ' . ($user->is_dm ? 'activated' : 'deactivated') . '!']);
     }
 
     public function setUiColor($hex)

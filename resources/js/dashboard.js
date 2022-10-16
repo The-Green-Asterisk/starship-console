@@ -1,5 +1,5 @@
 import { getSecure } from "./app";
-import { showModal } from "./modal";
+import { flashModal } from "./modal";
 
 if (document.getElementById('character-select') != null){
     document.getElementById('character-select').addEventListener('change', () => {
@@ -33,7 +33,7 @@ if (document.getElementById('dm-mode') != null){
     document.getElementById('dm-mode').addEventListener('change', () => {
         fetch('/dm-mode', getSecure)
         .then((res) => {
-            showModal(res, '/dashboard');
+            flashModal(res, '/dashboard');
         });
     });
 }
