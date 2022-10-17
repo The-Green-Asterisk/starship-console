@@ -396,8 +396,8 @@ class StarshipController extends Controller
         })->get();
         foreach ($users as $user) {
             $user->notify(new Notify(
-                "Welcome $character->name aboard the $starship->name!", 
-                "/starship/$starship->id", 
+                "Welcome $character->name aboard the $starship->name!",
+                "/starship/$starship->id",
                 $user->id));
         }
 
