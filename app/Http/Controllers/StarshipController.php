@@ -9,6 +9,7 @@ use App\Models\Division;
 use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
+use App\Notifications\Notify;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -387,6 +388,19 @@ class StarshipController extends Controller
     {
         $character = auth()->user()->characters->where('is_active', true)->first();
         Starship::where('captain_id', $character->id)->update(['captain_id' => null]);
+
+        $users = User::where('character_id', function($query) use ($starship) {
+            $query->select('id')
+                ->from('characters')
+                ->where('starship_id', $starship->id);
+        })->get();
+        foreach ($users as $user) {
+            $user->notify(new Notify(
+                "Welcome $character->name aboard the $starship->name!", 
+                "/starship/$starship->id", 
+                $user->id));
+        }
+
         $character->starship_id = $starship->id;
         $character->save();
 
