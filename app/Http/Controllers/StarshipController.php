@@ -398,7 +398,8 @@ class StarshipController extends Controller
             $user->notify(new Notify(
                 "Welcome $character->name aboard the $starship->name!",
                 "/starship/$starship->id",
-                $user->id));
+                $user->id
+            ));
         }
 
         $character->starship_id = $starship->id;
