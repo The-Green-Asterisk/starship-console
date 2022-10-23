@@ -48,9 +48,7 @@ class RegistrationController extends Controller
                 ));
             }
 
-            return response()->json([
-                'redirect'=> url('/')
-            ]);
+            return redirect('/dashboard');
         }
     }
 }

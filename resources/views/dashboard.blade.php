@@ -40,7 +40,7 @@
             </div>
             <h3>{{ $character->name }}'s Starship:</h3>
             <div class="select-div">
-                <select id="starship-select">
+                <select id="starship-select" {{ auth()->user()->characters->count() > 0 ? '' : 'disabled' }}>
                     @foreach (auth()->user()->starships as $ship)
                         <option value="{{ $ship->id }}" {{ $character->starship->id == $ship->id ? 'selected' : '' }}>{{ $ship->name }}</option>
                     @endforeach
@@ -81,7 +81,7 @@
                 <button id="new-character" title="Add new character">&NonBreakingSpace;+&NonBreakingSpace;</button>
             @endif
             <div class="select-div">
-                <select id="starship-select">
+                <select id="starship-select" title="{{ auth()->user()->characters->count() > 0 ? '' : 'Please create a character first' }}" {{ auth()->user()->characters->count() > 0 ? '' : 'disabled' }}>
                     <option value="" selected disabled>Starships</option>
                     @if (auth()->user()->starships->count() <= 0)
                         <option value="" disabled>Give your DM your registered email address to be welcomed aboard a new Starship</option>
