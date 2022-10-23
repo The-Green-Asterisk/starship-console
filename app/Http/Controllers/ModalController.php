@@ -9,7 +9,9 @@ use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
 use App\Notifications\Notify;
+use App\Notifications\SendInvitation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 
 class ModalController extends Controller
 {
@@ -116,7 +118,7 @@ class ModalController extends Controller
     {
         $user = User::where('email', $email)->first();
 
-        if ($user->starships()->find($starship)) {
+        if ($user && $user->starships()->find($starship)) {
             $message = $user->name . ' is already aboard the ' . $starship->name . '. Make sure they have created a character and assigned it to the ' . $starship->name . '.';
         } else if ($user) {
             $user->starships()->attach($starship->id);
@@ -127,7 +129,9 @@ class ModalController extends Controller
                 $user->id
             ));
         }else{
-            $message = 'User could not be found.';
+            $starship->notify(new SendInvitation($email, $starship->id));
+
+            $message = "$email could not be found in our system, but an email has been sent to them to invite them aboard.";
         }
 
         $data = [

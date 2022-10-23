@@ -1,4 +1,4 @@
-@extends('components.modal')
+@extends(request()->query() != null ? 'layout' : 'components.modal')
 
 @section('content')
     <div class="modal-header">
@@ -6,6 +6,7 @@
     </div>
     <form method="POST" id="registration-form">
         @csrf
+        <input type="hidden" name="starship" value="{{ request()->query('starship') }}">
         <label for="name" hidden>Name</label>
         <input type="text" name="name" id="name" placeholder="Name" required autofocus>
         <label for="email" hidden>Email</label>

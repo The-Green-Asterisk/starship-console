@@ -12,7 +12,8 @@ window.activateRegistration = () => {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
-                password_confirmation: document.getElementById('password-confirmation').value
+                password_confirmation: document.getElementById('password-confirmation').value,
+                starship: document.getElementById('starship').value
             })
         })
         .then((err) => {

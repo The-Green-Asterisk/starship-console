@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Starship;
 use App\Models\User;
+use App\Notifications\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,21 @@ class RegistrationController extends Controller
             $user->save();
 
             auth()->login($user);
+
+            if ($request->starship) {
+                $user->starships()->attach($request->starship);
+                $starship = Starship::find($request->starship);
+                $user->notify(new Notify(
+                    'You have been brought aboard the ' . $starship->name . '! Please visit your dashboard to assign a character to this starship.',
+                    '/dashboard',
+                    $user->id
+                ));
+                $starship->dm->notify(new Notify(
+                    $user->name . ' has joined the ' . $starship->name . '!',
+                    '/starship/' . $starship->id,
+                    $starship->dm_id
+                ));
+            }
 
             return response()->json([
                 'redirect'=> url('/')
