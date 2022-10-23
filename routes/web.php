@@ -10,6 +10,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
 use App\Http\Controllers\SystemController;
+use Illuminate\Notifications\Messages\MailMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,3 +91,12 @@ Route::get('/get-notifications/{viewArchive}', [NotificationController::class, '
 Route::get('/get-notifications-raw', [NotificationController::class, 'indexRaw'])->middleware('auth');
 Route::get('/archive-notification/{notification}',[NotificationController::class, 'archive'])->middleware('auth');
 Route::get('/read-notification/{notification}', [NotificationController::class, 'read'])->middleware('auth');
+
+//mail preview
+Route::get('/mail-preview', function () {
+    return (new MailMessage())
+        ->greeting('Hello!')
+        ->line('This is a test of the email template.')
+        ->action('You could click this button if you want.', 'https://www.google.com')
+        ->line('Thank you for using our application!');
+});

@@ -81,9 +81,7 @@ class SessionsController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->getMessageBag(), 200);
         }else{
-            User::where('email', $request->email)->update([
-                'password' => bcrypt($request->password),
-            ]);
+            User::where('email', $request->email)->setPasswordAttribute($request->password);
         }
 
         return redirect('/')->with('success', 'Password reset successfully');
