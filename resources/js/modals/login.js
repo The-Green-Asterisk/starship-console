@@ -1,8 +1,8 @@
 window.activateLogin = () => {
-    const registrationForm = document.getElementById('login-form');
+    const loginForm = document.getElementById('login-form');
     const seePass = document.getElementById('see-pass');
 
-    registrationForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         fetch('/login',{
             method: 'POST',

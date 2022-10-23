@@ -79,6 +79,10 @@ Route::get('/register', [ModalController::class, 'register'])->middleware('guest
 Route::post('/login', [SessionsController::class, 'login'])->middleware('guest');
 Route::get('/login', [ModalController::class, 'login'])->name('login')->middleware('guest');
 Route::get('/logout', [SessionsController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/forgot-password', [ModalController::class, 'forgotPassword'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [SessionsController::class, 'forgotPassword'])->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', [SessionsController::class, 'resetPasswordScreen'])->middleware('guest')->name('password.reset');
+Route::post('/reset-password', [SessionsController::class, 'resetPassword'])->middleware('guest')->name('password.update');
 
 //notifications
 Route::get('/success/{message}', [ModalController::class, 'success'])->name('success');

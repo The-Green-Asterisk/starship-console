@@ -1,4 +1,4 @@
-import { getSecure, starshipId, body } from "./app";
+import { getSecure, postSecure, starshipId, body } from "./app";
 
 const closeModal = () => {
     let modal = document.getElementById('modal');
@@ -86,6 +86,45 @@ if (document.getElementById('login') != null){
                 body.appendChild(incomingModal.firstChild);
                 document.addEventListener('click', (e) => {clickOutside(e)});
                 document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+                document.getElementById('forgot-password').addEventListener('click', () => {
+                    closeModal();
+                    fetch('/forgot-password', getSecure)
+                    .catch((err) => {
+                        console.log(err);
+                        alert('Something went wrong');
+                    })
+                    .then((res) => {
+                        res.text()
+                        .then((data) => {
+                            let incomingModal = document.createElement('div');
+                            incomingModal.innerHTML = data;
+                            body.appendChild(incomingModal.firstChild);
+                            document.addEventListener('click', (e) => {clickOutside(e)});
+                            document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+                            document.getElementById('forgot-password-form').addEventListener('submit', (e) => {
+                                e.preventDefault();
+                                let email = document.getElementById('email').value;
+                                fetch(`/forgot-password`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                    },
+                                    body: JSON.stringify({
+                                        email: email,
+                                    })
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    alert('Something went wrong');
+                                })
+                                .then((res) => {
+                                    flashModal(res, '/');
+                                });
+                            });
+                        });
+                    });
+                });
                 window.activateLogin();
             });
         });

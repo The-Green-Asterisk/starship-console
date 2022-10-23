@@ -146,4 +146,9 @@ class ModalController extends Controller
     {
         return view('modals.edit-system', compact('system'));
     }
+
+    public function forgotPassword()
+    {
+        return view('modals.forgot-password');
+    }
 }

@@ -16,6 +16,7 @@
         <div class="remember-me">
             <input type="checkbox" id="remember-me" name="remember-me" value="1">
             <label for="remember-me">Remember me</label>
+            <a href="#" id="forgot-password">Forgot password?</a>
         </div>
         <div id="modal-buttons">
             <button type="submit">Log In</button>
