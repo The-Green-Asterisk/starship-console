@@ -17,17 +17,17 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css')
     .setPublicPath('public')
     .sourceMaps()
-    .browserSync('http://localhost:8000')
+    .browserSync('http://localhost')
     .webpackConfig({
-    resolve: {
-        fallback: {
-            fs: false,
-            path: require.resolve('path-browserify'),
-            os: false,
-            crypto: false,
-        },
-        alias: {
-            '@': path.resolve(__dirname, 'resources/js')
+        resolve: {
+            fallback: {
+                fs: false,
+                path: require.resolve('path-browserify'),
+                os: false,
+                crypto: false,
+            },
+            alias: {
+                '@': path.resolve(__dirname, 'resources/js')
+            }
         }
-    }
-});
+    });

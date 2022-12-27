@@ -1,8 +1,9 @@
-import { getSecure, postSecure, starshipId, body } from "./app";
+import * as el from "./elements";
+import { getSecure, starshipId } from "./app";
 
 const closeModal = () => {
-    let modal = document.getElementById('modal');
-    if (modal != null){
+    let modal = el.modal();
+    if (modal != null) {
         modal.className = 'modal fadeout';
         setTimeout(() => {
             modal.remove();
@@ -12,26 +13,26 @@ const closeModal = () => {
 };
 const clickOutside = (ev) => {
     ev.stopImmediatePropagation();
-    let dialog = document.getElementById('modal-dialog');
-    if (dialog != null && !dialog.contains(ev.target)){
+    let dialog = el.dialog();
+    if (dialog != null && !dialog.contains(ev.target)) {
         closeModal();
     }
 };
 const flashModal = (res, goToAfter) => {
     res.text()
-    .then((data) => {
-        let modal = document.createElement('div')
-        modal.innerHTML = data;
-        body.appendChild(modal.firstChild);
-        setTimeout(() => {
-            document.getElementById('modal').remove();
-            if (goToAfter) window.location.href = goToAfter;
-        }, 3000);
-    });
+        .then((data) => {
+            let modal = document.createElement('div')
+            modal.innerHTML = data;
+            el.body.appendChild(modal.firstChild);
+            setTimeout(() => {
+                modal.remove();
+                if (goToAfter) window.location.href = goToAfter;
+            }, 3000);
+        });
 }
 
 window.success = (message) => {
-        fetch(`/success/${message}`, getSecure)
+    fetch(`/success/${message}`, getSecure)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -39,299 +40,33 @@ window.success = (message) => {
         .then((res) => {
             flashModal(res);
         });
-    };
+};
 
 window.officerDamage = (div) => {
     let incomingModal = document.createElement('div');
     incomingModal.innerHTML = div;
-    body.appendChild(incomingModal.firstChild);
-    document.addEventListener('click', (e) => {clickOutside(e)});
-    document.getElementById('close-button').addEventListener('click', () => {closeModal()});
+    el.body.appendChild(incomingModal.firstChild);
+    document.addEventListener('click', (e) => { clickOutside(e) });
+    const closeButton = el.closeButton();
+    closeButton.addEventListener('click', () => { closeModal() });
 }
 
-if (document.getElementById('register') != null){
-    document.getElementById('register').addEventListener('click', () => {
+function popModal(res) {
+    document.activeElement.blur();
+    res.text()
+        .then((data) => {
+            let incomingModal = document.createElement('div');
+            incomingModal.innerHTML = data;
+            el.body.appendChild(incomingModal.firstChild);
+            document.addEventListener('click', (e) => { clickOutside(e) });
+            const closeButton = el.closeButton();
+            closeButton.addEventListener('click', () => { closeModal() });
+        });
+}
+
+if (el.register != null) {
+    el.register.addEventListener('click', () => {
         fetch('/register', getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                window.activateRegistration();
-            })
-        });
-    });
-}
-
-if (document.getElementById('login') != null){
-    document.getElementById('login').addEventListener('click', () => {
-        fetch('/login', getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-                document.getElementById('forgot-password').addEventListener('click', () => {
-                    closeModal();
-                    fetch('/forgot-password', getSecure)
-                    .catch((err) => {
-                        console.log(err);
-                        alert('Something went wrong');
-                    })
-                    .then((res) => {
-                        res.text()
-                        .then((data) => {
-                            let incomingModal = document.createElement('div');
-                            incomingModal.innerHTML = data;
-                            body.appendChild(incomingModal.firstChild);
-                            document.addEventListener('click', (e) => {clickOutside(e)});
-                            document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-                            document.getElementById('forgot-password-form').addEventListener('submit', (e) => {
-                                e.preventDefault();
-                                let email = document.getElementById('email').value;
-                                fetch(`/forgot-password`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                    },
-                                    body: JSON.stringify({
-                                        email: email,
-                                    })
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                    alert('Something went wrong');
-                                })
-                                .then((res) => {
-                                    flashModal(res, '/');
-                                });
-                            });
-                        });
-                    });
-                });
-                window.activateLogin();
-            });
-        });
-    });
-}
-
-if (document.getElementById('roll') != null){
-    document.getElementById('roll').addEventListener('click', () => {
-        let rollValue = document.getElementById('roll').value;
-        fetch(`/roll/${rollValue}`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {
-                    rollValue = 0;
-                    closeModal();
-                });
-                window.activateDice();
-            })
-        });
-    });
-}
-
-if (document.getElementById('new-character') != null){
-    document.getElementById('new-character').addEventListener('click', () => {
-        fetch('/new-character', getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementById('edit-character') != null){
-    document.getElementById('edit-character').addEventListener('click', () => {
-        let characterId = document.getElementById('character-select').value;
-        fetch(`/edit-character/${characterId}`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementById('delete-character') != null){
-    document.getElementById('delete-character').addEventListener('click', () => {
-        let characterId = document.getElementById('character-select').value;
-        fetch(`/delete-character/${characterId}`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementById('new-starship') != null){
-    document.getElementById('new-starship').addEventListener('click', () => {
-        fetch('/new-starship', getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementById('edit-starship') != null){
-    document.getElementById('edit-starship').addEventListener('click', () => {
-        fetch(`/edit-starship/${starshipId}`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementById('delete-starship') != null){
-    document.getElementById('delete-starship').addEventListener('click', () => {
-        fetch(`/delete-starship/${starshipId}`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementById('crew') != null){
-    document.getElementById('crew').addEventListener('click', () => {
-        fetch(`/starship/${starshipId}/crew-manifest`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            })
-        });
-    });
-}
-
-if (document.getElementById('new-system') != null){
-    document.getElementById('new-system').addEventListener('click', () => {
-        let divisionId = document.getElementById('new-system').value;
-        fetch(`/starship/${starshipId}/division/${divisionId}/new-system`, getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            document.activeElement.blur();
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-                document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-            });
-        });
-    });
-}
-
-if (document.getElementsByClassName('edit-system') != null){
-    let editSystemButtons = document.getElementsByClassName('edit-system');
-    for (let i = 0; i < editSystemButtons.length; i++){
-        editSystemButtons[i].addEventListener('click', () => {
-            let systemId = editSystemButtons[i].value;
-            fetch(`/edit-system/${systemId}`, getSecure)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -339,34 +74,216 @@ if (document.getElementsByClassName('edit-system') != null){
             .then((res) => {
                 document.activeElement.blur();
                 res.text()
-                .then((data) => {
-                    let incomingModal = document.createElement('div');
-                    incomingModal.innerHTML = data;
-                    body.appendChild(incomingModal.firstChild);
-                    document.addEventListener('click', (e) => {clickOutside(e)});
-                    document.getElementById('close-button').addEventListener('click', () => {closeModal()});
-                });
+                    .then((data) => {
+                        let incomingModal = document.createElement('div');
+                        incomingModal.innerHTML = data;
+                        el.body.appendChild(incomingModal.firstChild);
+                        document.addEventListener('click', (e) => { clickOutside(e) });
+                        window.activateRegistration();
+                    })
             });
+    });
+}
+
+if (el.login != null) {
+    el.login.addEventListener('click', () => {
+        fetch('/login', getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => {
+                document.activeElement.blur();
+                res.text()
+                    .then((data) => {
+                        let incomingModal = document.createElement('div');
+                        incomingModal.innerHTML = data;
+                        el.body.appendChild(incomingModal.firstChild);
+                        document.addEventListener('click', (e) => { clickOutside(e) });
+                        const closeButton = el.closeButton();
+                        closeButton.addEventListener('click', () => { closeModal() });
+                        const forgotPassword = el.forgotPassword();
+                        forgotPassword.addEventListener('click', () => {
+                            closeModal();
+                            fetch('/forgot-password', getSecure)
+                                .catch((err) => {
+                                    console.log(err);
+                                    alert('Something went wrong');
+                                })
+                                .then((res) => {
+                                    res.text()
+                                        .then((data) => {
+                                            let incomingModal = document.createElement('div');
+                                            incomingModal.innerHTML = data;
+                                            el.body.appendChild(incomingModal.firstChild);
+                                            document.addEventListener('click', (e) => { clickOutside(e) });
+                                            const closeButton = el.closeButton();
+                                            closeButton.addEventListener('click', () => { closeModal() });
+                                            document.getElementById('forgot-password-form').addEventListener('submit', (e) => {
+                                                e.preventDefault();
+                                                let email = document.getElementById('email').value;
+                                                fetch(`/forgot-password`, {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                                    },
+                                                    body: JSON.stringify({
+                                                        email: email,
+                                                    })
+                                                })
+                                                    .catch((err) => {
+                                                        console.log(err);
+                                                        alert('Something went wrong');
+                                                    })
+                                                    .then((res) => {
+                                                        flashModal(res, '/');
+                                                    });
+                                            });
+                                        });
+                                });
+                        });
+                        window.activateLogin();
+                    });
+            });
+    });
+}
+
+if (el.roll != null) {
+    el.roll.addEventListener('click', () => {
+        fetch(`/roll/${el.roll.value}`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => {
+                return res.text()
+            })
+            .then((data) => {
+                let incomingModal = document.createElement('div');
+                incomingModal.innerHTML = data;
+                el.body.appendChild(incomingModal.firstChild);
+                document.addEventListener('click', (e) => { clickOutside(e) });
+                let close = el.closeButton();
+                close.addEventListener('click', () => {
+                    // rollValue = 0;
+                    closeModal();
+                });
+                window.activateDice();
+            });
+    });
+}
+
+if (el.newCharacter != null) {
+    el.newCharacter.addEventListener('click', () => {
+        fetch('/new-character', getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.editCharacter != null) {
+    el.editCharacter.addEventListener('click', () => {
+        fetch(`/edit-character/${el.characterSelect.value}`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.deleteCharacter != null) {
+    el.deleteCharacter.addEventListener('click', () => {
+        fetch(`/delete-character/${el.characterSelect.value}`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.newStarship != null) {
+    el.newStarship.addEventListener('click', () => {
+        fetch('/new-starship', getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.editStarship != null) {
+    el.editStarship.addEventListener('click', () => {
+        fetch(`/edit-starship/${starshipId}`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.deleteStarship != null) {
+    el.deleteStarship.addEventListener('click', () => {
+        fetch(`/delete-starship/${starshipId}`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.crew != null) {
+    el.crew.addEventListener('click', () => {
+        fetch(`/starship/${starshipId}/crew-manifest`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.newSystem != null) {
+    el.newSystem.addEventListener('click', () => {
+        fetch(`/starship/${starshipId}/division/${el.newSystem.value}/new-system`, getSecure)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+    });
+}
+
+if (el.editSystemButtons != null) {
+    for (let i = 0; i < el.editSystemButtons.length; i++) {
+        el.editSystemButtons[i].addEventListener('click', () => {
+            let systemId = el.editSystemButtons[i].value;
+            fetch(`/edit-system/${systemId}`, getSecure)
+                .catch((err) => {
+                    console.log(err);
+                    alert('Something went wrong');
+                })
+                .then((res) => popModal(res));
         });
     }
 }
 
-if (document.getElementById('welcome-logo') != null){
-    document.getElementById('welcome-logo').addEventListener('click', () => {
+if (el.welcomeLogo != null) {
+    el.welcomeLogo.addEventListener('click', () => {
         fetch('/orientation', getSecure)
-        .catch((err) => {
-            console.log(err);
-            alert('Something went wrong');
-        })
-        .then((res) => {
-            res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => {clickOutside(e)});
-            });
-        });
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
     });
 }
 

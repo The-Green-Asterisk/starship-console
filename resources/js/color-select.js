@@ -1,14 +1,7 @@
+import * as el from './elements.js';
 import { getSecure } from './app.js';
 import { flashModal } from './modal.js';
 
-const root = document.querySelector(':root');
-const selectPurple = document.querySelector('#select-purple');
-const selectRed = document.querySelector('#select-red');
-const selectPink = document.querySelector('#select-pink');
-const selectBlue = document.querySelector('#select-blue');
-const selectAqua = document.querySelector('#select-aqua');
-const selectGreen = document.querySelector('#select-green');
-const selectCustom = document.querySelector('#select-custom');
 const hexCode = new RegExp('^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
 
 
@@ -17,67 +10,67 @@ fetch('/get-ui-color/', getSecure)
         if (res.ok) {
             res.text().then(hex => {
                 if (hexCode.test(hex)) {
-                    root.style.setProperty('--ui-color', `#${hex}`);
-                }else if (hex == null) {
-                    root.style.setProperty('--ui-color', '#4caf50');
-                }else{
-                    root.style.setProperty('--ui-color', hex);
+                    el.root.style.setProperty('--ui-color', `#${hex}`);
+                } else if (hex == null) {
+                    el.root.style.setProperty('--ui-color', '#4caf50');
+                } else {
+                    el.root.style.setProperty('--ui-color', hex);
                 }
             });
         }
     });
 
-if (selectPurple !== null) {
-    selectPurple.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', '#ec42f5');
+if (el.selectPurple !== null) {
+    el.selectPurple.addEventListener('click', () => {
+        el.root.style.setProperty('--ui-color', '#ec42f5');
         fetch('/set-ui-color/purple/', getSecure).then((res) => flashModal(res));
     });
 }
 
-if (selectRed !== null) {
-    selectRed.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', 'red');
+if (el.selectRed !== null) {
+    el.selectRed.addEventListener('click', () => {
+        el.root.style.setProperty('--ui-color', 'red');
         fetch('/set-ui-color/red/', getSecure).then((res) => flashModal(res));
     });
 }
-if (selectPink !== null) {
-    selectPink.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', '#fc68a1');
+if (el.selectPink !== null) {
+    el.selectPink.addEventListener('click', () => {
+        el.root.style.setProperty('--ui-color', '#fc68a1');
         fetch('/set-ui-color/fc68a1/', getSecure).then((res) => flashModal(res));
     });
 }
 
-if (selectBlue !== null) {
-    selectBlue.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', 'blue');
+if (el.selectBlue !== null) {
+    el.selectBlue.addEventListener('click', () => {
+        el.root.style.setProperty('--ui-color', 'blue');
         fetch('/set-ui-color/blue/', getSecure).then((res) => flashModal(res));
     });
 }
 
-if (selectAqua !== null) {
-    selectAqua.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', 'aqua');
+if (el.selectAqua !== null) {
+    el.selectAqua.addEventListener('click', () => {
+        el.root.style.setProperty('--ui-color', 'aqua');
         fetch('/set-ui-color/aqua/', getSecure).then((res) => flashModal(res));
     });
 }
 
-if (selectGreen !== null) {
-    selectGreen.addEventListener('click', () => {
-        root.style.setProperty('--ui-color', '#4caf50');
+if (el.selectGreen !== null) {
+    el.selectGreen.addEventListener('click', () => {
+        el.root.style.setProperty('--ui-color', '#4caf50');
         fetch('/set-ui-color/4caf50/', getSecure).then((res) => flashModal(res));
     });
 }
 
-if (selectCustom !== null) {
+if (el.selectCustom !== null) {
     let handleColors = () => {
         let hexValue = selectCustom.value.replace('#', '');
         if (hexValue.length < 3) hexValue = '4caf50';
         if (hexCode.test(hexValue)) {
-            root.style.setProperty('--ui-color', '#' + hexValue);
+            el.root.style.setProperty('--ui-color', '#' + hexValue);
             fetch(`/set-ui-color/${hexValue}/`, getSecure);
         }
     };
-    selectCustom.addEventListener('keyup', ()=> {setTimeout(handleColors);});
-    selectCustom.addEventListener('change', ()=> {setTimeout(handleColors);});
-    selectCustom.addEventListener('paste', ()=> {setTimeout(handleColors);});
+    el.selectCustom.addEventListener('keyup', () => { setTimeout(handleColors); });
+    el.selectCustom.addEventListener('change', () => { setTimeout(handleColors); });
+    el.selectCustom.addEventListener('paste', () => { setTimeout(handleColors); });
 }

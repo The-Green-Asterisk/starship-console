@@ -3,20 +3,21 @@ import { getSecure } from "./app";
 
 const notifButton = document.getElementById('notif-button');
 const indicator = document.getElementById('indicator');
-const checkIndicator = () => {
+export const checkIndicator = () => {
     if (indicator == null) return;
     fetch(`/get-notifications-raw`, getSecure)
         .then(res => {
             res.json()
-            .then(notifications => {
-                let unread = false;
-                unread = notifications.some(n => n.read == false);
-                unread
-                    ? indicator.style.display = 'block'
-                    : indicator.style.display = 'none';
-            })
+                .then(notifications => {
+                    let unread = false;
+                    unread = notifications.some(n => n.read == false);
+                    unread
+                        ? indicator.style.display = 'block'
+                        : indicator.style.display = 'none';
+                })
         });
 };
+checkIndicator();
 
 notifButton ? notifButton.addEventListener('click', () => {
     let notifDrawer = document.getElementById('notif-drawer');
@@ -25,7 +26,7 @@ notifButton ? notifButton.addEventListener('click', () => {
     } else {
         notifDrawer.remove();
     }
-}): null;
+}) : null;
 body.addEventListener('click', (e) => {
     let notifDrawer = document.getElementById('notif-drawer');
     if (notifDrawer != null && !notifDrawer.contains(e.target)) notifDrawer.remove();
@@ -35,14 +36,14 @@ const fetchNotifications = (viewArchive) => {
     fetch(`/get-notifications/${viewArchive ? 1 : 0}`, getSecure)
         .then(async res => {
             res.text()
-            .then(notifications => {
-                let incoming = document.createElement('div')
-                incoming.innerHTML = notifications;
-                notifButton.after(incoming.firstChild);
-                if (!viewArchive) {
-                    document.getElementById('view-archive').addEventListener('click', getArchive);
-                }
-            });
+                .then(notifications => {
+                    let incoming = document.createElement('div')
+                    incoming.innerHTML = notifications;
+                    notifButton.after(incoming.firstChild);
+                    if (!viewArchive) {
+                        document.getElementById('view-archive').addEventListener('click', getArchive);
+                    }
+                });
         });
 }
 
@@ -55,7 +56,7 @@ const getArchive = () => {
 window.read = async (id) => {
     let read;
     let archived;
-    await fetch(`/read-notification/${id}`).then(res => res.json().then(r => {read = r.read, archived = r.archived}));
+    await fetch(`/read-notification/${id}`).then(res => res.json().then(r => { read = r.read, archived = r.archived }));
     let notification = document.getElementById(`notification-${id}`);
     let readButton = document.getElementById(`read-button-${id}`);
     notification.className = read ? archived ? 'read archived' : 'read' : archived ? 'archived notification' : 'notification';
@@ -66,17 +67,17 @@ window.markAllAsRead = () => {
     fetch(`/get-notifications-raw`, getSecure)
         .then(res => {
             res.json()
-            .then(notifications => {
-                notifications.forEach(notification => {
-                    if (!notification.read) window.read(notification.id);
+                .then(notifications => {
+                    notifications.forEach(notification => {
+                        if (!notification.read) window.read(notification.id);
+                    });
                 });
-            });
         });
 };
 window.archive = async (id, viewArchive) => {
     let read;
     let archived;
-    await fetch(`/archive-notification/${id}`).then(res => res.json().then(a => {archived = a.archived, read = a.read}));
+    await fetch(`/archive-notification/${id}`).then(res => res.json().then(a => { archived = a.archived, read = a.read }));
     let notificationBox = document.getElementById(`notification-div-${id}`);
     let notification = document.getElementById(`notification-${id}`);
     let archiveButton = document.getElementById(`archive-button-${id}`);
@@ -88,5 +89,3 @@ window.archive = async (id, viewArchive) => {
     }
     checkIndicator();
 };
-
-export { checkIndicator };

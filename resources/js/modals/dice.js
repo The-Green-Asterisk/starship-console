@@ -1,3 +1,4 @@
+import * as el from '../elements.js';
 import { d, getSecure } from '../app.js';
 
 window.activateDice = () => {
@@ -78,13 +79,13 @@ window.activateDice = () => {
     roll.addEventListener('click', () => {
         for (let i = 0; i < diceArray.length; i++)
             result.innerText += '\u00a0[' + diceArray[i] + '] +';
-        if (mod.value == 0){
+        if (mod.value == 0) {
             let sliced = result.innerText.slice(0, -1);
             result.innerText = sliced + ' =\u00a0';
-        }else if (mod.value < 0){
+        } else if (mod.value < 0) {
             let sliced = result.innerText.slice(0, -1);
             result.innerText = sliced + mod.value + ' =\u00a0';
-        }else{
+        } else {
             result.innerText += Number(mod.value) + ' =\u00a0';
         }
         result.innerText += diceResult + Number(mod.value);
@@ -100,19 +101,20 @@ window.activateDice = () => {
     var damageStarship = (starshipId, damage) => {
         if (damage != 0 && damage != null) {
             fetch(`/starship/${starshipId}/damage/${damage}`, getSecure)
-            .then((res) => {
-                if (!res.ok) {
-                    alert('Something went wrong');
-                    console.log(res.text());
-                }
-            });
+                .then((res) => {
+                    if (!res.ok) {
+                        alert('Something went wrong');
+                        console.log(res.text());
+                    }
+                });
         }
     };
     if (fireButton != null) {
         fireButton.addEventListener('click', () => {
-            let starshipId = fireButton.value
-            damageStarship(starshipId, rollValue)
-            body.removeChild(modal);
+            let starshipId = fireButton.value;
+            damageStarship(starshipId, rollValue);
+            let modal = el.modal();
+            el.body.removeChild(modal);
         });
     }
 }
