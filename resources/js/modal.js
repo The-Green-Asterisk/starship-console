@@ -1,5 +1,5 @@
 import * as el from "./elements";
-import { getSecure, starshipId } from "./app";
+import { starshipId } from "./app";
 
 const closeModal = () => {
     let modal = el.modal();
@@ -25,14 +25,14 @@ const flashModal = (res, goToAfter) => {
             modal.innerHTML = data;
             el.body.appendChild(modal.firstChild);
             setTimeout(() => {
-                modal.remove();
+                closeModal();
                 if (goToAfter) window.location.href = goToAfter;
             }, 3000);
         });
 }
 
 window.success = (message) => {
-    fetch(`/success/${message}`, getSecure)
+    fetch(`/success/${message}`)
         .catch((err) => {
             console.log(err);
             alert('Something went wrong');
@@ -66,7 +66,7 @@ function popModal(res) {
 
 if (el.register != null) {
     el.register.addEventListener('click', () => {
-        fetch('/register', getSecure)
+        fetch('/register')
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -87,7 +87,7 @@ if (el.register != null) {
 
 if (el.login != null) {
     el.login.addEventListener('click', () => {
-        fetch('/login', getSecure)
+        fetch('/login')
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -105,7 +105,7 @@ if (el.login != null) {
                         const forgotPassword = el.forgotPassword();
                         forgotPassword.addEventListener('click', () => {
                             closeModal();
-                            fetch('/forgot-password', getSecure)
+                            fetch('/forgot-password')
                                 .catch((err) => {
                                     console.log(err);
                                     alert('Something went wrong');
@@ -124,10 +124,7 @@ if (el.login != null) {
                                                 let email = document.getElementById('email').value;
                                                 fetch(`/forgot-password`, {
                                                     method: 'POST',
-                                                    headers: {
-                                                        'Content-Type': 'application/json',
-                                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                                    },
+                                                    headers: { 'Content-Type': 'application/json' },
                                                     body: JSON.stringify({
                                                         email: email,
                                                     })
@@ -151,7 +148,7 @@ if (el.login != null) {
 
 if (el.roll != null) {
     el.roll.addEventListener('click', () => {
-        fetch(`/roll/${el.roll.value}`, getSecure)
+        fetch(`/roll/${el.roll.value}`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -176,7 +173,7 @@ if (el.roll != null) {
 
 if (el.newCharacter != null) {
     el.newCharacter.addEventListener('click', () => {
-        fetch('/new-character', getSecure)
+        fetch('/new-character')
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -187,7 +184,7 @@ if (el.newCharacter != null) {
 
 if (el.editCharacter != null) {
     el.editCharacter.addEventListener('click', () => {
-        fetch(`/edit-character/${el.characterSelect.value}`, getSecure)
+        fetch(`/edit-character/${el.characterSelect.value}`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -198,7 +195,7 @@ if (el.editCharacter != null) {
 
 if (el.deleteCharacter != null) {
     el.deleteCharacter.addEventListener('click', () => {
-        fetch(`/delete-character/${el.characterSelect.value}`, getSecure)
+        fetch(`/delete-character/${el.characterSelect.value}`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -209,7 +206,7 @@ if (el.deleteCharacter != null) {
 
 if (el.newStarship != null) {
     el.newStarship.addEventListener('click', () => {
-        fetch('/new-starship', getSecure)
+        fetch('/new-starship')
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -220,7 +217,7 @@ if (el.newStarship != null) {
 
 if (el.editStarship != null) {
     el.editStarship.addEventListener('click', () => {
-        fetch(`/edit-starship/${starshipId}`, getSecure)
+        fetch(`/edit-starship/${starshipId}`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -231,7 +228,7 @@ if (el.editStarship != null) {
 
 if (el.deleteStarship != null) {
     el.deleteStarship.addEventListener('click', () => {
-        fetch(`/delete-starship/${starshipId}`, getSecure)
+        fetch(`/delete-starship/${starshipId}`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -242,7 +239,7 @@ if (el.deleteStarship != null) {
 
 if (el.crew != null) {
     el.crew.addEventListener('click', () => {
-        fetch(`/starship/${starshipId}/crew-manifest`, getSecure)
+        fetch(`/starship/${starshipId}/crew-manifest`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -253,7 +250,7 @@ if (el.crew != null) {
 
 if (el.newSystem != null) {
     el.newSystem.addEventListener('click', () => {
-        fetch(`/starship/${starshipId}/division/${el.newSystem.value}/new-system`, getSecure)
+        fetch(`/starship/${starshipId}/division/${el.newSystem.value}/new-system`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
@@ -266,7 +263,7 @@ if (el.editSystemButtons != null) {
     for (let i = 0; i < el.editSystemButtons.length; i++) {
         el.editSystemButtons[i].addEventListener('click', () => {
             let systemId = el.editSystemButtons[i].value;
-            fetch(`/edit-system/${systemId}`, getSecure)
+            fetch(`/edit-system/${systemId}`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
@@ -278,7 +275,7 @@ if (el.editSystemButtons != null) {
 
 if (el.welcomeLogo != null) {
     el.welcomeLogo.addEventListener('click', () => {
-        fetch('/orientation', getSecure)
+        fetch('/orientation')
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');

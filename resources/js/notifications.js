@@ -1,11 +1,10 @@
 import "./app";
-import { getSecure } from "./app";
 
 const notifButton = document.getElementById('notif-button');
 const indicator = document.getElementById('indicator');
 export const checkIndicator = () => {
     if (indicator == null) return;
-    fetch(`/get-notifications-raw`, getSecure)
+    fetch(`/get-notifications-raw`)
         .then(res => {
             res.json()
                 .then(notifications => {
@@ -33,7 +32,7 @@ body.addEventListener('click', (e) => {
 });
 
 const fetchNotifications = (viewArchive) => {
-    fetch(`/get-notifications/${viewArchive ? 1 : 0}`, getSecure)
+    fetch(`/get-notifications/${viewArchive ? 1 : 0}`)
         .then(async res => {
             res.text()
                 .then(notifications => {
@@ -64,7 +63,7 @@ window.read = async (id) => {
     checkIndicator();
 };
 window.markAllAsRead = () => {
-    fetch(`/get-notifications-raw`, getSecure)
+    fetch(`/get-notifications-raw`)
         .then(res => {
             res.json()
                 .then(notifications => {

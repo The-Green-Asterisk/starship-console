@@ -5,18 +5,17 @@ import { checkIndicator } from './notifications';
 const starshipId = (el.starshipId ? el.starshipId.value : null);
 const userId = (el.userId ? el.userId.value : null);
 const d = (n) => { return Math.floor(Math.random() * n) + 1 };
-const getSecure = {
-    method: 'GET',
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
+const { fetch: originalFetch } = window;
+window.fetch = async (url, options = {}) => {
+    el.loader.style.display = 'flex';
+    options.headers
+        ? options.headers = { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
+        : options = { headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } };
+    const response = await originalFetch(url, options);
+    el.loader.style.display = 'none';
+    return response;
 };
-const postSecure = {
-    method: 'POST',
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-};
+
 
 if (userId != null) {
     Echo.private(`App.Models.User.${userId}`)
@@ -44,6 +43,12 @@ if (starshipId != null) {
             handleDamage(data.data);
         });
 }
+
+window.onload = () => {
+    setTimeout(() => {
+        el.loader.style.display = 'none';
+    });
+};
 
 window.onbeforeunload = () => {
     el.body.className = 'fadeout';
@@ -79,9 +84,10 @@ var handleDamage = (e) => {
 
 if (el.reset != null) {
     el.reset.addEventListener('click', () => {
-        fetch(`/starship/${starshipId}/reset-damage`, getSecure)
-        fetch(`/notify`);
+        // startLoad();
+        fetch(`/starship/${starshipId}/reset-damage`, getSecure).then(endLoad);
+        // fetch(`/notify`);
     });
 };
 
-export { getSecure, postSecure, d, starshipId };
+export { d, starshipId };

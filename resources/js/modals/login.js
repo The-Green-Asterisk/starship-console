@@ -4,29 +4,26 @@ window.activateLogin = () => {
 
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        fetch('/login',{
+        fetch('/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
                 remember_me: document.getElementById('remember-me').checked
             })
         })
-        .then((err) => {
-            err.json()
-            .then((data) => {
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                }
-                if (data.error) {
-                document.querySelector('#errors').innerHTML += `<p class="error">${data.error}</p>`;
-                }
+            .then((err) => {
+                err.json()
+                    .then((data) => {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                        if (data.error) {
+                            document.querySelector('#errors').innerHTML += `<p class="error">${data.error}</p>`;
+                        }
+                    });
             });
-        });
     });
 
     seePass.addEventListener('click', () => {

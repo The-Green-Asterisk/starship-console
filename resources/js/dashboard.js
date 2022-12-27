@@ -1,5 +1,4 @@
 import * as el from './elements';
-import { getSecure } from "./app";
 import { flashModal } from "./modal";
 
 if (el.characterSelect != null) {
@@ -24,14 +23,14 @@ if (el.divisionCheckboxes != null) {
             let characterId = el.divisionCheckboxes[i].querySelector('#division-character-id').value;
             let divisionId = el.divisionCheckboxes[i].querySelector('input').value;
             let url = `/character/${characterId}/division-select/${divisionId}`;
-            fetch(url, getSecure);
+            fetch(url);
         });
     }
 }
 
 if (el.dmMode != null) {
     el.dmMode.addEventListener('change', () => {
-        fetch('/dm-mode', getSecure)
+        fetch('/dm-mode')
             .then((res) => {
                 flashModal(res, '/dashboard');
             });
@@ -47,7 +46,7 @@ if (el.characterImage != null) {
 if (el.emailInvite != null) {
     el.emailInvite.addEventListener('blur', (e) => {
         if (el.emailInvite.value.length > 0) {
-            fetch(`/starship/add-user/${el.emailInvite.value}/${el.starshipSelect.value}`, getSecure)
+            fetch(`/starship/add-user/${el.emailInvite.value}/${el.starshipSelect.value}`)
                 .then(res => res.json()
                     .then(data => {
                         window.success(data.message);

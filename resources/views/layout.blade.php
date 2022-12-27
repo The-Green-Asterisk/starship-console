@@ -13,6 +13,9 @@
 </head>
 
 <body id="body" class="fadein">
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
     @yield('content')
     <script src="https://js.pusher.com/7.0.3/pusher.min.js"></script>
     <script src="{{ url('/js/app.js') }}"></script>

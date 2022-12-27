@@ -4,7 +4,6 @@
 @import url("manifest.css");
 @import url("color-select.css");
 
-
 :root {
     --sm-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
@@ -34,15 +33,43 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    padding: .5em;
+    padding: 0.5em;
 }
-.password, .remember-me {
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader .spinner {
+    width: 5rem;
+    height: 5rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--ui-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.password,
+.remember-me {
     width: 100%;
     display: flex;
     color: var(--ui-color);
     align-items: center;
 }
-.password input, .remember-me label {
+.password input,
+.remember-me label {
     height: auto;
     flex-grow: 1;
     text-align: left;
@@ -52,7 +79,7 @@ body {
     flex-basis: 1em;
     margin: 0 1em;
 }
-.password svg{
+.password svg {
     margin-right: 1em;
     width: 2rem;
     height: 2rem;
@@ -67,14 +94,14 @@ svg {
     cursor: pointer;
 }
 svg:hover {
-    transition:none;
+    transition: none;
     filter: brightness(1.75) drop-shadow(1px 1px 5px var(--ui-color));
     transform: scale(1.15);
 }
 svg:active {
-    transition:none;
+    transition: none;
     filter: brightness(1.5) drop-shadow(1px 1px 5px var(--ui-color));
-    transform: scale(.9);
+    transform: scale(0.9);
 }
 
 .fadein {
@@ -90,11 +117,11 @@ svg:active {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform:scale(0.9);
+        transform: scale(0.9);
     }
     to {
         opacity: 1;
-        transform:scale(1);
+        transform: scale(1);
     }
 }
 .fadeout {
@@ -142,7 +169,7 @@ svg:active {
 }
 .shake {
     animation-name: shake;
-    animation-duration: .7s;
+    animation-duration: 0.7s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
     animation-direction: alternate;
@@ -150,10 +177,10 @@ svg:active {
 
 @keyframes danger {
     from {
-        filter:opacity(70%);
+        filter: opacity(70%);
     }
     to {
-        filter:opacity(100%);
+        filter: opacity(100%);
     }
 }
 
@@ -162,7 +189,6 @@ svg:active {
     width: 7em;
     margin-top: 1.5em;
 }
-
 
 a {
     color: aliceblue;
@@ -212,17 +238,19 @@ a:hover {
     transform: translateY(-100%);
 }
 
-.button-wrap{
+.button-wrap {
     display: flex;
     flex-wrap: nowrap;
 }
 
-.btn.bottom, button.bottom {
+.btn.bottom,
+button.bottom {
     margin-bottom: 0;
 }
-button, .btn {
+button,
+.btn {
     font: 1em var(--ui-font);
-    border:2px solid var(--ui-color);
+    border: 2px solid var(--ui-color);
     border-radius: 5px;
     color: var(--ui-color);
     background: transparent;
@@ -232,7 +260,7 @@ button, .btn {
     cursor: pointer;
     appearance: button;
     -webkit-appearance: button;
-	-moz-appearance: button;
+    -moz-appearance: button;
     box-sizing: border-box;
     line-height: 12.9px;
     transition: none;
@@ -248,7 +276,8 @@ button:hover path:hover {
 .spacer {
     width: 100%;
 }
-button:hover, .btn:hover {
+button:hover,
+.btn:hover {
     background: var(--ui-color);
     color: aliceblue;
     text-decoration: none;
@@ -269,17 +298,17 @@ button:hover, .btn:hover {
 
 .detail-wrapper {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
 div.sections {
     max-width: 1300px;
-    margin: .5em auto;
+    margin: 0.5em auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    border:2px solid var(--ui-color);
+    border: 2px solid var(--ui-color);
     border-radius: 7px;
     padding: 1em 2em;
 }
@@ -297,7 +326,7 @@ progress {
     width: 100%;
     height: 10px;
     border-radius: 5px;
-    border:#0000009c 1px solid;
+    border: #0000009c 1px solid;
     filter: drop-shadow(1px 1px 1px var(--ui-color));
 }
 progress::-webkit-progress-bar {
@@ -316,7 +345,7 @@ progress::-webkit-progress-value {
     animation: danger 1s infinite;
 }
 .danger progress::-webkit-progress-bar {
-    background-color:#ac5b5b;
+    background-color: #ac5b5b;
     animation: danger 1s infinite;
 }
 .danger progress {
@@ -324,11 +353,14 @@ progress::-webkit-progress-value {
     animation: danger 1s infinite;
 }
 
-input, select, option, textarea {
+input,
+select,
+option,
+textarea {
     font: var(--ui-font);
     color: var(--ui-color);
     background-color: #010513;
-    border:2px solid var(--ui-color);
+    border: 2px solid var(--ui-color);
     border-radius: 5px;
     width: calc(100% - 3em);
     margin: 2em 1em;
@@ -336,12 +368,12 @@ input, select, option, textarea {
 
 p.error {
     color: red;
-    font-size: .8em;
+    font-size: 0.8em;
     margin: 0;
     padding: 0;
 }
 
-.select-div{
+.select-div {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -351,7 +383,7 @@ p.error {
     padding: 0;
     list-style: none;
 }
-.select-div select{
+.select-div select {
     width: 100%;
 }
 
@@ -388,19 +420,19 @@ p.error {
     -ms-user-select: none;
     user-select: none;
     white-space: nowrap;
-  }
+}
 
-  /* Hide the browser's default checkbox */
-  .checkbox-label input {
+/* Hide the browser's default checkbox */
+.checkbox-label input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
-  }
+}
 
-  /* Create a custom checkbox */
-  .checkbox-label span {
+/* Create a custom checkbox */
+.checkbox-label span {
     position: absolute;
     top: 0;
     left: 0;
@@ -408,33 +440,33 @@ p.error {
     width: 25px;
     background-color: #010513;
     border-radius: 5px;
-    border: 2px solid var(--ui-color)
-  }
+    border: 2px solid var(--ui-color);
+}
 
-  /* On mouse-over, add a grey background color */
-  .checkbox-label:hover input ~ span {
+/* On mouse-over, add a grey background color */
+.checkbox-label:hover input ~ span {
     background-color: rgb(44, 44, 44);
-  }
+}
 
-  /* When the checkbox is checked, add a blue background */
-  .checkbox-label input:checked ~ span {
+/* When the checkbox is checked, add a blue background */
+.checkbox-label input:checked ~ span {
     background-color: var(--ui-color);
-  }
+}
 
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkbox-label > span:after {
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-label > span:after {
     content: "";
     position: absolute;
     display: none;
-  }
+}
 
-  /* Show the checkmark when checked */
-  .checkbox-label input:checked ~ span:after {
+/* Show the checkmark when checked */
+.checkbox-label input:checked ~ span:after {
     display: block;
-  }
+}
 
-  /* Style the checkmark/indicator */
-  .checkbox-label span:after {
+/* Style the checkmark/indicator */
+.checkbox-label span:after {
     left: 9px;
     top: 5px;
     width: 5px;
@@ -444,7 +476,7 @@ p.error {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-  }
+}
 
 .systems {
     display: flex;
@@ -502,10 +534,10 @@ input.character-image {
     position: relative;
     width: 25px;
     height: 25px;
-    margin: auto .5em;
+    margin: auto 0.5em;
 }
 .notifications svg {
-    position:absolute;
+    position: absolute;
     width: 25px;
     height: 25px;
     color: var(--ui-color);
@@ -523,12 +555,12 @@ input.character-image {
     width: 250px;
     max-height: 400px;
     overflow: scroll;
-    padding: .5em;
+    padding: 0.5em;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     border: 2px solid var(--ui-color);
     z-index: 20;
-    /* display: none; */
+    overflow: auto;
     animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -580,7 +612,6 @@ hr {
     border-color: var(--ui-color);
 }
 
-
 @media screen and (max-width: 600px) {
     .buttons {
         justify-content: space-between;
@@ -595,7 +626,8 @@ hr {
     .buttons {
         flex-wrap: wrap;
     }
-    button, .btn {
+    button,
+    .btn {
         margin: 2px;
     }
     .buttons .logo {

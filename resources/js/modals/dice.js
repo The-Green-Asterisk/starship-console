@@ -1,5 +1,5 @@
 import * as el from '../elements.js';
-import { d, getSecure } from '../app.js';
+import { d } from '../app.js';
 
 window.activateDice = () => {
     const d4 = document.querySelector('#d4');
@@ -100,7 +100,7 @@ window.activateDice = () => {
 
     var damageStarship = (starshipId, damage) => {
         if (damage != 0 && damage != null) {
-            fetch(`/starship/${starshipId}/damage/${damage}`, getSecure)
+            fetch(`/starship/${starshipId}/damage/${damage}`)
                 .then((res) => {
                     if (!res.ok) {
                         alert('Something went wrong');

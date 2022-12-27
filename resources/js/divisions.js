@@ -1,12 +1,12 @@
 import * as el from './elements.js';
-import { getSecure, d } from "./app";
+import { d } from "./app";
 import { clickOutside, closeModal } from "./modal";
 
 if (el.quickFix != null) {
     for (let i = 0; i < el.quickFix.length; i++) {
         let button = el.quickFix[i]
         button.addEventListener('click', function () {
-            fetch(`/system/${button.value}/repair/${d(4)}/d4`, getSecure)
+            fetch(`/system/${button.value}/repair/${d(4)}/d4`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
@@ -19,7 +19,7 @@ if (el.focusedRepairs != null) {
     for (let i = 0; i < el.focusedRepairs.length; i++) {
         let button = el.focusedRepairs[i]
         button.addEventListener('click', function () {
-            fetch(`/system/${button.value}/repair/${d(8)}/d8`, getSecure)
+            fetch(`/system/${button.value}/repair/${d(8)}/d8`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
@@ -32,7 +32,7 @@ if (el.deleteSystemButtons != null) {
     for (const dButton of el.deleteSystemButtons) {
         dButton.addEventListener('click', () => {
             let systemId = dButton.value;
-            fetch(`/delete-system/${systemId}`, getSecure)
+            fetch(`/delete-system/${systemId}`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');

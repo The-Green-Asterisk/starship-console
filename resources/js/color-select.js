@@ -1,11 +1,10 @@
 import * as el from './elements.js';
-import { getSecure } from './app.js';
 import { flashModal } from './modal.js';
 
 const hexCode = new RegExp('^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
 
 
-fetch('/get-ui-color/', getSecure)
+fetch('/get-ui-color/')
     .then(res => {
         if (res.ok) {
             res.text().then(hex => {
@@ -23,41 +22,41 @@ fetch('/get-ui-color/', getSecure)
 if (el.selectPurple !== null) {
     el.selectPurple.addEventListener('click', () => {
         el.root.style.setProperty('--ui-color', '#ec42f5');
-        fetch('/set-ui-color/purple/', getSecure).then((res) => flashModal(res));
+        fetch('/set-ui-color/purple/').then((res) => flashModal(res));
     });
 }
 
 if (el.selectRed !== null) {
     el.selectRed.addEventListener('click', () => {
         el.root.style.setProperty('--ui-color', 'red');
-        fetch('/set-ui-color/red/', getSecure).then((res) => flashModal(res));
+        fetch('/set-ui-color/red/').then((res) => flashModal(res));
     });
 }
 if (el.selectPink !== null) {
     el.selectPink.addEventListener('click', () => {
         el.root.style.setProperty('--ui-color', '#fc68a1');
-        fetch('/set-ui-color/fc68a1/', getSecure).then((res) => flashModal(res));
+        fetch('/set-ui-color/fc68a1/').then((res) => flashModal(res));
     });
 }
 
 if (el.selectBlue !== null) {
     el.selectBlue.addEventListener('click', () => {
         el.root.style.setProperty('--ui-color', 'blue');
-        fetch('/set-ui-color/blue/', getSecure).then((res) => flashModal(res));
+        fetch('/set-ui-color/blue/').then((res) => flashModal(res));
     });
 }
 
 if (el.selectAqua !== null) {
     el.selectAqua.addEventListener('click', () => {
         el.root.style.setProperty('--ui-color', 'aqua');
-        fetch('/set-ui-color/aqua/', getSecure).then((res) => flashModal(res));
+        fetch('/set-ui-color/aqua/').then((res) => flashModal(res));
     });
 }
 
 if (el.selectGreen !== null) {
     el.selectGreen.addEventListener('click', () => {
         el.root.style.setProperty('--ui-color', '#4caf50');
-        fetch('/set-ui-color/4caf50/', getSecure).then((res) => flashModal(res));
+        fetch('/set-ui-color/4caf50/').then((res) => flashModal(res));
     });
 }
 
@@ -67,7 +66,7 @@ if (el.selectCustom !== null) {
         if (hexValue.length < 3) hexValue = '4caf50';
         if (hexCode.test(hexValue)) {
             el.root.style.setProperty('--ui-color', '#' + hexValue);
-            fetch(`/set-ui-color/${hexValue}/`, getSecure);
+            fetch(`/set-ui-color/${hexValue}/`);
         }
     };
     el.selectCustom.addEventListener('keyup', () => { setTimeout(handleColors); });

@@ -1,4 +1,5 @@
 export const body = document.getElementById('body');
+export const loader = document.getElementById('loader');
 export const starshipId = document.getElementById('starship-id');
 export const userId = document.getElementById('user-id');
 
@@ -17,7 +18,7 @@ export const selectCustom = document.querySelector('#select-custom');
 //dashboard
 export const characterSelect = document.getElementById('character-select');
 export const starshipSelect = document.getElementById('starship-select');
-export const divisionCheckboxes = document.querySelectorAll('.division-checkbox');
+export const divisionCheckboxes = document.getElementsByClassName('division-checkboxes');
 export const dmMode = document.getElementById('dm-mode');
 export const characterImage = document.getElementById('character-image');
 export const emailInvite = document.getElementById('email-invite');
