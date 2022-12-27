@@ -2,9 +2,9 @@ require('./bootstrap');
 import * as el from './elements';
 import { checkIndicator } from './notifications';
 
-const starshipId = (el.starshipId ? el.starshipId.value : null);
-const userId = (el.userId ? el.userId.value : null);
-const d = (n) => { return Math.floor(Math.random() * n) + 1 };
+export const starshipId = (el.starshipId ? el.starshipId.value : null);
+export const userId = (el.userId ? el.userId.value : null);
+export const d = (n) => { return Math.floor(Math.random() * n) + 1 };
 const { fetch: originalFetch } = window;
 window.fetch = async (url, options = {}) => {
     el.loader.style.display = 'flex';
@@ -84,10 +84,6 @@ var handleDamage = (e) => {
 
 if (el.reset != null) {
     el.reset.addEventListener('click', () => {
-        // startLoad();
         fetch(`/starship/${starshipId}/reset-damage`, getSecure).then(endLoad);
-        // fetch(`/notify`);
     });
 };
-
-export { d, starshipId };
