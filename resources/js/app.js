@@ -84,6 +84,6 @@ var handleDamage = (e) => {
 
 if (el.reset != null) {
     el.reset.addEventListener('click', () => {
-        fetch(`/starship/${starshipId}/reset-damage`, getSecure).then(endLoad);
+        fetch(`/starship/${starshipId}/reset-damage`, getSecure);
     });
 };
