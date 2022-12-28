@@ -23,13 +23,13 @@ class SessionsController extends Controller
 
         if ($validator->fails()) {
             return response()->json($validator->getMessageBag(), 200);
-        }else{
+        } else {
             if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']], $data['remember_me'])) {
                 session()->regenerate();
                 return response()->json([
-                    'redirect'=> 'starship/' . auth()->user()->characters->where('is_active')->first()->starship->id
+                    'redirect' => 'starship/' . auth()->user()->characters->where('is_active')->first()->starship->id
                 ]);
-            }else{
+            } else {
                 return response()->json(['error' => 'Invalid credentials'], 200);
             }
         }
@@ -52,14 +52,14 @@ class SessionsController extends Controller
 
         if ($validator->fails()) {
             return response()->json($validator->getMessageBag(), 200);
-        }else{
+        } else {
             $status = Password::sendResetLink(
                 $request->only('email')
             );
 
             return $status === Password::RESET_LINK_SENT
-                        ? back()->with(['status' => __($status)])
-                        : back()->withErrors(['email' => __($status)]);
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
         }
     }
 
@@ -80,7 +80,7 @@ class SessionsController extends Controller
 
         if ($validator->fails()) {
             return response()->json($validator->getMessageBag(), 200);
-        }else{
+        } else {
             User::where('email', $request->email)->setPasswordAttribute($request->password);
         }
 

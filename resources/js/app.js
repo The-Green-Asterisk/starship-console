@@ -9,7 +9,7 @@ const { fetch: originalFetch } = window;
 window.fetch = async (url, options = {}) => {
     el.loader.style.display = 'flex';
     options.headers
-        ? options.headers = { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
+        ? options.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         : options = { headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } };
     const response = await originalFetch(url, options);
     el.loader.style.display = 'none';
