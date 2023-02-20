@@ -7,7 +7,8 @@
     @include('components.nav-buttons')
     <div class="dash sections">
         <label for="dm-mode" class="checkbox-label" style="width: fit-content">
-            <input type="checkbox" id="dm-mode" name="dm-mode" class="dm-mode" @if (auth()->user()->is_dm) checked @endif>
+            <input type="checkbox" id="dm-mode" name="dm-mode" class="dm-mode"
+                @if (auth()->user()->is_dm) checked @endif>
             <span></span>
             DM Mode
         </label>
@@ -16,10 +17,12 @@
         <div class="select-div">
             <select id="starship-select">
                 @if ($starships->count() <= 0)
-                    <option value="" disabled selected>No starships available. Click the plus button to add one.</option>
+                    <option value="" disabled selected>No starships available. Click the plus button to add one.
+                    </option>
                 @endif
                 @foreach ($starships as $ship)
-                    <option value="{{ $ship->id }}" @if ($ship->id == $starshipId) selected @endif>{{ $ship->name }}</option>
+                    <option value="{{ $ship->id }}" @if ($ship->id == $starshipId) selected @endif>
+                        {{ $ship->name }}</option>
                 @endforeach
             </select>
             <button id="new-starship" title="Add new starship">&NonBreakingSpace;+&NonBreakingSpace;</button>
@@ -29,18 +32,16 @@
         @foreach ($characters as $character)
             @if ($character)
                 <h3>{{ $character->name }}'s Division(s)</h3>
+                <a href="/disembark/{{ $character->id }}"><small>Remove character from ship</small></a>
                 <div class="division-checkboxes">
-                @foreach ($divisions as $division)
+                    @foreach ($divisions as $division)
                         <label for="{{ $character->id }}-{{ $division->id }}" class="checkbox-label division-checkboxes">
-                            <input
-                            type="checkbox"
-                            id="{{ $character->id }}-{{ $division->id }}"
-                            name="{{ $character->id }}-{{ $division->name }}"
-                            value="{{ $division->id }}"
-                            {{ $character->divisions->contains($division->id) ? 'checked' : '' }}>
+                            <input type="checkbox" id="{{ $character->id }}-{{ $division->id }}"
+                                name="{{ $character->id }}-{{ $division->name }}" value="{{ $division->id }}"
+                                {{ $character->divisions->contains($division->id) ? 'checked' : '' }}>
                             <span></span>
                             <input type="hidden" id="division-character-id" value="{{ $character->id }}">
-                        {{ $division->name }}</label>
+                            {{ $division->name }}</label>
                     @endforeach
                 </div>
             @endif

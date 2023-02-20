@@ -55,6 +55,7 @@ Route::get('/dm-mode', [DashboardController::class, 'dmMode'])->middleware('auth
 Route::get('/set-ui-color/{hex}', [DashboardController::class, 'setUiColor'])->middleware('auth');
 Route::get('/get-ui-color', function () {return auth()->user()->ui_color;})->middleware('auth');
 Route::get('/orientation', function () {return view('modals.orientation');})->middleware('guest');
+Route::get('/disembark/{character}', [StarshipController::class, 'disembark'])->middleware('auth');
 
 //navigation and maintenance
 Route::get('/starship/{starship}', [StarshipController::class, 'show'])->middleware('auth')->name('overview');

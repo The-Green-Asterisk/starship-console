@@ -18,7 +18,7 @@ if (el.starshipSelect != null) {
 
 if (el.divisionCheckboxes != null) {
     for (let i = 0; i < el.divisionCheckboxes.length; i++) {
-        el.divisionCheckboxes[i].querySelector('input').addEventListener('change', (e) => {
+        el.divisionCheckboxes[i].querySelector('input')?.addEventListener('change', (e) => {
             e.stopImmediatePropagation();
             let characterId = el.divisionCheckboxes[i].querySelector('#division-character-id').value;
             let divisionId = el.divisionCheckboxes[i].querySelector('input').value;

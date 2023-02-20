@@ -407,4 +407,13 @@ class StarshipController extends Controller
 
         return back()->with('success', $character->name . ' is now aboard the ' . $starship->name . '!');
     }
+
+    public function disembark(Character $character)
+    {
+        $starship = $character->starship;
+        $character->starship()->dissociate();
+        $character->save();
+
+        return back()->with('success', $character->name . ' has disembarked from the ' . $starship->name . '!');
+    }
 }
