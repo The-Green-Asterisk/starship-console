@@ -412,7 +412,7 @@ class StarshipController extends Controller
     {
         $starship = $character->starship;
         $character->starship()->dissociate();
-        $character->save();
+        $character->saveOrFail();
 
         return back()->with('success', $character->name . ' has disembarked from the ' . $starship->name . '!');
     }
