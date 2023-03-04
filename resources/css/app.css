@@ -249,6 +249,7 @@ button.bottom {
 }
 .btn.bottom.current {
     filter: brightness(1.5) drop-shadow(1px 5px 5px var(--ui-color));
+    text-decoration: underline;
 }
 button,
 .btn {
