@@ -55,3 +55,16 @@ if (el.deleteSystemButtons != null) {
         });
     }
 }
+
+function is_touch_enabled() {
+    return ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0);
+}
+if (document.getElementById('touchscreen-info') != null) {
+    if (is_touch_enabled()) {
+        document.getElementById('touchscreen-info').style.display = 'block';
+    } else {
+        document.getElementById('touchscreen-info').style.display = 'none';
+    }
+}

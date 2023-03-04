@@ -18,7 +18,6 @@
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="character-image"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-                                    <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
                                     <title>{{ $char->name }}</title>
                                     <g>
                                         <g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)">
