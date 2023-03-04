@@ -6,11 +6,13 @@ if (el.quickFix != null) {
     for (let i = 0; i < el.quickFix.length; i++) {
         let button = el.quickFix[i]
         button.addEventListener('click', function () {
-            fetch(`/system/${button.value}/repair/${d(4)}/d4`)
-                .catch((err) => {
-                    console.log(err);
-                    alert('Something went wrong');
-                });
+            let currentHp = parseInt(document.getElementById(`${button.value}detail`).innerText);
+            if (currentHp > 0)
+                fetch(`/system/${button.value}/repair/${d(4)}/d4`)
+                    .catch((err) => {
+                        console.log(err);
+                        alert('Something went wrong');
+                    });
         });
     }
 }
@@ -19,11 +21,13 @@ if (el.focusedRepairs != null) {
     for (let i = 0; i < el.focusedRepairs.length; i++) {
         let button = el.focusedRepairs[i]
         button.addEventListener('click', function () {
-            fetch(`/system/${button.value}/repair/${d(8)}/d8`)
-                .catch((err) => {
-                    console.log(err);
-                    alert('Something went wrong');
-                });
+            let currentHp = parseInt(document.getElementById(`${button.value}detail`).innerText);
+            if (currentHp > 0)
+                fetch(`/system/${button.value}/repair/${d(8)}/d8`)
+                    .catch((err) => {
+                        console.log(err);
+                        alert('Something went wrong');
+                    });
         });
     }
 }
