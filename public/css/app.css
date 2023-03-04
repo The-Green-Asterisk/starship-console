@@ -481,6 +481,9 @@ a:hover {
 button.bottom {
     margin-bottom: 0;
 }
+.btn.bottom.current {
+    filter: brightness(1.5) drop-shadow(1px 5px 5px var(--ui-color));
+}
 button,
 .btn {
     font: 1em var(--ui-font);
