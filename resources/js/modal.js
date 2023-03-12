@@ -2,13 +2,17 @@ import * as el from "./elements";
 import { starshipId } from "./app";
 
 const closeModal = () => {
+    let closeButton = el.closeButton();
+    closeButton.removeEventListener('click', closeModal);
     let modal = el.modal();
     if (modal != null) {
         modal.className = 'modal fadeout';
-        setTimeout(() => {
+        return new Promise(resolve => setTimeout(() => {
+            //allow 350 ms for fadeout animation to complete
             modal.remove();
             document.removeEventListener('click', clickOutside);
-        }, 350);
+            resolve();
+        }, 350));
     }
 };
 const clickOutside = (ev) => {
@@ -51,9 +55,9 @@ window.officerDamage = (div) => {
     closeButton.addEventListener('click', () => { closeModal() });
 }
 
-function popModal(res) {
+async function popModal(res) {
     document.activeElement.blur();
-    res.text()
+    await res.text()
         .then((data) => {
             let incomingModal = document.createElement('div');
             incomingModal.innerHTML = data;
@@ -64,7 +68,7 @@ function popModal(res) {
         });
 }
 
-if (el.register != null) {
+if (el.register) {
     el.register.addEventListener('click', () => {
         fetch('/register')
             .catch((err) => {
@@ -85,7 +89,7 @@ if (el.register != null) {
     });
 }
 
-if (el.login != null) {
+if (el.login) {
     el.login.addEventListener('click', () => {
         fetch('/login')
             .catch((err) => {
@@ -93,35 +97,23 @@ if (el.login != null) {
                 alert('Something went wrong');
             })
             .then((res) => {
-                document.activeElement.blur();
-                res.text()
-                    .then((data) => {
-                        let incomingModal = document.createElement('div');
-                        incomingModal.innerHTML = data;
-                        el.body.appendChild(incomingModal.firstChild);
-                        document.addEventListener('click', (e) => { clickOutside(e) });
-                        const closeButton = el.closeButton();
-                        closeButton.addEventListener('click', () => { closeModal() });
+                popModal(res)
+                    .then(() => {
                         const forgotPassword = el.forgotPassword();
-                        forgotPassword.addEventListener('click', () => {
-                            closeModal();
+                        forgotPassword.addEventListener('click', async () => {
                             fetch('/forgot-password')
                                 .catch((err) => {
                                     console.log(err);
                                     alert('Something went wrong');
                                 })
-                                .then((res) => {
-                                    res.text()
-                                        .then((data) => {
-                                            let incomingModal = document.createElement('div');
-                                            incomingModal.innerHTML = data;
-                                            el.body.appendChild(incomingModal.firstChild);
-                                            document.addEventListener('click', (e) => { clickOutside(e) });
-                                            const closeButton = el.closeButton();
-                                            closeButton.addEventListener('click', () => { closeModal() });
-                                            document.getElementById('forgot-password-form').addEventListener('submit', (e) => {
+                                .then(async (res) => {
+                                    await closeModal();
+                                    await popModal(res)
+                                        .then(() => {
+                                            const forgotPasswordForm = el.forgotPasswordForm();
+                                            forgotPasswordForm.addEventListener('submit', (e) => {
                                                 e.preventDefault();
-                                                let email = document.getElementById('email').value;
+                                                let email = el.forgotPasswordEmail();
                                                 fetch(`/forgot-password`, {
                                                     method: 'POST',
                                                     headers: { 'Content-Type': 'application/json' },
@@ -146,7 +138,7 @@ if (el.login != null) {
     });
 }
 
-if (el.roll != null) {
+if (el.roll) {
     el.roll.addEventListener('click', () => {
         fetch(`/roll/${el.roll.value}`)
             .catch((err) => {
@@ -171,7 +163,7 @@ if (el.roll != null) {
     });
 }
 
-if (el.newCharacter != null) {
+if (el.newCharacter) {
     el.newCharacter.addEventListener('click', () => {
         fetch('/new-character')
             .catch((err) => {
@@ -182,7 +174,7 @@ if (el.newCharacter != null) {
     });
 }
 
-if (el.editCharacter != null) {
+if (el.editCharacter) {
     el.editCharacter.addEventListener('click', () => {
         fetch(`/edit-character/${el.characterSelect.value}`)
             .catch((err) => {
@@ -193,7 +185,7 @@ if (el.editCharacter != null) {
     });
 }
 
-if (el.deleteCharacter != null) {
+if (el.deleteCharacter) {
     el.deleteCharacter.addEventListener('click', () => {
         fetch(`/delete-character/${el.characterSelect.value}`)
             .catch((err) => {
@@ -204,7 +196,7 @@ if (el.deleteCharacter != null) {
     });
 }
 
-if (el.newStarship != null) {
+if (el.newStarship) {
     el.newStarship.addEventListener('click', () => {
         fetch('/new-starship')
             .catch((err) => {
@@ -215,7 +207,7 @@ if (el.newStarship != null) {
     });
 }
 
-if (el.editStarship != null) {
+if (el.editStarship) {
     el.editStarship.addEventListener('click', () => {
         fetch(`/edit-starship/${starshipId}`)
             .catch((err) => {
@@ -226,7 +218,7 @@ if (el.editStarship != null) {
     });
 }
 
-if (el.deleteStarship != null) {
+if (el.deleteStarship) {
     el.deleteStarship.addEventListener('click', () => {
         fetch(`/delete-starship/${starshipId}`)
             .catch((err) => {
@@ -237,19 +229,7 @@ if (el.deleteStarship != null) {
     });
 }
 
-if (el.crew != null) {
-    el.crew.addEventListener('click', () => {
-        fetch(`/starship/${starshipId}/crew-manifest`)
-            .catch((err) => {
-                console.log(err);
-                alert('Something went wrong');
-            })
-            .then((res) => popModal(res));
-        el.manifestMenu.style.display = 'none';
-    });
-}
-
-if (el.newSystem != null) {
+if (el.newSystem) {
     el.newSystem.addEventListener('click', () => {
         fetch(`/starship/${starshipId}/division/${el.newSystem.value}/new-system`)
             .catch((err) => {
@@ -260,7 +240,7 @@ if (el.newSystem != null) {
     });
 }
 
-if (el.editSystemButtons != null) {
+if (el.editSystemButtons) {
     for (let i = 0; i < el.editSystemButtons.length; i++) {
         el.editSystemButtons[i].addEventListener('click', () => {
             let systemId = el.editSystemButtons[i].value;
@@ -274,6 +254,49 @@ if (el.editSystemButtons != null) {
     }
 }
 
+//manifest menu
+
+if (el.crew) {
+    el.crew.addEventListener('click', () => {
+        fetch(`/starship/${starshipId}/crew-manifest`)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+        el.manifestMenu.style.display = 'none';
+    });
+}
+
+if (el.cargo) {
+    el.cargo.addEventListener('click', () => {
+        fetch(`/starship/${starshipId}/cargo-manifest`)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+        el.manifestMenu.style.display = 'none';
+    });
+}
+
+if (el.jobs) {
+    el.jobs.addEventListener('click', () => {
+        fetch(`/starship/${starshipId}/jobs`)
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+            .then((res) => popModal(res));
+        el.manifestMenu.style.display = 'none';
+    });
+}
+
+
+
+
+
+//welcome logo
 if (el.welcomeLogo != null) {
     el.welcomeLogo.addEventListener('click', () => {
         fetch('/orientation')

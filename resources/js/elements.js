@@ -37,6 +37,8 @@ export const closeButton = () => { return document.getElementById('close-button'
 export const register = document.getElementById('register');
 export const login = document.getElementById('login');
 export const forgotPassword = () => { return document.getElementById('forgot-password'); }
+export const forgotPasswordForm = () => { return document.getElementById('forgot-password-form'); }
+export const forgotPasswordEmail = () => { return document.getElementById('email').value; }
 export const roll = document.getElementById('roll');
 export const newCharacter = document.getElementById('new-character');
 export const editCharacter = document.getElementById('edit-character');
