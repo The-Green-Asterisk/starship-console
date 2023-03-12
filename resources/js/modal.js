@@ -138,8 +138,10 @@ if (el.roll) {
                 alert('Something went wrong');
             })
             .then((res) => {
-                popModal(res);
-                window.activateDice();
+                popModal(res)
+                    .then(() => {
+                        window.activateDice();
+                    });
             });
     });
 }
