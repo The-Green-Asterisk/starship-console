@@ -76,15 +76,7 @@ if (el.register) {
                 alert('Something went wrong');
             })
             .then((res) => {
-                document.activeElement.blur();
-                res.text()
-                    .then((data) => {
-                        let incomingModal = document.createElement('div');
-                        incomingModal.innerHTML = data;
-                        el.body.appendChild(incomingModal.firstChild);
-                        document.addEventListener('click', (e) => { clickOutside(e) });
-                        window.activateRegistration();
-                    })
+                popModal(res);
             });
     });
 }
@@ -146,18 +138,7 @@ if (el.roll) {
                 alert('Something went wrong');
             })
             .then((res) => {
-                return res.text()
-            })
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                el.body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => { clickOutside(e) });
-                let close = el.closeButton();
-                close.addEventListener('click', () => {
-                    // rollValue = 0;
-                    closeModal();
-                });
+                popModal(res);
                 window.activateDice();
             });
     });
