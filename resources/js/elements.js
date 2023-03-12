@@ -4,6 +4,8 @@ export const starshipId = document.getElementById('starship-id');
 export const userId = document.getElementById('user-id');
 
 export const reset = document.getElementById('reset');
+export const manifestMenu = document.getElementById('manifest-menu');
+export const manifestMenuButton = document.getElementById('manifest');
 
 //color selector
 export const root = document.querySelector(':root');
@@ -42,7 +44,14 @@ export const deleteCharacter = document.getElementById('delete-character');
 export const newStarship = document.getElementById('new-starship');
 export const editStarship = document.getElementById('edit-starship');
 export const deleteStarship = document.getElementById('delete-starship');
-export const crew = document.getElementById('crew');
 export const newSystem = document.getElementById('new-system');
 export const editSystemButtons = document.getElementsByClassName('edit-system');
 export const welcomeLogo = document.getElementById('welcome-logo');
+//manifest modals
+export const crew = document.getElementById('crew');
+export const cargo = document.getElementById('cargo');
+export const jobs = document.getElementById('jobs');
+
+//notifications
+export const notifButton = document.getElementById('notif-button');
+export const indicator = document.getElementById('indicator');

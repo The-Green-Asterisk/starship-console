@@ -616,6 +616,23 @@ hr {
     border-color: var(--ui-color);
 }
 
+.menu-button {
+    position: relative;
+}
+.menu {
+    position: absolute;
+    padding: 2rem 0.5em 0.7em;
+    top: 2em;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.menu > button {
+    margin: 0.5em;
+}
+
 @media screen and (max-width: 600px) {
     .buttons {
         justify-content: space-between;

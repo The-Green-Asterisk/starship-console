@@ -245,6 +245,7 @@ if (el.crew != null) {
                 alert('Something went wrong');
             })
             .then((res) => popModal(res));
+        el.manifestMenu.style.display = 'none';
     });
 }
 

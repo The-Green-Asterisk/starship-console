@@ -1,9 +1,8 @@
+import * as el from "./elements";
 import "./app";
 
-const notifButton = document.getElementById('notif-button');
-const indicator = document.getElementById('indicator');
 export const checkIndicator = () => {
-    if (indicator == null) return;
+    if (el.indicator == null) return;
     fetch(`/get-notifications-raw`)
         .then(res => {
             res.json()
@@ -11,14 +10,14 @@ export const checkIndicator = () => {
                     let unread = false;
                     unread = notifications.some(n => n.read == false);
                     unread
-                        ? indicator.style.display = 'block'
-                        : indicator.style.display = 'none';
+                        ? el.indicator.style.display = 'block'
+                        : el.indicator.style.display = 'none';
                 })
         });
 };
 checkIndicator();
 
-notifButton ? notifButton.addEventListener('click', () => {
+el.notifButton ? el.notifButton.addEventListener('click', () => {
     let notifDrawer = document.getElementById('notif-drawer');
     if (notifDrawer == null) {
         fetchNotifications(false);
@@ -38,7 +37,7 @@ const fetchNotifications = (viewArchive) => {
                 .then(notifications => {
                     let incoming = document.createElement('div')
                     incoming.innerHTML = notifications;
-                    notifButton.after(incoming.firstChild);
+                    el.notifButton.after(incoming.firstChild);
                     if (!viewArchive) {
                         document.getElementById('view-archive').addEventListener('click', getArchive);
                     }

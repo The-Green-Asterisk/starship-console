@@ -2,7 +2,8 @@
     display: flex;
     align-items: center;
 }
-.crew-members  img, .crew-members  svg {
+.crew-members img,
+.crew-members svg {
     color: var(--ui-color);
     width: 40px;
     height: 40px;
