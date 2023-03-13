@@ -13,6 +13,7 @@ class Job extends Model
         'name',
         'description',
         'client_id',
+        'starship_id',
     ];
 
     public function client()
@@ -23,5 +24,10 @@ class Job extends Model
     public function cargoItems()
     {
         return $this->hasMany(CargoItem::class);
+    }
+
+    public function starship()
+    {
+        return $this->belongsTo(Starship::class);
     }
 }

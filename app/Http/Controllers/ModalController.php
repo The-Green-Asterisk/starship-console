@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CargoItem;
 use App\Models\Character;
 use App\Models\Division;
 use App\Models\Notification;
@@ -112,6 +113,13 @@ class ModalController extends Controller
         $captain = Character::where('id', $starship->captain_id)->first();
 
         return view('modals.crew-manifest', compact('crew', 'divisions', 'captain'));
+    }
+
+    public function cargoManifest(Starship $starship)
+    {
+        $cargo = CargoItem::where('starship_id', $starship->id)->get();
+
+        return view('modals.cargo-manifest', compact('cargo'));
     }
 
     public function addUser($email, Starship $starship)

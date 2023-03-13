@@ -36,7 +36,16 @@ class CargoItemController extends Controller
      */
     public function store(StoreCargoItemRequest $request)
     {
-        //
+        $validator = $request->validate([
+            'name' => 'required|unique:cargo_items,name|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        } else {
+            $cargoItem = CargoItem::create($request->all());
+            return $cargoItem->toJson();
+        }
     }
 
     /**
@@ -47,7 +56,7 @@ class CargoItemController extends Controller
      */
     public function show(CargoItem $cargoItem)
     {
-        //
+        return $cargoItem->toJson();
     }
 
     /**

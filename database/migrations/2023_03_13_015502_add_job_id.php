@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->foreignId('starship_id')->nullable()->constrained('starships')->onDelete('cascade');
+        //add job_id to cargo_items
+        Schema::table('cargo_items', function (Blueprint $table) {
+            $table->foreignId('job_id')->nullable()->constrained('jobs')->onDelete('cascade');
         });
+        //add client_id to jobs
     }
 
     /**
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        //
     }
 };

@@ -66,8 +66,11 @@ Route::get('/delete-system/{system}', [ModalController::class, 'deleteSystem'])-
 Route::post('/delete-system', [SystemController::class, 'destroy'])->middleware('auth');
 Route::get('/edit-system/{system}', [ModalController::class, 'editSystem'])->middleware('auth');
 Route::post('/edit-system', [SystemController::class, 'update'])->middleware('auth');
-Route::get('/starship/{starship}/crew-manifest', [ModalController::class, 'crewManifest'])->middleware('auth')->name('crew');
 Route::get('/starship/add-user/{email}/{starship}', [ModalController::class, 'addUser'])->middleware('auth')->name('add-user');
+
+//manifest
+Route::get('/starship/{starship}/crew-manifest', [ModalController::class, 'crewManifest'])->middleware('auth')->name('crew');
+Route::get('/starship/{starship}/cargo-manifest', [ModalController::class, 'cargoManifest'])->middleware('auth')->name('cargo');
 
 //gameplay
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');

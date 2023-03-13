@@ -10,6 +10,7 @@ class CargoItem extends Model
     use HasFactory;
 
     protected $fillable = [
+        'starship_id',
         'name',
         'description',
         'weight',
@@ -23,5 +24,10 @@ class CargoItem extends Model
     public function job()
     {
         return $this->belongsTo(Job::class);
+    }
+
+    public function starship()
+    {
+        return $this->belongsTo(Starship::class);
     }
 }
