@@ -14,11 +14,15 @@
         <label for="password" hidden>Password</label>
         <input type="password" name="password" id="password" placeholder="Password" required>
         <label for="password_confirmation" hidden>Confirm Password</label>
-        <input type="password" name="password_confirmation" id="password-confirmation" placeholder="Confirm Password" required>
+        <input type="password" name="password_confirmation" id="password-confirmation" placeholder="Confirm Password"
+            required>
         <div id="errors">
 
         </div>
 
-        <button type="submit" class="btn">Register</button>
     </form>
+    <div class="modal-buttons">
+        <button type="submit" class="btn" form="registration-form">Register</button>
+        <button type="button" class="btn" id="close-button">Cancel</button>
+    </div>
 @endsection

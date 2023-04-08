@@ -560,7 +560,7 @@ input.character-image {
     max-height: 400px;
     overflow: scroll;
     padding: 0.5em;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 5px;
     border: 2px solid var(--ui-color);
     z-index: 20;
@@ -614,6 +614,23 @@ img.division-title {
 }
 hr {
     border-color: var(--ui-color);
+}
+
+.menu-button {
+    position: relative;
+}
+.menu {
+    position: absolute;
+    padding: 2rem 0.5em 0.7em;
+    top: 2em;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.menu > button {
+    margin: 0.5em;
 }
 
 @media screen and (max-width: 600px) {

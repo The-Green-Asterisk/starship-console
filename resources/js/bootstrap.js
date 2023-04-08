@@ -19,6 +19,7 @@ require('./modal.js');
 require('./modals/dice.js');
 require('./modals/registration.js');
 require('./modals/login.js');
+require('./modals/cargo-manifest.js');
 require('./divisions.js');
 require('./color-select.js');
 require('./notifications.js');

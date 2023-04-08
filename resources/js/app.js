@@ -87,3 +87,14 @@ if (el.reset != null) {
         fetch(`/starship/${starshipId}/reset-damage`);
     });
 };
+
+if (el.manifestMenuButton) {
+    el.manifestMenuButton.addEventListener('click', () => {
+        el.manifestMenu.style.display === 'block'
+            ? el.manifestMenu.style.display = 'none'
+            : el.manifestMenu.style.display = 'block';
+    });
+    el.manifestMenu.addEventListener('mouseleave', () => {
+        el.manifestMenu.style.display = 'none';
+    });
+}

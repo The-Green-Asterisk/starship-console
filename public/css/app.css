@@ -49,18 +49,24 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 99999;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 #modal-dialog {
     text-align: center;
     width: 90%;
     max-width: 600px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    max-height: 600px;
+    overflow: auto;
     background: #010513df;
     border-radius: 5px;
     padding: 1em;
@@ -86,13 +92,13 @@
     list-style: none;
 }
 .orientation {
-    position:relative;
+    position: relative;
     width: 100%;
     max-width: 1280px !important;
     padding-bottom: min(720px, 56.25%) !important;
     overflow: hidden;
 }
-.orientation iframe{
+.orientation iframe {
     position: absolute;
     top: -70px;
     left: 0;
@@ -105,7 +111,8 @@
     display: flex;
     align-items: center;
 }
-.crew-members  img, .crew-members  svg {
+.crew-members img,
+.crew-members svg {
     color: var(--ui-color);
     width: 40px;
     height: 40px;
@@ -135,6 +142,43 @@
     transform: none;
     filter: brightness(1) drop-shadow(1px 1px 5px var(--ui-color));
     cursor: default;
+}
+
+.cargo-item {
+    display: flex;
+    margin: 2em 0 0;
+}
+.cargo-item input {
+    width: 3rem;
+    margin: 0;
+}
+.cargo-item p {
+    margin: 0;
+    font-weight: bold;
+}
+.cargo-description p {
+    text-align: left;
+    margin: 0;
+}
+
+.add-cargo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.add-cargo-section .name-qty {
+    display: flex;
+    width: 100%;
+}
+.add-cargo-section input {
+    margin: 0.5em 0;
+}
+.add-cargo-section input[type="number"] {
+    width: 5rem;
+}
+.add-cargo-section textarea {
+    width: 100%;
+    margin: 0.5em 0;
 }
 
 .color-select-wrapper {
@@ -795,7 +839,7 @@ input.character-image {
     max-height: 400px;
     overflow: scroll;
     padding: 0.5em;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 5px;
     border: 2px solid var(--ui-color);
     z-index: 20;
@@ -850,6 +894,24 @@ img.division-title {
 }
 hr {
     border-color: var(--ui-color);
+}
+
+.menu-button {
+    position: relative;
+}
+.menu {
+    position: absolute;
+    padding: 2rem 0.5em 0.7em;
+    top: 2em;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
+}
+.menu > button {
+    margin: 0.5em;
 }
 
 @media screen and (max-width: 600px) {
