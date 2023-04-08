@@ -7,13 +7,13 @@
     @if ($cargo->count() > 0)
         <div id="cargo-items">
             @foreach ($cargo as $item)
-                <button onclick="deleteCargoItem({{ $item->id }})">x</button>
                 <div class="cargo-item">
                     <p contenteditable onblur="updateCargoItem({{ $item->id }})" id="item-{{ $item->id }}-name">
                         {{ $item->name }}</p>
                     <div style="flex-grow: 1;"></div>
                     <input min="0" type="number" value="{{ $item->quantity }}" id="item-{{ $item->id }}-qty"
                         onblur="updateCargoItem({{ $item->id }})" />
+                    <button onclick="deleteCargoItem({{ $item->id }})" style="margin: 0" title="Delete">x</button>
                 </div>
                 <div class="cargo-description" id="description-{{ $item->id }}">
                     <p contenteditable onblur="updateCargoItem({{ $item->id }})"

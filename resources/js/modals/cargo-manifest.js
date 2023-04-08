@@ -8,7 +8,7 @@ window.activateCargo = () => {
     let cargoList = document.querySelector('#cargo-items');
     const noItems = document.querySelector('#no-items');
 
-    window.addCargoItem(async () => {
+    window.addCargoItem = async () => {
         await fetch('/add-cargo', {
             method: 'POST',
             headers: {
@@ -67,9 +67,9 @@ window.activateCargo = () => {
                         cargoList.appendChild(cargoDescriptionDiv);
                     })
             });
-    });
+    };
 
-    window.updateCargoItem(async (id) => {
+    window.updateCargoItem = async (id) => {
         const name = document.querySelector(`#item-${id}-name`).value;
         const quantity = parseInt(document.querySelector(`#item-${id}-qty`).value);
         const description = document.querySelector(`#item-${id}-description`).value;
@@ -94,9 +94,9 @@ window.activateCargo = () => {
                 console.log(err);
                 alert('Something went wrong');
             })
-    });
+    };
 
-    window.deleteCargoItem(async (id) => {
+    window.deleteCargoItem = async (id) => {
         const confirmButton = document.createElement('button');
         confirmButton.innerHTML = 'Are you sure you want to delete this item?';
         confirmButton.id = `confirm-button-${id}`;
@@ -109,7 +109,7 @@ window.activateCargo = () => {
             confirmButton.removeEventListener('click', deleteCargoItemConfirmed(id));
             confirmButton.remove();
         }, 5000);
-    });
+    };
 
     async function deleteCargoItemConfirmed(id) {
         await fetch(`/delete-cargo/${id}`, {
