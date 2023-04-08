@@ -1,7 +1,6 @@
 import * as el from '../elements.js';
 
 window.activateCargo = () => {
-    const addButton = document.querySelector('#add-cargo');
     const nameInput = document.querySelector('#name');
     const quantityInput = document.querySelector('#quantity');
     const descriptionInput = document.querySelector('#description');
@@ -43,7 +42,7 @@ window.activateCargo = () => {
                         newItemName.addEventListener('blur', () => { updateCargoItem(item.id) });
 
                         let styleDiv = document.createElement('div');
-                        styleDiv.style = 'flex-grow: 1;';
+                        styleDiv.style.flexGrow = 1;
 
                         let newItemQuantity = document.createElement('input');
                         newItemQuantity.type = 'number';
@@ -53,7 +52,7 @@ window.activateCargo = () => {
                         newItemQuantity.addEventListener('blur', () => { updateCargoItem(item.id) });
 
                         let newItemDeleteButton = document.createElement('button');
-                        newItemDeleteButton.style = 'margin: 0;';
+                        newItemDeleteButton.style.margin = 0;
                         newItemDeleteButton.textContent = 'x';
                         newItemDeleteButton.title = 'Delete';
                         newItemDeleteButton.addEventListener('click', () => { deleteCargoItem(item.id) });
@@ -113,10 +112,11 @@ window.activateCargo = () => {
     };
 
     window.deleteCargoItem = async (id, qtyChange = false) => {
+        if (document.getElementById(`confirm-button-${id}`)) return;
         const confirmButton = document.createElement('button');
         confirmButton.innerHTML = 'Are you sure you want to delete this item?';
         confirmButton.id = `confirm-button-${id}`;
-        confirmButton.style = `margin: 0;`
+        confirmButton.style.margin = 0;
         confirmButton.addEventListener('click', () => { deleteCargoItemConfirmed(id) });
 
         const itemDescriptionDiv = document.querySelector(`#description-${id}`);
