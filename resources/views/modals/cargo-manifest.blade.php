@@ -7,7 +7,7 @@
     @if ($cargo->count() > 0)
         <div id="cargo-items">
             @foreach ($cargo as $item)
-                <div class="cargo-item">
+                <div class="cargo-item" id="item-{{ $item->id }}">
                     <p contenteditable onblur="updateCargoItem({{ $item->id }})" id="item-{{ $item->id }}-name">
                         {{ $item->name }}</p>
                     <div style="flex-grow: 1;"></div>

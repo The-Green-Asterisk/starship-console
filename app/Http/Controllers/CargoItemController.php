@@ -43,7 +43,7 @@ class CargoItemController extends Controller
         $cargoItem->quantity = $request->quantity;
         $cargoItem->description = $request->description;
         $cargoItem->save();
-        
+
         return $cargoItem->toJson();
     }
 
@@ -78,7 +78,10 @@ class CargoItemController extends Controller
      */
     public function update(UpdateCargoItemRequest $request, CargoItem $cargoItem)
     {
-        //
+        $cargoItem->name = $request->name;
+        $cargoItem->quantity = $request->quantity;
+        $cargoItem->description = $request->description;
+        $cargoItem->save();
     }
 
     /**
@@ -89,6 +92,6 @@ class CargoItemController extends Controller
      */
     public function destroy(CargoItem $cargoItem)
     {
-        //
+        $cargoItem->delete();
     }
 }

@@ -37,7 +37,7 @@
 
 .cargo-item {
     display: flex;
-    margin: 0 2em;
+    margin: 2em 0 0;
 }
 .cargo-item input {
     width: 3rem;
@@ -45,10 +45,11 @@
 }
 .cargo-item p {
     margin: 0;
+    font-weight: bold;
 }
 .cargo-description p {
     text-align: left;
-    margin: 0 2em 2em;
+    margin: 0;
 }
 
 .add-cargo-section {

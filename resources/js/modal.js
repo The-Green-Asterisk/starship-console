@@ -268,6 +268,10 @@ if (el.cargo) {
 
 if (el.jobs) {
     el.jobs.addEventListener('click', () => {
+        if (true) {
+            alert('This feature is not yet available');
+            return;
+        }
         fetch(`/starship/${starshipId}/jobs`)
             .catch((err) => {
                 console.log(err);
