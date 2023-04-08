@@ -7,13 +7,17 @@
     @if ($cargo->count() > 0)
         <div id="cargo-items">
             @foreach ($cargo as $item)
+                <button onclick="deleteCargoItem({{ $item->id }})">x</button>
                 <div class="cargo-item">
-                    <p>{{ $item->name }}</p>
+                    <p contenteditable onblur="updateCargoItem({{ $item->id }})" id="item-{{ $item->id }}-name">
+                        {{ $item->name }}</p>
                     <div style="flex-grow: 1;"></div>
-                    <input type="number" value="{{ $item->quantity }}" id="item-{{ $item->id }}-qty" />
+                    <input min="0" type="number" value="{{ $item->quantity }}" id="item-{{ $item->id }}-qty"
+                        onblur="updateCargoItem({{ $item->id }})" />
                 </div>
-                <div class="cargo-description">
-                    <p>{{ $item->description }}</p>
+                <div class="cargo-description" id="description-{{ $item->id }}">
+                    <p contenteditable onblur="updateCargoItem({{ $item->id }})"
+                        id="item-{{ $item->id }}-description">{{ $item->description }}</p>
                 </div>
             @endforeach
         </div>
@@ -28,6 +32,6 @@
         </div>
         <textarea id="description" name="description" placeholder="Description"></textarea>
     </div>
-    <button id="add-cargo">Add</button>
+    <button onclick="addCargoItem()" id="add-cargo">Add</button>
     <button id="close-button">Okay</button>
 @endsection

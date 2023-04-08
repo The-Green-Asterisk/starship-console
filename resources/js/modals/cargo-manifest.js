@@ -8,7 +8,7 @@ window.activateCargo = () => {
     let cargoList = document.querySelector('#cargo-items');
     const noItems = document.querySelector('#no-items');
 
-    async function addCargoItem() {
+    window.addCargoItem(async () => {
         await fetch('/add-cargo', {
             method: 'POST',
             headers: {
@@ -48,9 +48,11 @@ window.activateCargo = () => {
 
                         let cargoDescriptionDiv = document.createElement('div');
                         cargoDescriptionDiv.classList.add('cargo-description');
+                        cargoDescriptionDiv.id = `description-${item.id}`;
 
                         let newItemDescription = document.createElement('p');
                         newItemDescription.innerHTML = item.description;
+                        newItemDescription.id = `item-${item.id}-description`;
 
                         cargoItemDiv.appendChild(newItemName);
                         cargoItemDiv.appendChild(styleDiv);
@@ -63,10 +65,57 @@ window.activateCargo = () => {
                         }
                         cargoList.appendChild(cargoItemDiv);
                         cargoList.appendChild(cargoDescriptionDiv);
-
-                        console.log(cargoList)
                     })
             });
+    });
+
+    window.updateCargoItem(async (id) => {
+        const name = document.querySelector(`#item-${id}-name`).value;
+        const quantity = parseInt(document.querySelector(`#item-${id}-qty`).value);
+        const description = document.querySelector(`#item-${id}-description`).value;
+
+        if (quantity === 0) {
+            await window.deleteCargoItem(id);
+            return;
+        }
+
+        await fetch(`/update-cargo/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                quantity: quantity,
+                description: description,
+            })
+        })
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
+    });
+
+    window.deleteCargoItem(async (id) => {
+        const confirmButton = document.createElement('button');
+        confirmButton.innerHTML = 'Are you sure you want to delete this item?';
+        confirmButton.id = `confirm-button-${id}`;
+        confirmButton.addEventListener('click', deleteCargoItemConfirmed(id));
+
+        const itemDescriptionDiv = document.querySelector(`#description-${id}`);
+        itemDescriptionDiv.appendChild(confirmButton);
+    });
+
+    async function deleteCargoItemConfirmed(id) {
+        await fetch(`/delete-cargo/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .catch((err) => {
+                console.log(err);
+                alert('Something went wrong');
+            })
     };
-    addButton.addEventListener('click', addCargoItem);
 }
