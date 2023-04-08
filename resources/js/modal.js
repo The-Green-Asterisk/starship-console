@@ -258,7 +258,10 @@ if (el.cargo) {
                 console.log(err);
                 alert('Something went wrong');
             })
-            .then((res) => popModal(res));
+            .then((res) => {
+                popModal(res)
+                    .then(() => window.activateCargo());
+            });
         el.manifestMenu.style.display = 'none';
     });
 }

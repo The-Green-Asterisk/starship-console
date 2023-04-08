@@ -138,6 +138,42 @@
     cursor: default;
 }
 
+.cargo-item {
+    display: flex;
+    margin: 0 2em;
+}
+.cargo-item input {
+    width: 3rem;
+    margin: 0;
+}
+.cargo-item p {
+    margin: 0;
+}
+.cargo-description p {
+    text-align: left;
+    margin: 0 2em 2em;
+}
+
+.add-cargo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.add-cargo-section .name-qty {
+    display: flex;
+    width: 100%;
+}
+.add-cargo-section input {
+    margin: 0.5em 0;
+}
+.add-cargo-section input[type="number"] {
+    width: 5rem;
+}
+.add-cargo-section textarea {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
 .color-select-wrapper {
     display: flex;
     justify-content: space-evenly;
@@ -796,7 +832,7 @@ input.character-image {
     max-height: 400px;
     overflow: scroll;
     padding: 0.5em;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 5px;
     border: 2px solid var(--ui-color);
     z-index: 20;

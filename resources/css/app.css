@@ -560,7 +560,7 @@ input.character-image {
     max-height: 400px;
     overflow: scroll;
     padding: 0.5em;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 5px;
     border: 2px solid var(--ui-color);
     z-index: 20;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CargoItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DashboardController;
@@ -71,6 +72,7 @@ Route::get('/starship/add-user/{email}/{starship}', [ModalController::class, 'ad
 //manifest
 Route::get('/starship/{starship}/crew-manifest', [ModalController::class, 'crewManifest'])->middleware('auth')->name('crew');
 Route::get('/starship/{starship}/cargo-manifest', [ModalController::class, 'cargoManifest'])->middleware('auth')->name('cargo');
+Route::post('/add-cargo', [CargoItemController::class, 'store'])->middleware('auth')->name('add-cargo');
 
 //gameplay
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');

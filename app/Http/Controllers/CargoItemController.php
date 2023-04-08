@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCargoItemRequest;
 use App\Http\Requests\UpdateCargoItemRequest;
 use App\Models\CargoItem;
+use App\Models\Starship;
 
 class CargoItemController extends Controller
 {
@@ -36,16 +37,14 @@ class CargoItemController extends Controller
      */
     public function store(StoreCargoItemRequest $request)
     {
-        $validator = $request->validate([
-            'name' => 'required|unique:cargo_items,name|max:255'
-        ]);
-
-        if ($validator->fails()) {
-            return $validator->errors()->toJson();
-        } else {
-            $cargoItem = CargoItem::create($request->all());
-            return $cargoItem->toJson();
-        }
+        $cargoItem = new CargoItem();
+        $cargoItem->starship()->associate(Starship::find($request->starship_id));
+        $cargoItem->name = $request->name;
+        $cargoItem->quantity = $request->quantity;
+        $cargoItem->description = $request->description;
+        $cargoItem->save();
+        
+        return $cargoItem->toJson();
     }
 
     /**
