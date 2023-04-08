@@ -104,6 +104,11 @@ window.activateCargo = () => {
 
         const itemDescriptionDiv = document.querySelector(`#description-${id}`);
         itemDescriptionDiv.appendChild(confirmButton);
+
+        setTimeout(() => {
+            confirmButton.removeEventListener('click', deleteCargoItemConfirmed(id));
+            confirmButton.remove();
+        }, 5000);
     });
 
     async function deleteCargoItemConfirmed(id) {
