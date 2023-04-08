@@ -39,9 +39,9 @@ class CargoItemController extends Controller
     {
         $cargoItem = new CargoItem();
         $cargoItem->starship()->associate(Starship::find($request->starship_id));
-        $cargoItem->name = $request->name;
-        $cargoItem->quantity = $request->quantity;
-        $cargoItem->description = $request->description;
+        $cargoItem->name = strip_tags(substr($request->name, 0, 255));
+        $cargoItem->quantity = $request->quantity > 2147483647 ? 2147483647 : $request->quantity;
+        $cargoItem->description = strip_tags(substr($request->description, 0, 65535));
         $cargoItem->save();
 
         return $cargoItem->toJson();
@@ -78,9 +78,9 @@ class CargoItemController extends Controller
      */
     public function update(UpdateCargoItemRequest $request, CargoItem $cargoItem)
     {
-        $cargoItem->name = $request->name;
-        $cargoItem->quantity = $request->quantity;
-        $cargoItem->description = $request->description;
+        $cargoItem->name = strip_tags(substr($request->name, 0, 255));
+        $cargoItem->quantity = $request->quantity > 2147483647 ? 2147483647 : $request->quantity;
+        $cargoItem->description = strip_tags(substr($request->description, 0, 65535));
         $cargoItem->save();
     }
 
