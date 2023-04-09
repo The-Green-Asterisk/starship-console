@@ -18,7 +18,7 @@ const closeModal = () => {
 const clickOutside = (ev) => {
     ev.stopImmediatePropagation();
     let dialog = el.dialog();
-    if (dialog != null && !dialog.contains(ev.target)) {
+    if ((dialog != null && !dialog.contains(ev.target)) && el.loader.style.display === 'none') {
         closeModal();
     }
 };

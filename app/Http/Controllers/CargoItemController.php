@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AddCargo;
+use App\Events\UpdateCargo;
 use App\Http\Requests\StoreCargoItemRequest;
 use App\Http\Requests\UpdateCargoItemRequest;
 use App\Models\CargoItem;
@@ -44,6 +46,8 @@ class CargoItemController extends Controller
         $cargoItem->description = substr(strip_tags($request->description), 0, 65535);
         $cargoItem->save();
 
+        broadcast(new AddCargo($cargoItem));
+
         return $cargoItem->toJson();
     }
 
@@ -82,6 +86,8 @@ class CargoItemController extends Controller
         $cargoItem->quantity = $request->quantity > 2147483647 ? 2147483647 : $request->quantity;
         $cargoItem->description = substr(strip_tags($request->description), 0, 65535);
         $cargoItem->save();
+
+        broadcast(new UpdateCargo($cargoItem));
     }
 
     /**
@@ -92,6 +98,14 @@ class CargoItemController extends Controller
      */
     public function destroy(CargoItem $cargoItem)
     {
-        $cargoItem->delete();
+        if ($cargoItem != null)
+        {
+            $cargoItem->quantity = 0;
+            $cargoItem->save();
+            broadcast(new UpdateCargo($cargoItem));
+
+            $cargoItem->starship()->dissociate();
+            $cargoItem->delete();
+        }
     }
 }
