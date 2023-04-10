@@ -1,0 +1,30 @@
+{
+    "name": "Starship Console",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "/img/valkur-favicon.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "/img/valkur-favicon.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/img/valkur-favicon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "short_name": "Starship Console",
+    "description": "Starship Console",
+    "orientation": "landscape-primary",
+    "prefer_related_applications": false,
+    "categories": ["games", "entertainment"],
+    "lang": "en-US"
+}
