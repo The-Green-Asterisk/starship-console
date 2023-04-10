@@ -23,6 +23,7 @@
     ],
     "short_name": "Starship Console",
     "description": "Starship Console",
+    "orientation": "natural",
     "prefer_related_applications": false,
     "categories": ["games", "entertainment"],
     "lang": "en-US"
