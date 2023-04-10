@@ -6,17 +6,17 @@
     "theme_color": "#000000",
     "icons": [
         {
-            "src": "/img/valkur-favicon.png",
+            "src": "/img/icon-32x32.png",
             "type": "image/png",
             "sizes": "32x32"
         },
         {
-            "src": "/img/valkur-favicon.png",
+            "src": "/img/icon-192x192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/img/valkur-favicon.png",
+            "src": "/img/icon-512x512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
