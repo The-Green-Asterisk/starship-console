@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CargoItem;
 use App\Models\Character;
+use App\Models\Client;
 use App\Models\Division;
+use App\Models\Job;
 use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\System;
@@ -120,6 +122,14 @@ class ModalController extends Controller
         $cargo = CargoItem::where('starship_id', $starship->id)->get();
 
         return view('modals.cargo-manifest', compact('cargo'));
+    }
+
+    public function jobs(Starship $starship)
+    {
+        $jobs = Job::where('starship_id', $starship->id)->get();
+        $clients = Client::whereIn('job_id', $jobs->pluck('id'))->get();
+
+        return view('modals.jobs', compact('jobs', 'clients'));
     }
 
     public function addUser($email, Starship $starship)

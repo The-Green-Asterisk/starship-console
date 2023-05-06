@@ -1,9 +1,14 @@
-import * as el from "./elements";
+import { el } from "./elements";
 import { starshipId } from "./app";
+import cargoManifest from "./modals/cargo-manifest";
+import dice from "./modals/dice";
+import jobs from "./modals/jobs";
+import login from "./modals/login";
+import register from "./modals/registration";
 
 const closeModal = () => {
     let closeButton = el.closeButton();
-    closeButton.removeEventListener('click', closeModal);
+    closeButton?.removeEventListener('click', closeModal);
     let modal = el.modal();
     if (modal != null) {
         modal.className = 'modal fadeout';
@@ -46,7 +51,7 @@ window.success = (message) => {
         });
 };
 
-window.officerDamage = (div) => {
+export function officerDamage(div) {
     let incomingModal = document.createElement('div');
     incomingModal.innerHTML = div;
     el.body.appendChild(incomingModal.firstChild);
@@ -76,7 +81,7 @@ if (el.register) {
                 alert('Something went wrong');
             })
             .then((res) => {
-                popModal(res);
+                popModal(res).then(() => register());
             });
     });
 }
@@ -124,7 +129,7 @@ if (el.login) {
                                         });
                                 });
                         });
-                        window.activateLogin();
+                        login();
                     });
             });
     });
@@ -139,9 +144,7 @@ if (el.roll) {
             })
             .then((res) => {
                 popModal(res)
-                    .then(() => {
-                        window.activateDice();
-                    });
+                    .then(() => dice());
             });
     });
 }
@@ -260,7 +263,7 @@ if (el.cargo) {
             })
             .then((res) => {
                 popModal(res)
-                    .then(() => window.activateCargo());
+                    .then(() => cargoManifest());
             });
         el.manifestMenu.style.display = 'none';
     });
@@ -268,16 +271,16 @@ if (el.cargo) {
 
 if (el.jobs) {
     el.jobs.addEventListener('click', () => {
-        if (true) {
-            alert('This feature is not yet available');
-            return;
-        }
+        // if (true) {
+        //     alert('This feature is not yet available');
+        //     return;
+        // }
         fetch(`/starship/${starshipId}/jobs`)
             .catch((err) => {
                 console.log(err);
                 alert('Something went wrong');
             })
-            .then((res) => popModal(res));
+            .then((res) => popModal(res)).then(() => jobs());
         el.manifestMenu.style.display = 'none';
     });
 }

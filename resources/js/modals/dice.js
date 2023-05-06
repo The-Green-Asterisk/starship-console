@@ -1,82 +1,82 @@
 import * as el from '../elements.js';
 import { d } from '../app.js';
 
-window.activateDice = () => {
-    const d4 = document.querySelector('#d4');
-    const d6 = document.querySelector('#d6');
-    const d8 = document.querySelector('#d8');
-    const d10 = document.querySelector('#d10');
-    const d12 = document.querySelector('#d12');
-    const d20 = document.querySelector('#d20');
-    const d100 = document.querySelector('#d100');
-    const diceTray = document.querySelector('#dice-tray');
-    const mod = document.querySelector('#modifier');
-    const roll = document.querySelector('#roll-dice');
-    const result = document.querySelector('#result');
-    const fireButton = document.querySelector('#fire-button');
+export default function activateDice() {
+    const d4 = document.getElementById('d4');
+    const d6 = document.getElementById('d6');
+    const d8 = document.getElementById('d8');
+    const d10 = document.getElementById('d10');
+    const d12 = document.getElementById('d12');
+    const d20 = document.getElementById('d20');
+    const d100 = document.getElementById('d100');
+    const diceTray = document.getElementById('dice-tray');
+    const mod = document.getElementById('modifier');
+    const roll = document.getElementById('roll-dice');
+    const result = document.getElementById('result');
+    const fireButton = document.getElementById('fire-button');
 
     let diceResult = 0;
     let diceArray = [];
     var rollValue = 0;
 
-    d4.addEventListener('click', () => {
+    d4.onclick = function () {
         let roll = d(4);
         diceResult += roll;
         diceArray.push(roll);
         let tray4 = d4.cloneNode(true);
         diceTray.insertBefore(tray4, diceTray.firstChild);
         result.innerText = '';
-    });
-    d6.addEventListener('click', () => {
+    };
+    d6.onclick = function () {
         let roll = d(6);
         diceResult += roll;
         diceArray.push(roll);
         let tray6 = d6.cloneNode(true);
         diceTray.insertBefore(tray6, diceTray.firstChild);
         result.innerText = '';
-    });
-    d8.addEventListener('click', () => {
+    };
+    d8.onclick = function () {
         let roll = d(8);
         diceResult += roll;
         diceArray.push(roll);
         let tray8 = d8.cloneNode(true);
         diceTray.insertBefore(tray8, diceTray.firstChild);
         result.innerText = '';
-    });
-    d10.addEventListener('click', () => {
+    };
+    d10.onclick = function () {
         let roll = d(10);
         diceResult += roll;
         diceArray.push(roll);
         let tray10 = d10.cloneNode(true);
         diceTray.insertBefore(tray10, diceTray.firstChild);
         result.innerText = '';
-    });
-    d12.addEventListener('click', () => {
+    };
+    d12.onclick = function () {
         let roll = d(12);
         diceResult += roll;
         diceArray.push(roll);
         let tray12 = d12.cloneNode(true);
         diceTray.insertBefore(tray12, diceTray.firstChild);
         result.innerText = '';
-    });
-    d20.addEventListener('click', () => {
+    };
+    d20.onclick = function () {
         let roll = d(20);
         diceResult += roll;
         diceArray.push(roll);
         let tray20 = d20.cloneNode(true);
         diceTray.insertBefore(tray20, diceTray.firstChild);
         result.innerText = '';
-    });
-    d100.addEventListener('click', () => {
+    };
+    d100.onclick = function () {
         let roll = d(100);
         diceResult += roll;
         diceArray.push(roll);
         let tray100 = d100.cloneNode(true);
         diceTray.insertBefore(tray100, diceTray.firstChild);
         result.innerText = '';
-    });
+    };
 
-    roll.addEventListener('click', () => {
+    roll.onclick = function () {
         for (let i = 0; i < diceArray.length; i++)
             result.innerText += '\u00a0[' + diceArray[i] + '] +';
         if (mod.value == 0) {
@@ -95,7 +95,7 @@ window.activateDice = () => {
         diceArray = [];
         diceResult = 0;
         mod.value = 0;
-    });
+    };
 
 
     var damageStarship = (starshipId, damage) => {
@@ -110,7 +110,7 @@ window.activateDice = () => {
         }
     };
     if (fireButton != null) {
-        fireButton.addEventListener('click', () => {
+        fireButton.onclick = (() => {
             let starshipId = fireButton.value;
             damageStarship(starshipId, rollValue);
             let modal = el.modal();

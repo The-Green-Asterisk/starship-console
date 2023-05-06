@@ -1,6 +1,6 @@
-window.activateRegistration = () => {
+export default function activateRegistration() {
     const registrationForm = document.getElementById('registration-form');
-    registrationForm.addEventListener('submit', (e) => {
+    registrationForm.onsubmit = function (e) {
         e.preventDefault();
         fetch('/register', {
             method: 'POST',
@@ -39,5 +39,5 @@ window.activateRegistration = () => {
                         }
                     });
             });
-    });
+    };
 };

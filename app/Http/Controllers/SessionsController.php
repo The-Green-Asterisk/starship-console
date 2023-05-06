@@ -26,8 +26,13 @@ class SessionsController extends Controller
         } else {
             if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']], $data['remember_me'])) {
                 session()->regenerate();
+
+                $direction = Auth::user()->characters()->where('is_active')->first()
+                    ? 'starship/' . Auth::user()->characters()->where('is_active')->first()->starship_id
+                    : 'dashboard';
+
                 return response()->json([
-                    'redirect' => 'starship/' . auth()->user()->characters->where('is_active')->first()->starship->id
+                    'redirect' => $direction
                 ]);
             } else {
                 return response()->json(['error' => 'Invalid credentials'], 200);

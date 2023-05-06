@@ -1,4 +1,4 @@
-import * as el from './elements.js';
+import { el } from './elements.js';
 import { d } from "./app";
 import { clickOutside, closeModal } from "./modal";
 

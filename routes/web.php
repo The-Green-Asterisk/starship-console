@@ -75,6 +75,7 @@ Route::get('/starship/{starship}/cargo-manifest', [ModalController::class, 'carg
 Route::post('/add-cargo', [CargoItemController::class, 'store'])->middleware('auth')->name('add-cargo');
 Route::post('/delete-cargo/{cargoItem}', [CargoItemController::class, 'destroy'])->middleware('auth')->name('delete-cargo');
 Route::post('/update-cargo/{cargoItem}', [CargoItemController::class, 'update'])->middleware('auth')->name('edit-cargo');
+Route::get('/starship/{starship}/jobs', [ModalController::class, 'jobs'])->middleware('auth')->name('jobs');
 
 //gameplay
 Route::get('/starship/{starship}/damage/{damage}', [StarshipController::class, 'takeDamage'])->middleware('auth')->name('damage');

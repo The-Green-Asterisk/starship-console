@@ -1,6 +1,7 @@
 require('./bootstrap');
-import * as el from './elements';
+import { el } from './elements';
 import { checkIndicator } from './notifications';
+import modal from './modal';
 
 export const starshipId = (el.starshipId ? el.starshipId.value : null);
 export const userId = (el.userId ? el.userId.value : null);
@@ -61,7 +62,7 @@ var handleDamage = (e) => {
         setTimeout(() => {
             el.body.className = '';
         }, 1000);
-        window.officerDamage(e[e.length - 1].officerDamage);
+        modal.officerDamage(e[e.length - 1].officerDamage);
     };
     for (let i = 0; i < e.length; i++) {
         if (document.getElementById(e[i].systemId) != null)

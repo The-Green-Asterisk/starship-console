@@ -1,6 +1,6 @@
 import * as el from '../elements.js';
 
-window.activateCargo = () => {
+export default function activateCargo() {
     const nameInput = document.querySelector('#name');
     const quantityInput = document.querySelector('#quantity');
     const descriptionInput = document.querySelector('#description');

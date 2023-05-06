@@ -1,4 +1,4 @@
-import * as el from './elements';
+import { el } from './elements';
 import { flashModal } from "./modal";
 
 if (el.characterSelect != null) {

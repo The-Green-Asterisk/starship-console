@@ -1,4 +1,4 @@
-import * as el from "./elements";
+import { el } from "./elements";
 import "./app";
 
 export const checkIndicator = () => {
