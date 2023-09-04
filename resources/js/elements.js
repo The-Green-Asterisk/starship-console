@@ -1,4 +1,4 @@
-export const el = {
+const el = {
     body: document.getElementById('body'),
     loader: document.getElementById('loader'),
     starshipId: document.getElementById('starship-id'),
@@ -60,3 +60,4 @@ export const el = {
     notifButton: document.getElementById('notif-button'),
     indicator: document.getElementById('indicator')
 }
+export default el;

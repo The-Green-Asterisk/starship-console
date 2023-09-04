@@ -1,5 +1,5 @@
-import { el } from "./elements";
 import { starshipId } from "./app";
+import el from "./elements";
 import cargoManifest from "./modals/cargo-manifest";
 import dice from "./modals/dice";
 import jobs from "./modals/jobs";

@@ -50,9 +50,9 @@ class StarshipController extends Controller
         $starship->captain_id = $request->captain_id;
         $starship->dm_id = auth()->id();
         $starship->save();
-        $this->addDefaultSystems(Starship::find($starship->id));
+        $this->addDefaultSystems($starship);
 
-        User::find(auth()->user()->id)->starships()->attach(Starship::find($starship->id));
+        auth()->user()->starships()->attach($starship->id);
 
         return redirect('/dm-dashboard/' . $starship->id)->with('success', 'Starship created!');
     }
@@ -63,13 +63,11 @@ class StarshipController extends Controller
      * @param  \App\Models\Starship  $starship
      * @return \Illuminate\Http\Response
      */
-    public function show($starship)
+    public function show(Starship $starship)
     {
-        if ($starship == 0) {
-            return back()->with('success', 'Please create ' . (auth()->user()->is_dm == false ? 'or have your DM assign you' : true) . ' a starship.');
+        if (!isset($starship)) {
+            return back()->with('success', 'Please create' . (auth()->user()->is_dm == false ? ' or have your DM assign you' : true) . ' a starship.');
         }
-
-        $starship = Starship::find($starship);
 
         $divisions = Division::whereHas('starships', function (Builder $query) use ($starship) {
             $query->where('id', $starship->id);

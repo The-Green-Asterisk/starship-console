@@ -1,7 +1,7 @@
 require('./bootstrap');
-import { el } from './elements';
+import el from './elements';
 import { checkIndicator } from './notifications';
-import modal from './modal';
+import * as modal from './modal';
 
 export const starshipId = (el.starshipId ? el.starshipId.value : null);
 export const userId = (el.userId ? el.userId.value : null);
@@ -38,7 +38,7 @@ if (userId != null) {
         });
 }
 
-if (starshipId != null) {
+if (starshipId > 0) {
     Echo.join(`presenceStarshipConsole.${starshipId}`)
         .listen('HpUpdate', (data) => {
             handleDamage(data.data);

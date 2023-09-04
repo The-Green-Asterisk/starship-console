@@ -1,4 +1,4 @@
-import * as el from '../elements.js';
+import el from '../elements.js';
 
 export default function activateJobs() {
     const nameInput = document.querySelector('#name');

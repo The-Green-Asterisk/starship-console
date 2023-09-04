@@ -1,5 +1,5 @@
-import { el } from './elements.js';
 import { d } from "./app";
+import el from './elements.js';
 import { clickOutside, closeModal } from "./modal";
 
 if (el.quickFix != null) {

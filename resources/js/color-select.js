@@ -1,4 +1,4 @@
-import { el } from './elements.js';
+import el from './elements.js';
 import { flashModal } from './modal.js';
 
 const hexCode = new RegExp('^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
