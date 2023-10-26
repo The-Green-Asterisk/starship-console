@@ -76,7 +76,7 @@ if (el.register) {
                 alert('Something went wrong');
             })
             .then((res) => {
-                popModal(res);
+                popModal(res).then(() => {activateRegistration()});
             });
     });
 }
