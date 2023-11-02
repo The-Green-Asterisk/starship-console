@@ -24,6 +24,19 @@ use Illuminate\Notifications\Messages\MailMessage;
 |
 */
 
+Route::post('update', function (Request $request) {
+    if ($request->header('X-GitHub-Event') != 'push') {
+        return response('OK', 200);
+    }
+
+    file_put_contents(
+        'update.txt',
+        shell_exec('cd /usr/local/var/www/catharicosa/starship-console && ./update.sh')
+    );
+
+    return response('OK', 200);
+});
+
 //Home Base
 Route::get('/', function () {
     if (auth()->check()) {
