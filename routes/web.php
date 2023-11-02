@@ -12,6 +12,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
 use App\Http\Controllers\SystemController;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
