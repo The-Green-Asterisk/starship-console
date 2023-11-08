@@ -2,8 +2,6 @@ import * as el from "./elements";
 import { starshipId } from "./app";
 
 const closeModal = () => {
-    let closeButton = el.closeButton();
-    closeButton.removeEventListener('click', closeModal);
     let modal = el.modal();
     if (modal != null) {
         modal.className = 'modal fadeout';
