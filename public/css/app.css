@@ -62,7 +62,6 @@
     text-align: center;
     width: 90%;
     max-width: 600px;
-    height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
     max-height: 600px;
@@ -73,8 +72,7 @@
     margin: 1em;
     border: 1px solid var(--ui-color);
     box-shadow: var(--lg-shadow);
-    -webkit-animation: fadeIn 0.3s ease-in-out;
-            animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
 }
 #modal-dialog form {
     display: flex;
@@ -262,13 +260,7 @@ body {
     border: 0.5rem solid rgba(255, 255, 255, 0.3);
     border-top-color: var(--ui-color);
     border-radius: 50%;
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
-}
-@-webkit-keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    animation: spin 1s linear infinite;
 }
 @keyframes spin {
     to {
@@ -319,26 +311,14 @@ svg:active {
 }
 
 .fadein {
-    -webkit-animation-name: fadeIn;
-            animation-name: fadeIn;
-    -webkit-animation-duration: 1s;
-            animation-duration: 1s;
+    animation-name: fadeIn;
+    animation-duration: 1s;
 }
 * {
     transition: all 0.35s;
 }
 .no-transition {
     transition: none !important;
-}
-@-webkit-keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 @keyframes fadeIn {
     from {
@@ -354,44 +334,6 @@ svg:active {
     opacity: 0;
     transform: scale(2);
     overflow: hidden;
-}
-
-@-webkit-keyframes shake {
-    0% {
-        transform: translateX(0);
-        transform: translateY(0);
-    }
-    10% {
-        transform: translateX(-10px);
-    }
-    20% {
-        transform: translateY(-50px);
-    }
-    30% {
-        transform: translateX(-10px);
-    }
-    40% {
-        transform: translateY(50px);
-    }
-    50% {
-        transform: translateX(40px);
-    }
-    60% {
-        transform: translateY(20px);
-    }
-    70% {
-        transform: translateX(-9px);
-    }
-    80% {
-        transform: translateY(70px);
-    }
-    90% {
-        transform: translateX(-20px);
-    }
-    100% {
-        transform: translateX(0);
-        transform: translateY(0);
-    }
 }
 
 @keyframes shake {
@@ -432,25 +374,11 @@ svg:active {
     }
 }
 .shake {
-    -webkit-animation-name: shake;
-            animation-name: shake;
-    -webkit-animation-duration: 0.7s;
-            animation-duration: 0.7s;
-    -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out;
-    -webkit-animation-iteration-count: 1;
-            animation-iteration-count: 1;
-    -webkit-animation-direction: alternate;
-            animation-direction: alternate;
-}
-
-@-webkit-keyframes danger {
-    from {
-        filter: opacity(70%);
-    }
-    to {
-        filter: opacity(100%);
-    }
+    animation-name: shake;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
 }
 
 @keyframes danger {
@@ -624,18 +552,15 @@ progress::-webkit-progress-value {
 .danger progress::-webkit-progress-value {
     background-color: red;
     filter: drop-shadow(1px 1px 3px #ff0000);
-    -webkit-animation: danger 1s infinite;
-            animation: danger 1s infinite;
+    animation: danger 1s infinite;
 }
 .danger progress::-webkit-progress-bar {
     background-color: #ac5b5b;
-    -webkit-animation: danger 1s infinite;
-            animation: danger 1s infinite;
+    animation: danger 1s infinite;
 }
 .danger progress {
     filter: drop-shadow(1px 1px 3px #fe8080);
-    -webkit-animation: danger 1s infinite;
-            animation: danger 1s infinite;
+    animation: danger 1s infinite;
 }
 
 input,
@@ -702,7 +627,6 @@ p.error {
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     white-space: nowrap;
 }
@@ -844,8 +768,7 @@ input.character-image {
     border: 2px solid var(--ui-color);
     z-index: 20;
     overflow: auto;
-    -webkit-animation: fadeIn 0.3s ease-in-out;
-            animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 img.division-title {
@@ -907,8 +830,7 @@ hr {
     width: 100%;
     z-index: 10;
     display: none;
-    -webkit-animation: fadeIn 0.3s ease-in-out;
-            animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
 }
 .menu > button {
     margin: 0.5em;
