@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Character;
 use App\Models\Division;
 use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class DashboardController extends Controller

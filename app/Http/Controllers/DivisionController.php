@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Http\Requests\StoreDivisionRequest;
 use App\Http\Requests\UpdateDivisionRequest;
 use App\Models\Character;
 use App\Models\Division;
 use App\Models\Starship;
+use Illuminate\View\View;
 
 class DivisionController extends Controller
 {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreStarshipRequest;
 use App\Http\Requests\UpdateStarshipRequest;
 use App\Models\Character;
@@ -12,6 +11,7 @@ use App\Models\System;
 use App\Models\User;
 use App\Notifications\Notify;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class StarshipController extends Controller

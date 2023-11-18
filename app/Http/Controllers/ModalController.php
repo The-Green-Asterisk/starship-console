@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\CargoItem;
 use App\Models\Character;
 use App\Models\Division;
@@ -12,6 +11,7 @@ use App\Models\User;
 use App\Notifications\Notify;
 use App\Notifications\SendInvitation;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ModalController extends Controller
 {
