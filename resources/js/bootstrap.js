@@ -13,13 +13,13 @@ window.Echo = new Echo({                                                    //
     forceTLS: true                                                          //
 });                                                                     //////
 
-require('./const/elements.js');
-require('./dashboard.js');
-require('./modal.js');
-require('./modals/dice.js');
-require('./modals/registration.js');
-require('./modals/login.js');
-require('./modals/cargo-manifest.js');
-require('./divisions.js');
-require('./color-select.js');
-require('./notifications.js');
+import './const/elements.js';
+import './dashboard.js';
+import './modal.js';
+import './modals/dice.js';
+import './modals/registration.js';
+import './modals/login.js';
+import './modals/cargo-manifest.js';
+import './divisions.js';
+import './color-select.js';
+import './notifications.js';

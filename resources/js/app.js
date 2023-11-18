@@ -1,4 +1,4 @@
-require('./bootstrap');
+import './bootstrap';
 import * as el from './const/elements';
 import { checkIndicator } from './notifications';
 
