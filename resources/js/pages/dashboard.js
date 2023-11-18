@@ -1,50 +1,43 @@
-import * as el from './const/elements';
-import { flashModal } from "./modal";
+import components from '../components';
+import { flashModal } from "../components/modal";
 
-if (el.characterSelect != null) {
-    el.characterSelect.addEventListener('change', () => {
+export default function dashboard(el) {
+    components.colorSelect(el);
+
+    if (el.characterSelect) el.characterSelect.onchange = () => {
         let characterId = el.characterSelect.value;
         window.location.href = `/character-select/${characterId}`;
-    });
-}
-if (el.starshipSelect != null) {
-    el.starshipSelect.addEventListener('change', () => {
+    };
+
+    el.starshipSelect.onchange = () => {
         let starshipId = el.starshipSelect.value;
         document.querySelector('#dm-mode').checked
             ? window.location.href = `/dm-dashboard/${starshipId}`
             : window.location.href = `/starship-select/${starshipId}`;
-    });
-}
+    };
 
-if (el.divisionCheckboxes != null) {
-    for (let i = 0; i < el.divisionCheckboxes.length; i++) {
-        el.divisionCheckboxes[i].querySelector('input')?.addEventListener('change', (e) => {
+    [...el.divisionCheckboxes].forEach((checkbox) => {
+        checkbox.querySelector('input').onchange = (e) => {
             e.stopImmediatePropagation();
-            let characterId = el.divisionCheckboxes[i].querySelector('#division-character-id').value;
-            let divisionId = el.divisionCheckboxes[i].querySelector('input').value;
+            let characterId = checkbox.querySelector('#division-character-id').value;
+            let divisionId = checkbox.querySelector('input').value;
             let url = `/character/${characterId}/division-select/${divisionId}`;
             fetch(url);
-        });
-    }
-}
-
-if (el.dmMode != null) {
-    el.dmMode.addEventListener('change', () => {
+        };
+    });
+    
+    el.dmMode.onchange = () => {
         fetch('/dm-mode')
             .then((res) => {
                 flashModal(res, '/dashboard');
             });
-    });
-}
+    };
 
-if (el.characterImage != null) {
-    el.characterImage.addEventListener('change', (e) => {
+    if (el.characterImage) el.characterImage.onchange = (e) => {
         document.characterImage.submit();
-    })
-}
-
-if (el.emailInvite != null) {
-    el.emailInvite.addEventListener('blur', (e) => {
+    };
+    
+    el.emailInvite.onblur = (e) => {
         if (el.emailInvite.value.length > 0) {
             fetch(`/starship/add-user/${el.emailInvite.value}/${el.starshipSelect.value}`)
                 .then(res => res.json()
@@ -53,5 +46,5 @@ if (el.emailInvite != null) {
                     })
                 )
         }
-    });
+    };
 }

@@ -1,6 +1,4 @@
-import * as el from '../const/elements.js';
-
-window.activateCargo = () => {
+export default function cargoManifest (el) {
     const nameInput = document.querySelector('#name');
     const quantityInput = document.querySelector('#quantity');
     const descriptionInput = document.querySelector('#description');
@@ -16,7 +14,7 @@ window.activateCargo = () => {
             updateItem(data.data);
         });
 
-    window.addCargoItem = async () => {
+    async function addCargoItem() {
         await fetch('/add-cargo', {
             method: 'POST',
             headers: {
@@ -106,7 +104,7 @@ window.activateCargo = () => {
         cargoItemDescription.textContent = item.description;
     }
 
-    window.updateCargoItem = async (id) => {
+    async function updateCargoItem(id) {
         const name = document.querySelector(`#item-${id}-name`).textContent;
         const quantity = parseInt(document.querySelector(`#item-${id}-qty`).value);
         const description = document.querySelector(`#item-${id}-description`).textContent;
@@ -133,7 +131,7 @@ window.activateCargo = () => {
             })
     };
 
-    window.deleteCargoItem = async (id, qtyChange = false) => {
+    async function deleteCargoItem(id, qtyChange = false) {
         if (document.getElementById(`confirm-button-${id}`)) return;
         const confirmButton = document.createElement('button');
         confirmButton.innerHTML = 'Are you sure you want to delete this item?';
@@ -175,4 +173,10 @@ window.activateCargo = () => {
         cargoItemDiv?.remove();
         cargoItemDescription?.remove();
     };
+
+    return {
+        addCargoItem,
+        updateCargoItem,
+        deleteCargoItem
+    }
 }

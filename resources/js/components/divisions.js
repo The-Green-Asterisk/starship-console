@@ -1,6 +1,6 @@
-import { d } from "./app";
-import * as el from './const/elements.js';
-import { clickOutside, closeModal } from "./modal";
+import { d } from "../app.js";
+import * as el from '../const/elements.js';
+import { clickOutside, closeModal } from "./modal.js";
 
 if (el.quickFix != null) {
     for (let i = 0; i < el.quickFix.length; i++) {

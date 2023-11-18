@@ -1,8 +1,8 @@
 export default class El {
     body = document.querySelector('body');
     loader = document.querySelector('#loader');
-    starshipId = document.querySelector('#starship-id');
-    userId = document.querySelector('#user-id');
+    starshipId = document.querySelector('#starship-id')?.value;
+    userId = document.querySelector('#user-id')?.value;
 
     reset = document.querySelector('#reset');
     manifestMenu = document.querySelector('#manifest-menu');

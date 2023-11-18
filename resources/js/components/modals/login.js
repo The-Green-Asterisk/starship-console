@@ -1,4 +1,4 @@
-window.activateLogin = () => {
+export default function login(el) {
     const loginForm = document.getElementById('login-form');
     const seePass = document.getElementById('see-pass');
 

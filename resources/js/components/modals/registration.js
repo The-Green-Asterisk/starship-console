@@ -1,4 +1,4 @@
-window.activateRegistration = () => {
+export default function registration(el) {
     const registrationForm = document.getElementById('registration-form');
     registrationForm.addEventListener('submit', (e) => {
         e.preventDefault();

@@ -1,6 +1,6 @@
+import axios from 'axios';
 import _ from 'lodash';
 window._ = _;
-import axios from 'axios';
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -17,13 +17,13 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
+import './components/color-select.js';
+import './components/divisions.js';
+import './components/modal.js';
+import './components/notifications.js';
 import './const/elements.js';
-import './dashboard.js';
-import './modal.js';
-import './modals/dice.js';
-import './modals/registration.js';
-import './modals/login.js';
 import './modals/cargo-manifest.js';
-import './divisions.js';
-import './color-select.js';
-import './notifications.js';
+import './modals/dice.js';
+import './modals/login.js';
+import './modals/registration.js';
+
