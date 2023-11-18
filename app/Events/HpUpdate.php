@@ -29,7 +29,7 @@ class HpUpdate implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
         return new PresenceChannel('presenceStarshipConsole.'.last($this->data)['starshipId']);
     }

@@ -29,7 +29,7 @@ class AddCargo implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
         return new PresenceChannel('presenceStarshipConsole.'.$this->data->starship_id);
     }
