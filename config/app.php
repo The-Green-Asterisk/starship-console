@@ -196,7 +196,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
-
     ],
 
     /*
@@ -212,8 +211,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Route'     => "Illuminate\Support\Facades\Route",
-        'Image' => Intervention\Image\Facades\Image::class
+        'Route' => "Illuminate\Support\Facades\Route",
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ])->toArray(),
 

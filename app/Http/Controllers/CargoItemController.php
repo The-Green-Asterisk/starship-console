@@ -34,7 +34,6 @@ class CargoItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCargoItemRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCargoItemRequest $request)
@@ -54,7 +53,6 @@ class CargoItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CargoItem  $cargoItem
      * @return \Illuminate\Http\Response
      */
     public function show(CargoItem $cargoItem)
@@ -65,7 +63,6 @@ class CargoItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CargoItem  $cargoItem
      * @return \Illuminate\Http\Response
      */
     public function edit(CargoItem $cargoItem)
@@ -76,8 +73,6 @@ class CargoItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCargoItemRequest  $request
-     * @param  \App\Models\CargoItem  $cargoItem
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCargoItemRequest $request, CargoItem $cargoItem)
@@ -93,13 +88,11 @@ class CargoItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CargoItem  $cargoItem
      * @return \Illuminate\Http\Response
      */
     public function destroy(CargoItem $cargoItem)
     {
-        if ($cargoItem != null)
-        {
+        if ($cargoItem != null) {
             $cargoItem->quantity = 0;
             $cargoItem->save();
             broadcast(new UpdateCargo($cargoItem));

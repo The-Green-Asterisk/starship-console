@@ -31,7 +31,6 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreJobRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreJobRequest $request)
@@ -42,7 +41,6 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
     public function show(Job $job)
@@ -53,7 +51,6 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
     public function edit(Job $job)
@@ -64,8 +61,6 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateJobRequest  $request
-     * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateJobRequest $request, Job $job)
@@ -76,7 +71,6 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
     public function destroy(Job $job)

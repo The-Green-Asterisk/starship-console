@@ -11,6 +11,7 @@ class ConsoleUpdate implements ShouldQueue
     use InteractsWithQueue;
 
     public $afterCommit = true;
+
     /**
      * Create the event listener.
      *

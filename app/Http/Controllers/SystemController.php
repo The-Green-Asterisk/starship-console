@@ -34,7 +34,6 @@ class SystemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSystemRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreSystemRequest $request)
@@ -58,7 +57,6 @@ class SystemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\System  $system
      * @return \Illuminate\Http\Response
      */
     public function show(System $system)
@@ -69,7 +67,6 @@ class SystemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\System  $system
      * @return \Illuminate\Http\Response
      */
     public function edit(System $system)
@@ -80,7 +77,6 @@ class SystemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSystemRequest  $request
      * @param  \App\Models\System  $system
      * @return \Illuminate\Http\Response
      */
@@ -148,24 +144,25 @@ class SystemController extends Controller
             $secondRoll < $firstRoll
                 ? $system->current_hp = $system->current_hp += $secondRoll
                 : $system->current_hp = $system->current_hp += $firstRoll;
-        }else{
+        } else {
             $system->current_hp += $firstRoll;
         }
-        if ($system->current_hp > $system->max_hp)
+        if ($system->current_hp > $system->max_hp) {
             $system->current_hp = $system->max_hp;
+        }
 
         $system->save();
 
         $response[] = [
             'systemId' => $system->id,
             'hp' => $system->getHpPercentage(),
-            'current' => $system->current_hp
+            'current' => $system->current_hp,
         ];
 
         $response[] = [
             'starshipId' => $system->starship->id,
             'hp' => $system->starship->getHpPercentage(),
-            'current' => $system->starship->getCurrentHp()
+            'current' => $system->starship->getCurrentHp(),
         ];
 
         HpUpdate::dispatch($response);

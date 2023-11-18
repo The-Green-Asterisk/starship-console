@@ -21,6 +21,7 @@ class NotificationController extends Controller
 
         return view('components.notifications-drawer', compact('notifications', 'viewArchive'));
     }
+
     public function indexRaw()
     {
         return auth()->user()->notifications->where('archived', false)->values()->toArray();
@@ -34,6 +35,7 @@ class NotificationController extends Controller
 
         return compact('archived', 'read');
     }
+
     public function archive(Notification $notification)
     {
         $notification->archive();
@@ -56,7 +58,6 @@ class NotificationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreNotificationRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreNotificationRequest $request)
@@ -67,7 +68,6 @@ class NotificationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function show(Notification $notification)
@@ -78,7 +78,6 @@ class NotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function edit(Notification $notification)
@@ -89,8 +88,6 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateNotificationRequest  $request
-     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateNotificationRequest $request, Notification $notification)
@@ -101,7 +98,6 @@ class NotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function destroy(Notification $notification)

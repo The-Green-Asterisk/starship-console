@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class SessionsController extends Controller
 {
@@ -26,8 +24,9 @@ class SessionsController extends Controller
         } else {
             if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']], $data['remember_me'])) {
                 session()->regenerate();
+
                 return response()->json([
-                    'redirect' => 'starship/' . auth()->user()->characters->where('is_active')->first()->starship->id
+                    'redirect' => 'starship/'.auth()->user()->characters->where('is_active')->first()->starship->id,
                 ]);
             } else {
                 return response()->json(['error' => 'Invalid credentials'], 200);
@@ -66,6 +65,7 @@ class SessionsController extends Controller
     public function resetPasswordScreen($token)
     {
         $email = request()->query('email');
+
         return view('auth.passwords.reset', compact('token', 'email'));
     }
 

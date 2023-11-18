@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
 use App\Models\Character;
-use App\Models\Starship;
-use App\Events\Success;
 use App\Models\Division;
-use App\Models\User;
+use App\Models\Starship;
 use App\Notifications\Notify;
 
 class CharacterController extends Controller
@@ -36,7 +34,6 @@ class CharacterController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCharacterRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCharacterRequest $request)
@@ -49,14 +46,12 @@ class CharacterController extends Controller
         $character->save();
         $this->makeActive($character);
 
-
         return back()->with('success', 'Character created!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
     public function show(Character $character)
@@ -67,7 +62,6 @@ class CharacterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
     public function edit(Character $character)
@@ -78,7 +72,6 @@ class CharacterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCharacterRequest  $request
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
@@ -96,7 +89,6 @@ class CharacterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
     public function destroy(Character $character)
@@ -110,8 +102,9 @@ class CharacterController extends Controller
                 $starship->save();
             }
         }
-        if (auth()->user()->characters->count() > 0)
+        if (auth()->user()->characters->count() > 0) {
             $this->makeActive(auth()->user()->characters->first());
+        }
 
         return back()->with('success', 'Character deleted!');
     }
@@ -126,7 +119,7 @@ class CharacterController extends Controller
         $char->is_active = true;
         $char->save();
 
-        return back()->with('success', $char->name . ' activated!');
+        return back()->with('success', $char->name.' activated!');
     }
 
     public function divisionSelect(Character $character, Division $division)
@@ -138,13 +131,13 @@ class CharacterController extends Controller
         $character->save();
 
         $character->user->notify(new Notify(
-            "$character->name has been " . ($character->divisions()->find($division) ? "assigned to " : "unassigned from ") . "$division->name aboard the " . $character->starship->name . ".",
+            "$character->name has been ".($character->divisions()->find($division) ? 'assigned to ' : 'unassigned from ')."$division->name aboard the ".$character->starship->name.'.',
             $character->user->is_dm ? "/dm-dashboard/$character->starship_id" : "/dashboard/$character->starship_id",
             $character->user->id
         ));
         if ($character->user_id != $character->starship->dm_id) {
             $character->starship->dm->notify(new Notify(
-                "$character->name has been " . ($character->divisions()->find($division) ? "assigned to " : "unassigned from ") . "$division->name aboard the " . $character->starship->name . ".",
+                "$character->name has been ".($character->divisions()->find($division) ? 'assigned to ' : 'unassigned from ')."$division->name aboard the ".$character->starship->name.'.',
                 "/dm-dashboard/$character->starship_id",
                 $character->starship->dm_id
             ));

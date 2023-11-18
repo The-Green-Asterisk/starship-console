@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\CargoItem;
 use App\Models\Character;
 use App\Models\Division;
-use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\System;
 use App\Models\User;
 use App\Notifications\Notify;
 use App\Notifications\SendInvitation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification as FacadesNotification;
 
 class ModalController extends Controller
 {
@@ -60,7 +58,7 @@ class ModalController extends Controller
         return view('modals.delete-character', [
             'character' => $id,
             'message' => $message,
-            'yesButton' => $yesButton
+            'yesButton' => $yesButton,
         ]);
     }
 
@@ -82,7 +80,7 @@ class ModalController extends Controller
         if (auth()->user()->starships->count() <= 1) {
             $message = 'You cannot delete your only starship.';
             $yesButton = false;
-        }else{
+        } else {
             $message = 'Are you sure you want to delete this starship? This is Un-Undoable! If you are sure, then please select a new starship where the crew will be transferred to. If an appropriate transfer does not exist, please create a new starship first. By default, your crew will be transferred to:';
             $yesButton = true;
         }
@@ -90,7 +88,7 @@ class ModalController extends Controller
         return view('modals.delete-starship', [
             'starship' => Starship::where('id', $id)->first(),
             'message' => $message,
-            'yesButton' => $yesButton
+            'yesButton' => $yesButton,
         ]);
     }
 
@@ -102,7 +100,7 @@ class ModalController extends Controller
         return view('modals.delete-system', [
             'system' => System::where('id', $id)->first(),
             'message' => $message,
-            'yesButton' => $yesButton
+            'yesButton' => $yesButton,
         ]);
     }
 
@@ -127,16 +125,16 @@ class ModalController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user && $user->starships()->find($starship)) {
-            $message = $user->name . ' is already aboard the ' . $starship->name . '. Make sure they have created a character and assigned it to the ' . $starship->name . '.';
-        } else if ($user) {
+            $message = $user->name.' is already aboard the '.$starship->name.'. Make sure they have created a character and assigned it to the '.$starship->name.'.';
+        } elseif ($user) {
             $user->starships()->attach($starship->id);
-            $message = $user->name . ' has been brought aboard the ' . $starship->name . '!';
+            $message = $user->name.' has been brought aboard the '.$starship->name.'!';
             $user->notify(new Notify(
-                'You have been brought aboard the ' . $starship->name . '! Please visit your dashboard to assign a character to this starship.',
+                'You have been brought aboard the '.$starship->name.'! Please visit your dashboard to assign a character to this starship.',
                 '/dashboard',
                 $user->id
             ));
-        }else{
+        } else {
             $starship->notify(new SendInvitation($email, $starship->id));
 
             $message = "$email could not be found in our system, but an email has been sent to them to invite them aboard.";

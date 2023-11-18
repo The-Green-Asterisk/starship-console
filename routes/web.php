@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CargoItemController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisionController;
@@ -11,8 +10,9 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StarshipController;
 use App\Http\Controllers\SystemController;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Route::post('update', function (Request $request) {
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect('/dashboard');
-    }else{
+    } else {
         return view('welcome');
     }
 })->name('home');
@@ -68,8 +68,12 @@ Route::get('/starship-select/{starship}/{character?}', [StarshipController::clas
 Route::get('/character/{character}/division-select/{division}', [CharacterController::class, 'divisionSelect'])->middleware('auth');
 Route::get('/dm-mode', [DashboardController::class, 'dmMode'])->middleware('auth');
 Route::get('/set-ui-color/{hex}', [DashboardController::class, 'setUiColor'])->middleware('auth');
-Route::get('/get-ui-color', function () {return auth()->user()->ui_color;})->middleware('auth');
-Route::get('/orientation', function () {return view('modals.orientation');})->middleware('guest');
+Route::get('/get-ui-color', function () {
+    return auth()->user()->ui_color;
+})->middleware('auth');
+Route::get('/orientation', function () {
+    return view('modals.orientation');
+})->middleware('guest');
 Route::get('/disembark/{character}', [StarshipController::class, 'disembark'])->middleware('auth');
 
 //navigation and maintenance
@@ -111,7 +115,7 @@ Route::post('/reset-password', [SessionsController::class, 'resetPassword'])->mi
 Route::get('/success/{message}', [ModalController::class, 'success'])->name('success');
 Route::get('/get-notifications/{viewArchive}', [NotificationController::class, 'indexOrArchive'])->middleware('auth');
 Route::get('/get-notifications-raw', [NotificationController::class, 'indexRaw'])->middleware('auth');
-Route::get('/archive-notification/{notification}',[NotificationController::class, 'archive'])->middleware('auth');
+Route::get('/archive-notification/{notification}', [NotificationController::class, 'archive'])->middleware('auth');
 Route::get('/read-notification/{notification}', [NotificationController::class, 'read'])->middleware('auth');
 
 //mail preview

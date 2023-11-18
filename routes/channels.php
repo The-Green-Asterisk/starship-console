@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('presenceStarshipConsole.{starshipId}', function ($user, $starshipId) {
-    if ($user->is_dm || $user->characters->where('is_active', true)->where('starship_id', $starshipId)->count() > 0)
+    if ($user->is_dm || $user->characters->where('is_active', true)->where('starship_id', $starshipId)->count() > 0) {
         return $user->toArray();
+    }
 });
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
