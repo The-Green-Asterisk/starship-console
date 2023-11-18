@@ -13,7 +13,7 @@
                 <span></span>
                 DM Mode
             </label>
-            <form action="/img/upload/" method="POST" name="characterImage" enctype="multipart/form-data">
+            <form action="/img/upload" method="POST" name="characterImage" enctype="multipart/form-data">
                 @csrf
                 <label for="character-image" id="character-image-wrapper">
                     <div id="overlay">Choose a character image</div>

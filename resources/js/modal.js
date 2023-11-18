@@ -7,8 +7,6 @@ import login from "./modals/login";
 import register from "./modals/registration";
 
 const closeModal = () => {
-    let closeButton = el.closeButton();
-    closeButton?.removeEventListener('click', closeModal);
     let modal = el.modal();
     if (modal != null) {
         modal.className = 'modal fadeout';

@@ -75,7 +75,7 @@ class DashboardController extends Controller
 
         $image = $request->file('character-image');
 
-        Image::make($image)->fit(300, 300, function ($constraint) {}, 'top')->save($image);
+        Image::make($image)->fit(300, 300, function ($constraint) {}, 'top')->stream();
 
         $img = $image->store('img');
 
