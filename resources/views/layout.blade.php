@@ -8,7 +8,6 @@
 
     <title>{{ $title ?? env('APP_NAME') }}</title>
     <link rel="icon" href="{{ url('/img/valkur-favicon.svg') }}">
-    <link href="{{ url('/css/app.css') }}" rel="stylesheet">
     <link rel="manifest" href="/manifest.json" />
 
     <script>
@@ -16,6 +15,8 @@
             navigator.serviceWorker.register('/sw.js');
         }
     </script>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body id="body" class="fadein">
