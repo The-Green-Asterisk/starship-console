@@ -1,5 +1,5 @@
-import * as el from './elements.js';
 import { d } from "./app";
+import * as el from './const/elements.js';
 import { clickOutside, closeModal } from "./modal";
 
 if (el.quickFix != null) {

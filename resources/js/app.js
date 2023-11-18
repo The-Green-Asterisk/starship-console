@@ -1,5 +1,5 @@
 require('./bootstrap');
-import * as el from './elements';
+import * as el from './const/elements';
 import { checkIndicator } from './notifications';
 
 export const starshipId = (el.starshipId ? el.starshipId.value : null);

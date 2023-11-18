@@ -1,4 +1,4 @@
-import * as el from '../elements.js';
+import * as el from '../const/elements.js';
 
 window.activateCargo = () => {
     const nameInput = document.querySelector('#name');

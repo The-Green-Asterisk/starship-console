@@ -1,5 +1,5 @@
-import * as el from '../elements.js';
 import { d } from '../app.js';
+import * as el from '../const/elements.js';
 
 window.activateDice = () => {
     const d4 = document.querySelector('#d4');

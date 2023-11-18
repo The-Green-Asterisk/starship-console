@@ -1,5 +1,5 @@
-import * as el from "./elements";
 import "./app";
+import * as el from "./const/elements";
 
 export const checkIndicator = () => {
     if (el.indicator == null) return;

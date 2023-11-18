@@ -1,5 +1,5 @@
-import * as el from "./elements";
 import { starshipId } from "./app";
+import * as el from "./const/elements";
 
 const closeModal = () => {
     let modal = el.modal();

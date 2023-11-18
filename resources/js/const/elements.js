@@ -1,3 +1,66 @@
+export default class El {
+    body = document.querySelector('body');
+    loader = document.querySelector('#loader');
+    starshipId = document.querySelector('#starship-id');
+    userId = document.querySelector('#user-id');
+
+    reset = document.querySelector('#reset');
+    manifestMenu = document.querySelector('#manifest-menu');
+    manifestMenuButton = document.querySelector('#manifest');
+
+    //color selector
+    root = document.querySelector(':root');
+    selectPurple = document.querySelector('#select-purple');
+    selectRed = document.querySelector('#select-red');
+    selectPink = document.querySelector('#select-pink');
+    selectBlue = document.querySelector('#select-blue');
+    selectAqua = document.querySelector('#select-aqua');
+    selectGreen = document.querySelector('#select-green');
+    selectCustom = document.querySelector('#select-custom');
+
+    //dashboard
+    characterSelect = document.querySelector('#character-select');
+    starshipSelect = document.querySelector('#starship-select');
+    divisionCheckboxes = document.getElementsByClassName('division-checkboxes');
+    dmMode = document.querySelector('#dm-mode');
+    characterImage = document.querySelector('#character-image');
+    emailInvite = document.querySelector('#email-invite');
+
+    //divisions
+    quickFix = document.getElementsByClassName('quick-fix');
+    focusedRepairs = document.getElementsByClassName('focused-repairs');
+    deleteSystemButtons = document.getElementsByClassName('delete-system');
+
+    //modals
+    modal = () => { return document.querySelector('#modal'); }
+    dialog = () => { return document.querySelector('#modal-dialog'); }
+    closeButton = () => { return document.querySelector('#close-button'); }
+    register = document.querySelector('#register');
+    login = document.querySelector('#login');
+    forgotPassword = () => { return document.querySelector('#forgot-password'); }
+    forgotPasswordForm = () => { return document.querySelector('#forgot-password-form'); }
+    forgotPasswordEmail = () => { return document.querySelector('#email').value; }
+    roll = document.querySelector('#roll');
+    newCharacter = document.querySelector('#new-character');
+    editCharacter = document.querySelector('#edit-character');
+    deleteCharacter = document.querySelector('#delete-character');
+    newStarship = document.querySelector('#new-starship');
+    editStarship = document.querySelector('#edit-starship');
+    deleteStarship = document.querySelector('#delete-starship');
+    newSystem = document.querySelector('#new-system');
+    editSystemButtons = document.getElementsByClassName('edit-system');
+    welcomeLogo = document.querySelector('#welcome-logo');
+
+    //manifest modals
+    crew = document.querySelector('#crew');
+    cargo = document.querySelector('#cargo');
+    jobs = document.querySelector('#jobs');
+
+    //notifications
+    notifButton = document.querySelector('#notif-button');
+    indicator = document.querySelector('#indicator');
+}
+
 export const body = document.getElementById('body');
 export const loader = document.getElementById('loader');
 export const starshipId = document.getElementById('starship-id');
