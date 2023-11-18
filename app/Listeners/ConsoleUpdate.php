@@ -24,9 +24,6 @@ class ConsoleUpdate implements ShouldQueue
 
     /**
      * Handle the event.
-     *
-     * @param  object  $event
-     * @return void
      */
     public function handle(HpUpdate $event): void
     {

@@ -43,8 +43,6 @@ class DivisionController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Starship $starship, Division $division): View
     {

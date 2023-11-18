@@ -17,7 +17,6 @@ class Starship extends Model
     /**
      * Route notifications for the mail channel.
      *
-     * @param  \Illuminate\Notifications\Notification  $notification
      * @return array|string
      */
     public function routeNotificationForMail(Notification $notification)

@@ -38,8 +38,6 @@ class StarshipController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreStarshipRequest $request): RedirectResponse
     {
@@ -60,7 +58,6 @@ class StarshipController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Starship  $starship
      * @return \Illuminate\Http\Response
      */
     public function show(Starship $starship)
