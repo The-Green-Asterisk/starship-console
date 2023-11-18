@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class DiceController extends Controller
 {
     public static function d4(int $number, $inArray = false)

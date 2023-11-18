@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDivisionRequest;
 use App\Models\Character;
 use App\Models\Division;
 use App\Models\Starship;
+use Illuminate\View\View;
 
 class DivisionController extends Controller
 {
@@ -33,7 +34,6 @@ class DivisionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreDivisionRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreDivisionRequest $request)
@@ -43,16 +43,13 @@ class DivisionController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Division  $division
-     * @return \Illuminate\Http\Response
      */
-    public function show(Starship $starship, Division $division)
+    public function show(Starship $starship, Division $division): View
     {
         $systems = $division->systems()->where('starship_id', $starship->id)->get();
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
 
-        $title = $starship->name . ' > ' . $division->name . (auth()->user()->is_dm ? ' > DM Mode' : '');
+        $title = $starship->name.' > '.$division->name.(auth()->user()->is_dm ? ' > DM Mode' : '');
 
         return view('divisions.show',
             compact(
@@ -67,7 +64,6 @@ class DivisionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Division  $division
      * @return \Illuminate\Http\Response
      */
     public function edit(Division $division)
@@ -78,8 +74,6 @@ class DivisionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateDivisionRequest  $request
-     * @param  \App\Models\Division  $division
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateDivisionRequest $request, Division $division)
@@ -90,7 +84,6 @@ class DivisionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Division  $division
      * @return \Illuminate\Http\Response
      */
     public function destroy(Division $division)

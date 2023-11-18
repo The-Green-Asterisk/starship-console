@@ -7,8 +7,8 @@ use App\Models\Division;
 use App\Models\Notification;
 use App\Models\Starship;
 use App\Models\User;
-use App\Notifications\Notify;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class DashboardController extends Controller
@@ -16,26 +16,29 @@ class DashboardController extends Controller
     public function index()
     {
         $ship = Starship::where('dm_id', auth()->user()->id)->first();
-        if (auth()->user()->is_dm) return redirect(
-            '/dm-dashboard/' .
-            ($ship
-                ? $ship->id
-                : '') .
-            (request()->query()
-                ? '?n=' . request()->query('n')
-                : ''));
+        if (auth()->user()->is_dm) {
+            return redirect(
+                '/dm-dashboard/'.
+                ($ship
+                    ? $ship->id
+                    : '').
+                (request()->query()
+                    ? '?n='.request()->query('n')
+                    : ''));
+        }
 
-        if (request()->query('n'))
-        {
+        if (request()->query('n')) {
             $n = Notification::find(request()->query('n'));
-            if (!$n->read) $n->read();
+            if (! $n->read) {
+                $n->read();
+            }
         }
 
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();
         $divisions = Division::all();
         $starships = auth()->user()->starships;
         $starship = $character->starship ?? null;
-        $title = auth()->user()->name . ' Dashboard';
+        $title = auth()->user()->name.' Dashboard';
 
         return view('dashboard', compact(
             'title',
@@ -47,13 +50,16 @@ class DashboardController extends Controller
 
     public function dmIndex(Starship $starship)
     {
-        if (request()->query())
-        {
+        if (request()->query()) {
             $n = Notification::find(request()->query('n'));
-            if (!$n->read) $n->read();
+            if (! $n->read) {
+                $n->read();
+            }
         }
 
-        if (!auth()->user()->is_dm) return redirect('/dashboard');
+        if (! auth()->user()->is_dm) {
+            return redirect('/dashboard');
+        }
 
         $data = [
             'divisions' => Division::all(),
@@ -61,7 +67,7 @@ class DashboardController extends Controller
             'starships' => Starship::where('dm_id', auth()->user()->id)->get(),
             'starshipId' => $starship->id,
             'starship' => $starship,
-            'title' => auth()->user()->name . ' Dashboard > DM Mode'
+            'title' => auth()->user()->name.' Dashboard > DM Mode',
         ];
 
         return view('dm-dashboard')->with($data);
@@ -75,7 +81,8 @@ class DashboardController extends Controller
 
         $image = $request->file('character-image');
 
-        Image::make($image)->fit(300, 300, function ($constraint) {}, 'top')->stream();
+        Image::make($image)->fit(300, 300, function ($constraint) {
+        }, 'top')->stream();
 
         $img = $image->store('img');
 
@@ -85,24 +92,24 @@ class DashboardController extends Controller
         ]);
         $character->save();
 
-        return back()->with('success','Character image successfully uploaded!');
+        return back()->with('success', 'Character image successfully uploaded!');
     }
 
-    public function dmMode()
+    public function dmMode(): View
     {
         $user = User::find(auth()->id());
-        $user->is_dm = !$user->is_dm;
+        $user->is_dm = ! $user->is_dm;
         $user->save();
 
-        return view('modals.success', ['message' => 'DM Mode ' . ($user->is_dm ? 'activated' : 'deactivated') . '!']);
+        return view('modals.success', ['message' => 'DM Mode '.($user->is_dm ? 'activated' : 'deactivated').'!']);
     }
 
-    public function setUiColor($hex)
+    public function setUiColor($hex): View
     {
         $user = User::find(auth()->id());
         $user->ui_color = $hex;
         $user->save();
 
-        return view('modals.success', ['message' => 'UI Color changed to ' . $hex . '!']);
+        return view('modals.success', ['message' => 'UI Color changed to '.$hex.'!']);
     }
 }

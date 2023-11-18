@@ -28,7 +28,7 @@ class System extends Model
 
         if ($hp > 0) {
             $percentage = ($hp / $maxHp) * 100;
-        }else{
+        } else {
             $percentage = 0;
         }
 

@@ -19,14 +19,14 @@ class Notification extends Model
 
     public function read()
     {
-        $this->read = !$this->read;
+        $this->read = ! $this->read;
         $this->date_read = new DateTime();
         $this->save();
     }
 
     public function archive()
     {
-        $this->archived = !$this->archived;
+        $this->archived = ! $this->archived;
         $this->date_archived = new DateTime();
         $this->save();
     }

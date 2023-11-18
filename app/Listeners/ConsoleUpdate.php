@@ -11,6 +11,7 @@ class ConsoleUpdate implements ShouldQueue
     use InteractsWithQueue;
 
     public $afterCommit = true;
+
     /**
      * Create the event listener.
      *
@@ -23,11 +24,8 @@ class ConsoleUpdate implements ShouldQueue
 
     /**
      * Handle the event.
-     *
-     * @param  object  $event
-     * @return void
      */
-    public function handle(HpUpdate $event)
+    public function handle(HpUpdate $event): void
     {
         $data = $event->data;
         $this->data = $data;

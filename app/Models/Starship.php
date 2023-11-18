@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use App\Events\HpUpdate;
-use App\Http\Livewire\Hp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Livewire\Component;
+use Illuminate\Notifications\Notification;
 
 class Starship extends Model
 {
@@ -18,10 +17,9 @@ class Starship extends Model
     /**
      * Route notifications for the mail channel.
      *
-     * @param  \Illuminate\Notifications\Notification  $notification
      * @return array|string
      */
-    public function routeNotificationForMail($notification)
+    public function routeNotificationForMail(Notification $notification)
     {
         return $notification->email;
     }
@@ -63,7 +61,7 @@ class Starship extends Model
 
         if ($hp > 0) {
             $percentage = ($hp / $maxHp) * 100;
-        }else{
+        } else {
             $percentage = 0;
         }
 
@@ -80,25 +78,41 @@ class Starship extends Model
         $engDamage = 0;
         $commsDamage = 0;
 
-        if ($this->systems->where('name', 'Shields')->first()->getHpPercentage() > 25) $damage = $damage - 20;
+        if ($this->systems->where('name', 'Shields')->first()->getHpPercentage() > 25) {
+            $damage = $damage - 20;
+        }
 
-        for ($i = 0; $i < $damage ; $i++) {
+        for ($i = 0; $i < $damage; $i++) {
             $system = $this->systems()->inRandomOrder()->first();
             if ($system->getHpPercentage() < 25) {
-                if ($system->divisions()->first()->id == 1) $pilotDamage++;
-                if ($system->divisions()->first()->id == 2) $opsDamage++;
-                if ($system->divisions()->first()->id == 3) $defDamage++;
-                if ($system->divisions()->first()->id == 4) $lifeDamage++;
-                if ($system->divisions()->first()->id == 5) $engDamage++;
-                if ($system->divisions()->first()->id == 6) $commsDamage++;
+                if ($system->divisions()->first()->id == 1) {
+                    $pilotDamage++;
+                }
+                if ($system->divisions()->first()->id == 2) {
+                    $opsDamage++;
+                }
+                if ($system->divisions()->first()->id == 3) {
+                    $defDamage++;
+                }
+                if ($system->divisions()->first()->id == 4) {
+                    $lifeDamage++;
+                }
+                if ($system->divisions()->first()->id == 5) {
+                    $engDamage++;
+                }
+                if ($system->divisions()->first()->id == 6) {
+                    $commsDamage++;
+                }
             }
-            if ($system->current_hp <= 0) $system->current_hp = 1;
+            if ($system->current_hp <= 0) {
+                $system->current_hp = 1;
+            }
             $system->current_hp--;
 
             $response[] = [
                 'systemId' => $system->id,
                 'hp' => $system->getHpPercentage(),
-                'current' => $system->current_hp
+                'current' => $system->current_hp,
             ];
 
             $system->save();
@@ -113,8 +127,8 @@ class Starship extends Model
                 'def' => $defDamage,
                 'life' => $lifeDamage,
                 'eng' => $engDamage,
-                'comms' => $commsDamage
-            ])->render()
+                'comms' => $commsDamage,
+            ])->render(),
         ];
 
         broadcast(new HpUpdate($response));
@@ -124,7 +138,7 @@ class Starship extends Model
     {
         $response = [];
 
-        for ($i = 0; $i < $this->systems()->where('starship_id', $this->id)->count() ; $i++) {
+        for ($i = 0; $i < $this->systems()->where('starship_id', $this->id)->count(); $i++) {
             $system = $this->systems()->where('starship_id', $this->id)->get()[$i];
             $system->current_hp = $system->max_hp;
             $system->save();
@@ -132,14 +146,14 @@ class Starship extends Model
             $response[] = [
                 'systemId' => $system->id,
                 'hp' => $system->getHpPercentage(),
-                'current' => $system->current_hp
+                'current' => $system->current_hp,
             ];
         }
 
         $response[] = [
             'starshipId' => $this->id,
             'hp' => $this->getHpPercentage(),
-            'current' => $this->getCurrentHp()
+            'current' => $this->getCurrentHp(),
         ];
 
         broadcast(new HpUpdate($response));
@@ -149,8 +163,9 @@ class Starship extends Model
     {
         $data = [
             'starship' => $this->first(),
-            'divisions' => $this->first()->divisions()->get()
+            'divisions' => $this->first()->divisions()->get(),
         ];
+
         return view('index')->with($data);
     }
 }
