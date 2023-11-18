@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreStarshipRequest;
 use App\Http\Requests\UpdateStarshipRequest;
 use App\Models\Character;
@@ -40,7 +41,7 @@ class StarshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStarshipRequest $request)
+    public function store(StoreStarshipRequest $request): RedirectResponse
     {
         $starship = new Starship();
         $starship->name = $request->name;
@@ -62,7 +63,7 @@ class StarshipController extends Controller
      * @param  \App\Models\Starship  $starship
      * @return \Illuminate\Http\Response
      */
-    public function show($starship)
+    public function show(Starship $starship)
     {
         if ($starship == 0) {
             return back()->with('success', 'Please create '.(auth()->user()->is_dm == false ? 'or have your DM assign you' : true).' a starship.');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notification;
 use App\Events\HpUpdate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ class Starship extends Model
      * @param  \Illuminate\Notifications\Notification  $notification
      * @return array|string
      */
-    public function routeNotificationForMail($notification)
+    public function routeNotificationForMail(Notification $notification)
     {
         return $notification->email;
     }

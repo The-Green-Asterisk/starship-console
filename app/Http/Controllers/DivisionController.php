@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Http\Requests\StoreDivisionRequest;
 use App\Http\Requests\UpdateDivisionRequest;
 use App\Models\Character;
@@ -45,7 +46,7 @@ class DivisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Starship $starship, Division $division)
+    public function show(Starship $starship, Division $division): View
     {
         $systems = $division->systems()->where('starship_id', $starship->id)->get();
         $character = Character::where('user_id', auth()->user()->id)->where('is_active', true)->first();

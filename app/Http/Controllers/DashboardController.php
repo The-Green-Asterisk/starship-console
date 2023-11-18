@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Character;
 use App\Models\Division;
 use App\Models\Notification;
@@ -94,7 +95,7 @@ class DashboardController extends Controller
         return back()->with('success', 'Character image successfully uploaded!');
     }
 
-    public function dmMode()
+    public function dmMode(): View
     {
         $user = User::find(auth()->id());
         $user->is_dm = ! $user->is_dm;
@@ -103,7 +104,7 @@ class DashboardController extends Controller
         return view('modals.success', ['message' => 'DM Mode '.($user->is_dm ? 'activated' : 'deactivated').'!']);
     }
 
-    public function setUiColor($hex)
+    public function setUiColor($hex): View
     {
         $user = User::find(auth()->id());
         $user->ui_color = $hex;

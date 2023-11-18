@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SessionsController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $data = $request->toArray();
 
@@ -34,7 +37,7 @@ class SessionsController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
         Auth::logout();
 
@@ -62,7 +65,7 @@ class SessionsController extends Controller
         }
     }
 
-    public function resetPasswordScreen($token)
+    public function resetPasswordScreen($token): View
     {
         $email = request()->query('email');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Http\Requests\StoreNotificationRequest;
 use App\Http\Requests\UpdateNotificationRequest;
 use App\Models\Notification;
@@ -13,7 +14,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexOrArchive($viewArchive)
+    public function indexOrArchive($viewArchive): View
     {
         $viewArchive
             ? $notifications = auth()->user()->notifications->sortByDesc('created_at')

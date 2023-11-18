@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Events\HpUpdate;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,7 +17,7 @@ class Controller extends BaseController
         //
     }
 
-    public function index()
+    public function index(): View
     {
         return view('index');
     }
