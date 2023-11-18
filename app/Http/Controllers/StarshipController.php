@@ -62,11 +62,9 @@ class StarshipController extends Controller
      */
     public function show(Starship $starship)
     {
-        if ($starship == 0) {
+        if ($starship->id == 0) {
             return back()->with('success', 'Please create '.(auth()->user()->is_dm == false ? 'or have your DM assign you' : true).' a starship.');
         }
-
-        $starship = Starship::find($starship);
 
         $divisions = Division::whereHas('starships', function (Builder $query) use ($starship) {
             $query->where('id', $starship->id);
