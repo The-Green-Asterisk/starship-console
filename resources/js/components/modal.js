@@ -260,7 +260,7 @@ export default function (el) {
                 })
                 .then((res) => {
                     popModal(res)
-                        .then(() => window.activateCargo());
+                        .then(() => modals.cargoManifest(el));
                 });
             el.manifestMenu.style.display = 'none';
         });
