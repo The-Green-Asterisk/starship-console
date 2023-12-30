@@ -1,7 +1,7 @@
 export function initLoader(el) {
-    window.fetch=((oldFetch, input, init) =>{
+    window.fetch = ((oldFetch, input, init) => {
         return async (url = input, options = init | undefined) => {
-            el.loader.style.display = 'flex';
+            el.loader.style.display = 'flex';   
             options.headers
                 ? options.headers['X-CSRF-TOKEN'] = el.crfToken
                 : options = {

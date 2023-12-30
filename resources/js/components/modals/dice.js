@@ -103,7 +103,7 @@ export default function dice(el) {
                 .then((res) => {
                     if (!res.ok) {
                         alert('Something went wrong');
-                        console.log(res.text());
+                        res.text().then(data => console.log(data));
                     }
                 });
         }

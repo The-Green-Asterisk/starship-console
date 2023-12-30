@@ -3,6 +3,7 @@ export default class El {
     loader = document.querySelector('#loader');
     starshipId = document.querySelector('#starship-id')?.value;
     userId = document.querySelector('#user-id')?.value;
+    crfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     reset = document.querySelector('#reset');
     manifestMenu = document.querySelector('#manifest-menu');

@@ -17,13 +17,13 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-import './components/color-select.js';
-import './components/divisions.js';
-import './components/modal.js';
-import './components/notifications.js';
-import './const/elements.js';
-import './modals/cargo-manifest.js';
-import './modals/dice.js';
-import './modals/login.js';
-import './modals/registration.js';
+// import './components/color-select.js';
+// import './components/divisions.js';
+// import './components/modal.js';
+// import './components/notifications.js';
+// import './const/elements.js';
+// import './modals/cargo-manifest.js';
+// import './modals/dice.js';
+// import './modals/login.js';
+// import './modals/registration.js';
 

@@ -1,6 +1,6 @@
 import './bootstrap';
 
-import { checkIndicator } from './components/notifications';
+import components from './components';
 import constants from './const';
 import pages from './pages';
 
@@ -11,19 +11,21 @@ initLoader(elements);
 
 switch (constants.PathNames.basePath()) {
     case constants.PathNames.HOME:
-        pages.home(elements);
+        pages.home(elements, components);
         break;
     case constants.PathNames.DASHBOARD:
     case constants.PathNames.DM_DASHBOARD:
-        pages.dashboard(elements);
+        pages.dashboard(elements, components);
         break;
     case constants.PathNames.STARSHIP:
-        pages.starship(elements);
+        pages.starship(elements, components);
     default:
         break;
 }
 
+const notifications = components.notifications(elements);
 if (elements.userId != null) {
+    const userId = elements.userId;
     Echo.private(`App.Models.User.${userId}`)
         .notification((notification) => {
             const notif = document.createElement('div');
@@ -34,7 +36,7 @@ if (elements.userId != null) {
             anchor.appendChild(notif);
             elements.body.appendChild(anchor);
             setTimeout(() => {
-                checkIndicator();
+                notifications.checkIndicator();
                 notif.className = 'notif-drawer fadeout';
                 setTimeout(() => {
                     elements.body.removeChild(anchor);
@@ -44,9 +46,10 @@ if (elements.userId != null) {
 }
 
 if (elements.starshipId != null) {
+    const starshipId = elements.starshipId;
     Echo.join(`presenceStarshipConsole.${starshipId}`)
         .listen('HpUpdate', (data) => {
-            pages.starship(elements).handleDamage(data.data);
+            pages.starship(elements, components).handleDamage(data.data);
         });
 }
 

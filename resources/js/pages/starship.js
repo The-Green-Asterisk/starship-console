@@ -1,7 +1,7 @@
-export default function starship(el) {
-    const starshipId = (el.starshipId ? el.starshipId.value : null);
-    const userId = (el.userId ? el.userId.value : null);
-
+export default function starship(el, comp) {
+    const starshipId = el.starshipId;
+    const userId = el.userId;
+    const modal = comp.modal(el);
 
     var handleDamage = (e) => {
         if (document.getElementById("ship-" + e[e.length - 1].starshipId) != null &&

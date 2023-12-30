@@ -1,8 +1,6 @@
-import components from '../components';
-import { flashModal } from "../components/modal";
-
-export default function dashboard(el) {
-    components.colorSelect(el);
+export default function dashboard(el, comp) {
+    comp.colorSelect(el);
+    const modals = comp.modal(el);
 
     if (el.characterSelect) el.characterSelect.onchange = () => {
         let characterId = el.characterSelect.value;
@@ -29,7 +27,7 @@ export default function dashboard(el) {
     el.dmMode.onchange = () => {
         fetch('/dm-mode')
             .then((res) => {
-                flashModal(res, '/dashboard');
+                modals.flashModal(res, '/dashboard');
             });
     };
 
