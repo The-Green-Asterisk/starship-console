@@ -1,7 +1,5 @@
 export default function starship(el, comp) {
-    const starshipId = el.starshipId;
-    const userId = el.userId;
-    const modal = comp.modal(el);
+    const modal = comp.modal(el, comp);
 
     var handleDamage = (e) => {
         if (document.getElementById("ship-" + e[e.length - 1].starshipId) != null &&
@@ -10,7 +8,7 @@ export default function starship(el, comp) {
             setTimeout(() => {
                 el.body.className = '';
             }, 1000);
-            window.officerDamage(e[e.length - 1].officerDamage);
+            modal.popModal(e[e.length - 1].officerDamage);
         };
         for (let i = 0; i < e.length; i++) {
             if (document.getElementById(e[i].systemId) != null)
@@ -33,7 +31,7 @@ export default function starship(el, comp) {
 
     if (el.reset != null) {
         el.reset.onclick = () => {
-            fetch(`/starship/${starshipId}/reset-damage`);
+            fetch(`/starship/${el.starshipId}/reset-damage`);
         };
     };
 
@@ -48,33 +46,7 @@ export default function starship(el, comp) {
         };
     }
 
-    window.limit255 = (e) => {
-        if (e.innerText.length > 255) {
-            e.innerText = e.innerText.substring(0, 255);
-            var range = document.createRange();
-            var sel = window.getSelection();
-            range.setStart(e.childNodes[0], 255);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-        }
-    }
-
-    window.limitLong = (e) => {
-        if (e.innerText.length > 65535) {
-            e.innerText = e.innerText.substring(0, 65535);
-            var range = document.createRange();
-            var sel = window.getSelection();
-            range.setStart(e.childNodes[0], 65535);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-        }
-    }
-
     return {
-        handleDamage,
-        limit255,
-        limitLong
+        handleDamage
     }
 }

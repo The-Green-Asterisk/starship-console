@@ -18,6 +18,7 @@ export default function dice(el) {
     let diceArray = [];
     var rollValue = 0;
 
+    if (d4 == null) return {d};
     d4.onclick = () => {
         let roll = d(4);
         diceResult += roll;

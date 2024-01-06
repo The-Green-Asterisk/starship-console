@@ -1,8 +1,7 @@
-import modalImp from './modal.js';
 const hexCode = new RegExp('^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
 
-export default function colorSelect(el) {
-    const modal = modalImp(el);
+export default function colorSelect(el, comp) {
+    const modal = comp.modal(el, comp);
     fetch('/get-ui-color/')
         .then(res => {
             if (res.ok) {

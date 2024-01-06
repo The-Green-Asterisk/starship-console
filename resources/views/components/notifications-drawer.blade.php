@@ -1,7 +1,8 @@
 <div class="notif-drawer" id="notif-drawer">
+    <input type="hidden" id="view-archive" value="{{ $viewArchive }}" />
     @if ($notifications)
         <small>
-            <a href="#" onclick="markAllAsRead()">Mark All As Read</a>
+            <a href="#" id="mark-all-as-read">Mark All As Read</a>
         </small>
     @endif
     @foreach ($notifications as $notification)
@@ -11,11 +12,11 @@
                     {{ $notification->body }}
                 </p>
             </a>
-            <small><a href="#" onclick="read({{ $notification->id }})" id="read-button-{{ $notification->id }}">
-                Mark as {{ $notification->read ? 'Un' : '' }}Read
+            <small><a href="#" class="read-button" id="read-button-{{ $notification->id }}">
+                Mark as {{ $notification->read ? 'Unr' : 'R' }}ead
             </a></small> |
-            <small><a href="#" onclick="archive({{ $notification->id }}, {{ $viewArchive }})" id="archive-button-{{ $notification->id }}">
-                {{ $notification->archived ? 'Un' : '' }}Archive
+            <small><a href="#" class="archive-button" id="archive-button-{{ $notification->id }}">
+                {{ $notification->archived ? 'Una' : 'A' }}rchive
             </a></small>
             <hr />
         </div>
@@ -25,7 +26,7 @@
     @endif
     @if (!$viewArchive)
         <small>
-            <a href="#" id="view-archive">View Archive</a>
+            <a href="#" id="view-archive-button">View Archive</a>
         </small>
     @endif
 </div>

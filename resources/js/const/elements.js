@@ -41,6 +41,9 @@ export default class El {
     forgotPassword = () => { return document.querySelector('#forgot-password'); }
     forgotPasswordForm = () => { return document.querySelector('#forgot-password-form'); }
     forgotPasswordEmail = () => { return document.querySelector('#email').value; }
+    loginForm = () => { return document.querySelector('#login-form'); }
+    seePass = () => { return document.querySelector('#see-pass'); }
+    registrationForm = () => { return document.querySelector('#registration-form'); }
     roll = document.querySelector('#roll');
     newCharacter = document.querySelector('#new-character');
     editCharacter = document.querySelector('#edit-character');
@@ -58,66 +61,28 @@ export default class El {
     jobs = document.querySelector('#jobs');
 
     //notifications
-    notifButton = document.querySelector('#notif-button');
-    indicator = document.querySelector('#indicator');
+    notifButton;
+    indicator;
+    notifDrawer;
+    viewArchive;
+    markAllAsRead;
+    readButtons;
+    archiveButtons;
+    viewArchive;
+    viewArchiveButton;
+    loadNotificationElements() {
+        this.notifButton = document.querySelector('#notif-button');
+        this.indicator = document.querySelector('#indicator');
+        this.notifDrawer = document.querySelector('#notif-drawer');
+        this.viewArchive = document.querySelector('#view-archive');
+        this.markAllAsRead = document.querySelector('#mark-all-as-read');
+        this.readButtons = document.getElementsByClassName('read-button');
+        this.archiveButtons = document.getElementsByClassName('archive-button');
+        this.viewArchive = document.querySelector('#view-archive')?.value;
+        this.viewArchiveButton = document.querySelector('#view-archive-button');
+    }
+    
+    constructor() {
+        this.loadNotificationElements();
+    }
 }
-
-export const body = document.getElementById('body');
-export const loader = document.getElementById('loader');
-export const starshipId = document.getElementById('starship-id');
-export const userId = document.getElementById('user-id');
-
-export const reset = document.getElementById('reset');
-export const manifestMenu = document.getElementById('manifest-menu');
-export const manifestMenuButton = document.getElementById('manifest');
-
-//color selector
-export const root = document.querySelector(':root');
-export const selectPurple = document.querySelector('#select-purple');
-export const selectRed = document.querySelector('#select-red');
-export const selectPink = document.querySelector('#select-pink');
-export const selectBlue = document.querySelector('#select-blue');
-export const selectAqua = document.querySelector('#select-aqua');
-export const selectGreen = document.querySelector('#select-green');
-export const selectCustom = document.querySelector('#select-custom');
-
-//dashboard
-export const characterSelect = document.getElementById('character-select');
-export const starshipSelect = document.getElementById('starship-select');
-export const divisionCheckboxes = document.getElementsByClassName('division-checkboxes');
-export const dmMode = document.getElementById('dm-mode');
-export const characterImage = document.getElementById('character-image');
-export const emailInvite = document.getElementById('email-invite');
-
-//divisions
-export const quickFix = document.getElementsByClassName('quick-fix');
-export const focusedRepairs = document.getElementsByClassName('focused-repairs');
-export const deleteSystemButtons = document.getElementsByClassName('delete-system');
-
-//modals
-export const modal = () => { return document.getElementById('modal'); }
-export const dialog = () => { return document.getElementById('modal-dialog'); }
-export const closeButton = () => { return document.getElementById('close-button'); }
-export const register = document.getElementById('register');
-export const login = document.getElementById('login');
-export const forgotPassword = () => { return document.getElementById('forgot-password'); }
-export const forgotPasswordForm = () => { return document.getElementById('forgot-password-form'); }
-export const forgotPasswordEmail = () => { return document.getElementById('email').value; }
-export const roll = document.getElementById('roll');
-export const newCharacter = document.getElementById('new-character');
-export const editCharacter = document.getElementById('edit-character');
-export const deleteCharacter = document.getElementById('delete-character');
-export const newStarship = document.getElementById('new-starship');
-export const editStarship = document.getElementById('edit-starship');
-export const deleteStarship = document.getElementById('delete-starship');
-export const newSystem = document.getElementById('new-system');
-export const editSystemButtons = document.getElementsByClassName('edit-system');
-export const welcomeLogo = document.getElementById('welcome-logo');
-//manifest modals
-export const crew = document.getElementById('crew');
-export const cargo = document.getElementById('cargo');
-export const jobs = document.getElementById('jobs');
-
-//notifications
-export const notifButton = document.getElementById('notif-button');
-export const indicator = document.getElementById('indicator');

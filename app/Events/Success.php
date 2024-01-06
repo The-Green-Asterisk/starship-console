@@ -27,9 +27,9 @@ class Success implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return \Illuminate\Broadcasting\Channel
      */
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
         return new Channel('starship-console');
     }

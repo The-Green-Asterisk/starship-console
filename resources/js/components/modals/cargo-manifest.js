@@ -1,17 +1,39 @@
-export default function cargoManifest (el) {
+import Rules from '../../services/rules';
+
+export default function cargoManifest(el) {
     const nameInput = document.querySelector('#name');
     const quantityInput = document.querySelector('#quantity');
     const descriptionInput = document.querySelector('#description');
     let cargoList = document.querySelector('#cargo-items');
     const noItems = document.querySelector('#no-items');
-    const starshipId = (el.starshipId ? el.starshipId.value : null);
+    const addCargoItemButton = document.querySelector('#add-cargo');
 
-    Echo.join(`presenceStarshipConsole.${starshipId}`)
-        .listen('AddCargo', (data) => {
-            showItem(data.data);
+    if (cargoList) {
+        [...document.getElementsByClassName('cargo-item')].forEach((item) => {
+            const itemId = item.id.split('-')[1];
+            const cargoItemName = document.getElementById(`item-${itemId}-name`);
+            const cargoItemQty = document.getElementById(`item-${itemId}-qty`);
+            const cargoItemDescription = document.getElementById(`item-${itemId}-description`);
+            const deleteButton = document.getElementById(`delete-button-${itemId}`);
+
+            cargoItemName.onblur = () => { updateCargoItem(itemId) };
+            cargoItemName.onkeydown = () => { Rules.limit255(cargoItemName) };
+
+            cargoItemQty.onblur = () => { updateCargoItem(itemId) };
+
+            cargoItemDescription.onblur = () => { updateCargoItem(itemId) }
+            cargoItemDescription.onkeydown = () => { Rules.limitLong(cargoItemDescription)};
+
+            deleteButton.onclick = () => { deleteCargoItem(itemId) };
+        });
+    }
+
+    Echo.join(`presenceStarshipConsole.${el.starshipId}`)
+        .listen('AddCargo', (res) => {
+            showItem(res.data);
         })
-        .listen('UpdateCargo', (data) => {
-            updateItem(data.data);
+        .listen('UpdateCargo', (res) => {
+            updateItem(res.data);
         });
 
     async function addCargoItem() {
@@ -21,7 +43,7 @@ export default function cargoManifest (el) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                starship_id: el.starshipId.value,
+                starship_id: el.starshipId,
                 name: nameInput.value,
                 quantity: quantityInput.value,
                 description: descriptionInput.value,
@@ -32,6 +54,7 @@ export default function cargoManifest (el) {
                 alert('Something went wrong');
             });
     };
+    addCargoItemButton.onclick = () => {addCargoItem()};
 
     function showItem(item) {
         if (!cargoList) {
@@ -46,7 +69,7 @@ export default function cargoManifest (el) {
         newItemName.textContent = item.name;
         newItemName.id = `item-${item.id}-name`;
         newItemName.contentEditable = true;
-        newItemName.addEventListener('blur', () => { updateCargoItem(item.id) });
+        newItemName.onblur = () => { updateCargoItem(item.id) };
 
         let styleDiv = document.createElement('div');
         styleDiv.style.flexGrow = 1;
@@ -56,13 +79,13 @@ export default function cargoManifest (el) {
         newItemQuantity.value = item.quantity;
         newItemQuantity.id = `item-${item.id}-qty`;
         newItemQuantity.min = 0;
-        newItemQuantity.addEventListener('blur', () => { updateCargoItem(item.id) });
+        newItemQuantity.onblur = () => { updateCargoItem(item.id) };
 
         let newItemDeleteButton = document.createElement('button');
         newItemDeleteButton.style.margin = 0;
         newItemDeleteButton.textContent = 'x';
         newItemDeleteButton.title = 'Delete';
-        newItemDeleteButton.addEventListener('click', () => { deleteCargoItem(item.id) });
+        newItemDeleteButton.onclick = () => { deleteCargoItem(item.id) };
 
         let cargoDescriptionDiv = document.createElement('div');
         cargoDescriptionDiv.classList.add('cargo-description');
@@ -72,7 +95,7 @@ export default function cargoManifest (el) {
         newItemDescription.innerHTML = item.description;
         newItemDescription.id = `item-${item.id}-description`;
         newItemDescription.contentEditable = true;
-        newItemDescription.addEventListener('blur', () => { updateCargoItem(item.id) });
+        newItemDescription.onblur = () => { updateCargoItem(item.id) };
 
         cargoItemDiv.appendChild(newItemName);
         cargoItemDiv.appendChild(styleDiv);
@@ -137,13 +160,12 @@ export default function cargoManifest (el) {
         confirmButton.innerHTML = 'Are you sure you want to delete this item?';
         confirmButton.id = `confirm-button-${id}`;
         confirmButton.style.margin = 0;
-        confirmButton.addEventListener('click', () => { deleteCargoItemConfirmed(id) });
+        confirmButton.onclick = () => { deleteCargoItemConfirmed(id) };
 
         const itemDescriptionDiv = document.querySelector(`#description-${id}`);
         itemDescriptionDiv.appendChild(confirmButton);
 
         setTimeout(() => {
-            confirmButton?.removeEventListener('click', () => { deleteCargoItemConfirmed(id) });
             confirmButton?.remove();
             if (qtyChange) {
                 const qty = document.querySelector(`#item-${id}-qty`);

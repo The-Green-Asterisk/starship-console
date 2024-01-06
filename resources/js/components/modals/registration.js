@@ -1,16 +1,16 @@
 export default function registration(el) {
-    const registrationForm = document.getElementById('registration-form');
-    registrationForm.addEventListener('submit', (e) => {
+    const registrationForm = el.registrationForm();
+    registrationForm.onsubmit = (e) => {
         e.preventDefault();
         fetch('/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                password_confirmation: document.getElementById('password-confirmation').value,
-                starship: document.getElementById('starship')?.value
+                name: registrationForm.querySelector('#name').value,
+                email: registrationForm.querySelector('#email').value,
+                password: registrationForm.querySelector('#password').value,
+                password_confirmation: registrationForm.querySelector('#password-confirmation').value,
+                starship: registrationForm.querySelector('#starship')?.value
             })
         })
             .then((err) => {
@@ -20,24 +20,26 @@ export default function registration(el) {
                             window.location.href = data.redirect;
                         }
                         if (data.name) {
-                            for (let i = 0; i < data.name.length; i++) {
-                                document.querySelector('#errors').innerHTML += `<p class="error">${data.name[i]}</p>`;
-                            }
+                            data.name.forEach((error) => {
+                                registrationForm.querySelector('#errors').innerHTML += `<p class="error">${error}</p>`;
+                            });
                         }
                         if (data.email) {
-                            for (let i = 0; i < data.email.length; i++) {
-                                document.querySelector('#errors').innerHTML += `<p class="error">${data.email[i]}</p>`;
-                            }
+                            data.email.forEach((error) => {
+                                registrationForm.querySelector('#errors').innerHTML += `<p class="error">${error}</p>`;
+                            });
                         }
                         if (data.password) {
-                            for (let i = 0; i < data.password.length; i++) {
-                                document.querySelector('#errors').innerHTML += `<p class="error">${data.password[i]}</p>`;
-                            }
+                            data.password.forEach((error) => {
+                                registrationForm.querySelector('#errors').innerHTML += `<p class="error">${error}</p>`;
+                            });
                         }
                         if (data.error) {
-                            document.querySelector('#errors').innerHTML += `<p class="error">${data.error}</p>`;
+                            data.error.forEach((error) => {
+                                registrationForm.querySelector('#errors').innerHTML += `<p class="error">${error}</p>`;
+                            });
                         }
                     });
             });
-    });
+    };
 };

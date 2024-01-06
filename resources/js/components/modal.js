@@ -1,6 +1,5 @@
-import modals from './modals';
-
-export default function (el) {
+export default function (el, comp) {
+    const modals = comp.modals;
     const starshipId = el.starshipId;
 
     const closeModal = () => {
@@ -35,50 +34,38 @@ export default function (el) {
             });
     }
 
-    window.success = (message) => {
-        fetch(`/success/${message}`)
-            .catch((err) => {
-                console.log(err);
-                alert('Something went wrong');
-            })
-            .then((res) => {
-                flashModal(res);
-            });
-    };
-
-    window.officerDamage = (div) => {
-        let incomingModal = document.createElement('div');
-        incomingModal.innerHTML = div;
-        el.body.appendChild(incomingModal.firstChild);
-        document.addEventListener('click', (e) => { clickOutside(e) });
-        const closeButton = el.closeButton();
-        closeButton.addEventListener('click', () => { closeModal() });
-    }
-
     async function popModal(res) {
+        function buildModal(data) {
+            let incomingModal = document.createElement('div');
+            incomingModal.innerHTML = data;
+            el.body.appendChild(incomingModal.firstChild);
+            document.onclick = e => { clickOutside(e) };
+            const closeButton = el.closeButton();
+            closeButton.onclick = () => { closeModal() };
+        }
         document.activeElement.blur();
-        await res.text()
-            .then((data) => {
-                let incomingModal = document.createElement('div');
-                incomingModal.innerHTML = data;
-                el.body.appendChild(incomingModal.firstChild);
-                document.addEventListener('click', (e) => { clickOutside(e) });
-                const closeButton = el.closeButton();
-                closeButton.addEventListener('click', () => { closeModal() });
-            });
+
+        if (res.status === 200) {
+            await res.text()
+                .then((data) => {
+                    buildModal(data);
+                });
+        } else if (typeof res === 'string') {
+            buildModal(res);
+        }
     }
 
     if (el.register) {
-        el.register.addEventListener('click', () => {
+        el.register.onclick = () => {
             fetch('/register')
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => {
-                    popModal(res).then(() => {activateRegistration()});
+                    popModal(res).then(() => { modals.registration(el) });
                 });
-        });
+        };
     }
 
     if (el.login) {
@@ -91,47 +78,14 @@ export default function (el) {
                 .then((res) => {
                     popModal(res)
                         .then(() => {
-                            const forgotPassword = el.forgotPassword();
-                            forgotPassword.addEventListener('click', async () => {
-                                fetch('/forgot-password')
-                                    .catch((err) => {
-                                        console.log(err);
-                                        alert('Something went wrong');
-                                    })
-                                    .then(async (res) => {
-                                        await closeModal();
-                                        await popModal(res)
-                                            .then(() => {
-                                                const forgotPasswordForm = el.forgotPasswordForm();
-                                                forgotPasswordForm.addEventListener('submit', (e) => {
-                                                    e.preventDefault();
-                                                    let email = el.forgotPasswordEmail();
-                                                    fetch(`/forgot-password`, {
-                                                        method: 'POST',
-                                                        headers: { 'Content-Type': 'application/json' },
-                                                        body: JSON.stringify({
-                                                            email: email,
-                                                        })
-                                                    })
-                                                        .catch((err) => {
-                                                            console.log(err);
-                                                            alert('Something went wrong');
-                                                        })
-                                                        .then((res) => {
-                                                            flashModal(res, '/');
-                                                        });
-                                                });
-                                            });
-                                    });
-                            });
-                            modals.login();
+                            modals.login(el, closeModal, popModal, flashModal);
                         });
                 });
         };
     }
 
     if (el.roll) {
-        el.roll.addEventListener('click', () => {
+        el.roll.onclick = () => {
             fetch(`/roll/${el.roll.value}`)
                 .catch((err) => {
                     console.log(err);
@@ -143,89 +97,89 @@ export default function (el) {
                             modals.dice(el);
                         });
                 });
-        });
+        };
     }
 
     if (el.newCharacter) {
-        el.newCharacter.addEventListener('click', () => {
+        el.newCharacter.onclick = () => {
             fetch('/new-character')
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.editCharacter) {
-        el.editCharacter.addEventListener('click', () => {
+        el.editCharacter.onclick = () => {
             fetch(`/edit-character/${el.characterSelect.value}`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.deleteCharacter) {
-        el.deleteCharacter.addEventListener('click', () => {
+        el.deleteCharacter.oclick = () => {
             fetch(`/delete-character/${el.characterSelect.value}`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.newStarship) {
-        el.newStarship.addEventListener('click', () => {
+        el.newStarship.onclick = () => {
             fetch('/new-starship')
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.editStarship) {
-        el.editStarship.addEventListener('click', () => {
+        el.editStarship.onclick = () => {
             fetch(`/edit-starship/${starshipId}`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.deleteStarship) {
-        el.deleteStarship.addEventListener('click', () => {
+        el.deleteStarship.onclick = () => {
             fetch(`/delete-starship/${starshipId}`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.newSystem) {
-        el.newSystem.addEventListener('click', () => {
+        el.newSystem.onclick = () => {
             fetch(`/starship/${starshipId}/division/${el.newSystem.value}/new-system`)
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     if (el.editSystemButtons) {
         for (let i = 0; i < el.editSystemButtons.length; i++) {
-            el.editSystemButtons[i].addEventListener('click', () => {
+            el.editSystemButtons[i].onclick = () => {
                 let systemId = el.editSystemButtons[i].value;
                 fetch(`/edit-system/${systemId}`)
                     .catch((err) => {
@@ -233,14 +187,14 @@ export default function (el) {
                         alert('Something went wrong');
                     })
                     .then((res) => popModal(res));
-            });
+            };
         }
     }
 
     //manifest menu
 
     if (el.crew) {
-        el.crew.addEventListener('click', () => {
+        el.crew.onclick = () => {
             fetch(`/starship/${starshipId}/crew-manifest`)
                 .catch((err) => {
                     console.log(err);
@@ -248,11 +202,11 @@ export default function (el) {
                 })
                 .then((res) => popModal(res));
             el.manifestMenu.style.display = 'none';
-        });
+        };
     }
 
     if (el.cargo) {
-        el.cargo.addEventListener('click', () => {
+        el.cargo.onclick = () => {
             fetch(`/starship/${starshipId}/cargo-manifest`)
                 .catch((err) => {
                     console.log(err);
@@ -263,11 +217,11 @@ export default function (el) {
                         .then(() => modals.cargoManifest(el));
                 });
             el.manifestMenu.style.display = 'none';
-        });
+        };
     }
 
     if (el.jobs) {
-        el.jobs.addEventListener('click', () => {
+        el.jobs.onclick = () => {
             if (true) {
                 alert('This feature is not yet available');
                 return;
@@ -279,29 +233,26 @@ export default function (el) {
                 })
                 .then((res) => popModal(res));
             el.manifestMenu.style.display = 'none';
-        });
+        };
     }
-
-
-
-
 
     //welcome logo
     if (el.welcomeLogo != null) {
-        el.welcomeLogo.addEventListener('click', () => {
+        el.welcomeLogo.onclick = () => {
             fetch('/orientation')
                 .catch((err) => {
                     console.log(err);
                     alert('Something went wrong');
                 })
                 .then((res) => popModal(res));
-        });
+        };
     }
 
     return {
         clickOutside,
         closeModal,
-        flashModal
+        flashModal,
+        popModal
     }
 
 }

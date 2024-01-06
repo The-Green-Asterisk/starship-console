@@ -19,6 +19,13 @@ switch (constants.PathNames.basePath()) {
         break;
     case constants.PathNames.STARSHIP:
         pages.starship(elements, components);
+        switch (constants.PathNames.subdirectories()[1]) {
+            case constants.PathNames.DIVISION:
+                pages.divisions(elements, components)
+                break;
+            default:
+                break;
+            };
     default:
         break;
 }
@@ -46,10 +53,9 @@ if (elements.userId != null) {
 }
 
 if (elements.starshipId != null) {
-    const starshipId = elements.starshipId;
-    Echo.join(`presenceStarshipConsole.${starshipId}`)
-        .listen('HpUpdate', (data) => {
-            pages.starship(elements, components).handleDamage(data.data);
+    Echo.join(`presenceStarshipConsole.${elements.starshipId}`)
+        .listen('HpUpdate', (res) => {
+            pages.starship(elements, components).handleDamage(res.data);
         });
 }
 
@@ -61,4 +67,15 @@ window.onload = () => {
 
 window.onbeforeunload = () => {
     elements.body.className = 'fadeout';
+};
+
+window.success = (message) => {
+    fetch(`/success/${message}`)
+        .catch((err) => {
+            console.log(err);
+            alert('Something went wrong');
+        })
+        .then((res) => {
+            flashModal(res);
+        });
 };

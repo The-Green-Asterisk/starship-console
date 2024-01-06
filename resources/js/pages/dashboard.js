@@ -1,6 +1,6 @@
 export default function dashboard(el, comp) {
-    comp.colorSelect(el);
-    const modals = comp.modal(el);
+    comp.colorSelect(el, comp);
+    const modals = comp.modal(el, comp);
 
     if (el.characterSelect) el.characterSelect.onchange = () => {
         let characterId = el.characterSelect.value;

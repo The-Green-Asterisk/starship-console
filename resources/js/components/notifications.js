@@ -1,5 +1,5 @@
 export default function (el) {
-    const checkIndicator = () => {
+    function checkIndicator() {
         if (el.indicator == null) return;
         fetch(`/get-notifications-raw`)
             .then(res => {
@@ -15,20 +15,23 @@ export default function (el) {
         };
     checkIndicator();
 
-    el.notifButton ? el.notifButton.addEventListener('click', () => {
-        let notifDrawer = document.getElementById('notif-drawer');
-        if (notifDrawer == null) {
+    el.body.onclick = (e) => {
+        if (!!el.notifDrawer && !el.notifDrawer.contains(e.target)) {
+            el.notifDrawer.remove();
+            el.notifDrawer = null;
+        }
+    };
+
+    if (el.notifButton) el.notifButton.onclick = () => {
+        if (!el.notifDrawer) {
             fetchNotifications(false);
         } else {
-            notifDrawer.remove();
+            el.notifDrawer.remove();
+            el.notifDrawer = null;
         }
-    }) : null;
-    body.addEventListener('click', (e) => {
-        let notifDrawer = document.getElementById('notif-drawer');
-        if (notifDrawer != null && !notifDrawer.contains(e.target)) notifDrawer.remove();
-    });
+    };
 
-    const fetchNotifications = (viewArchive) => {
+    function fetchNotifications(viewArchive) {
         fetch(`/get-notifications/${viewArchive ? 1 : 0}`)
             .then(async res => {
                 res.text()
@@ -36,53 +39,87 @@ export default function (el) {
                         let incoming = document.createElement('div')
                         incoming.innerHTML = notifications;
                         el.notifButton.after(incoming.firstChild);
+                        el.loadNotificationElements();
+                        loadDrawer();
                         if (!viewArchive) {
-                            document.getElementById('view-archive').addEventListener('click', getArchive);
+                            el.viewArchiveButton.onclick = () => {
+                                el.notifDrawer.remove();
+                                fetchNotifications(true);
+                            };
                         }
                     });
             });
-    }
+    };
 
-    const getArchive = () => {
-        document.getElementById('view-archive').removeEventListener('click', getArchive);
-        document.getElementById('notif-drawer').remove();
-        fetchNotifications(true);
-    }
-
-    window.read = async (id) => {
+    async function read(id) {
         let read;
         let archived;
         await fetch(`/read-notification/${id}`).then(res => res.json().then(r => { read = r.read, archived = r.archived }));
         let notification = document.getElementById(`notification-${id}`);
         let readButton = document.getElementById(`read-button-${id}`);
         notification.className = read ? archived ? 'read archived' : 'read' : archived ? 'archived notification' : 'notification';
-        readButton.innerText = read ? 'Mark as UnRead' : 'Mark as Read';
+        readButton.innerText = read ? 'Mark as Unread' : 'Mark as Read';
         checkIndicator();
     };
-    window.markAllAsRead = () => {
-        fetch(`/get-notifications-raw`)
-            .then(res => {
-                res.json()
-                    .then(notifications => {
-                        notifications.forEach(notification => {
-                            if (!notification.read) window.read(notification.id);
-                        });
-                    });
-            });
-    };
-    window.archive = async (id, viewArchive) => {
+
+    async function archive(id, viewArchive) {
         let read;
         let archived;
-        await fetch(`/archive-notification/${id}`).then(res => res.json().then(a => { archived = a.archived, read = a.read }));
-        let notificationBox = document.getElementById(`notification-div-${id}`);
-        let notification = document.getElementById(`notification-${id}`);
-        let archiveButton = document.getElementById(`archive-button-${id}`);
+        const notificationBox = document.getElementById(`notification-div-${id}`);
+        const notification = document.getElementById(`notification-${id}`);
+        const archiveButton = document.getElementById(`archive-button-${id}`);
+
+        await fetch(`/archive-notification/${id}`)
+            .then(res => res.json()
+                .then(a => {
+                    archived = a.archived, 
+                    read = a.read
+                })
+            );
+
         if (viewArchive) {
             notification.className = archived ? read ? 'read archived' : 'archived' : read ? 'read' : 'notification';
-            archiveButton.innerText = archived ? 'UnArchive' : 'Archive';
+            archiveButton.innerText = archived ? 'Unarchive' : 'Archive';
         } else {
             notificationBox.style.display = 'none';
         }
+
         checkIndicator();
+    };
+
+    
+    
+    function loadDrawer() {
+        if (el.readButtons) [...el.readButtons].forEach(button => {
+            button.onclick = () => {
+                const id = button.id.split('-')[2];
+                read(id);
+            };
+        });
+
+        if (el.archiveButtons) [...el.archiveButtons].forEach(button => {
+            button.onclick = () => {
+                const id = button.id.split('-')[2];
+                archive(id, el.viewArchive);
+            };
+        });
+
+        if (el.markAllAsRead) el.markAllAsRead.onclick = () => {
+            fetch(`/get-notifications-raw`)
+                .then(res => {
+                    res.json()
+                        .then(notifications => {
+                            notifications.forEach(notification => {
+                                if (!notification.read) read(notification.id);
+                            });
+                        });
+                });
+        };
+    }
+
+    loadDrawer();
+
+    return {
+        checkIndicator,
     };
 }

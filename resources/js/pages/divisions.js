@@ -1,9 +1,8 @@
-import diceImp from "./modals/dice.js";
-import modalImp from "./modal.js";
+import Rules from '../services/rules.js';
 
-export default function (el) {
-    const modal = modalImp(el);
-    const dice = diceImp(el);
+export default function (el, comp) {
+    const modal = comp.modal(el, comp);
+    const dice = comp.modals.dice(el);
 
     if (el.quickFix != null) {
         for (let i = 0; i < el.quickFix.length; i++) {
@@ -59,13 +58,8 @@ export default function (el) {
         }
     }
 
-    function is_touch_enabled() {
-        return ('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0);
-    }
     if (document.getElementById('touchscreen-info') != null) {
-        if (is_touch_enabled()) {
+        if (Rules.isTouchEnabled()) {
             document.getElementById('touchscreen-info').style.display = 'block';
         } else {
             document.getElementById('touchscreen-info').style.display = 'none';
