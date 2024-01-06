@@ -75,7 +75,6 @@ self.addEventListener('fetch', function (event) {
     // Images
     // Offline-first
     if (request.headers.get('Accept').includes('image')) {
-        
         let promiseChain = caches.match(request).then(function (response) {
                 return response || fetch(request).then(function (response) {
 

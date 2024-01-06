@@ -15,13 +15,6 @@ export default function (el) {
         };
     checkIndicator();
 
-    el.body.onclick = (e) => {
-        if (!!el.notifDrawer && !el.notifDrawer.contains(e.target)) {
-            el.notifDrawer.remove();
-            el.notifDrawer = null;
-        }
-    };
-
     if (el.notifButton) el.notifButton.onclick = () => {
         if (!el.notifDrawer) {
             fetchNotifications(false);

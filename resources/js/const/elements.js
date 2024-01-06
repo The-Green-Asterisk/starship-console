@@ -84,5 +84,29 @@ export default class El {
     
     constructor() {
         this.loadNotificationElements();
+
+        this.body.onclick = (e) => {
+            if (!!this.notifDrawer && !this.notifDrawer.contains(e.target)) {
+                this.notifDrawer.remove();
+                this.notifDrawer = null;
+            }
+        };
+
+        if (this.reset != null) {
+            this.reset.onclick = () => {
+                fetch(`/starship/${el.starshipId}/reset-damage`);
+            };
+        };
+    
+        if (this.manifestMenuButton) {
+            this.manifestMenuButton.onclick = () => {
+                this.manifestMenu.style.display === 'block'
+                    ? this.manifestMenu.style.display = 'none'
+                    : this.manifestMenu.style.display = 'block';
+            };
+            this.manifestMenu.onmouseleave = () => {
+                this.manifestMenu.style.display = 'none';
+            };
+        }
     }
 }

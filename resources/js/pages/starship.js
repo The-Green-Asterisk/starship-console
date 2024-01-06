@@ -29,23 +29,6 @@ export default function starship(el, comp) {
             hpbox[i].querySelector('progress').value <= 25 ? hpbox[i].className = 'hp danger' : hpbox[i].className = 'hp';
     };
 
-    if (el.reset != null) {
-        el.reset.onclick = () => {
-            fetch(`/starship/${el.starshipId}/reset-damage`);
-        };
-    };
-
-    if (el.manifestMenuButton) {
-        el.manifestMenuButton.onclick = () => {
-            el.manifestMenu.style.display === 'block'
-                ? el.manifestMenu.style.display = 'none'
-                : el.manifestMenu.style.display = 'block';
-        };
-        el.manifestMenu.onmouseleave = () => {
-            el.manifestMenu.style.display = 'none';
-        };
-    }
-
     return {
         handleDamage
     }
