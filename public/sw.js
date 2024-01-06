@@ -35,8 +35,7 @@ self.addEventListener('fetch', function (event) {
     // HTML files
     // Network-first
     if (request.headers.get('Accept').includes('text/html')) {
-        event.respondWith(
-            fetch(request).then(function (response) {
+        let promiseChain = fetch(request).then(function (response) {
 
                 // Create a copy of the response and save it to the cache
                 let copy = response.clone();
@@ -54,31 +53,30 @@ self.addEventListener('fetch', function (event) {
                     return response || caches.match('/offline.html');
                 });
 
-            })
-        );
+            });
+        event.respondWith(promiseChain);
     }
 
     // CSS & JavaScript
     // Offline-first
     if (request.headers.get('Accept').includes('text/css') || request.headers.get('Accept').includes('text/javascript')) {
-        event.respondWith(
-            caches.match(request).then(function (response) {
+        let promiseChain = caches.match(request).then(function (response) {
                 return response || fetch(request).then(function (response) {
 
                     // Return the response
                     return response;
 
                 });
-            })
-        );
+            });
+        event.respondWith(promiseChain);
         return;
     }
 
     // Images
     // Offline-first
     if (request.headers.get('Accept').includes('image')) {
-        event.respondWith(
-            caches.match(request).then(function (response) {
+        
+        let promiseChain = caches.match(request).then(function (response) {
                 return response || fetch(request).then(function (response) {
 
                     // Save a copy of it in cache
@@ -91,8 +89,8 @@ self.addEventListener('fetch', function (event) {
                     return response;
 
                 });
-            })
-        );
+            });
+        event.respondWith(promiseChain);
     }
 
 });

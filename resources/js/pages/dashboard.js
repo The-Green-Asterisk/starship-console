@@ -35,7 +35,7 @@ export default function dashboard(el, comp) {
         document.characterImage.submit();
     };
     
-    el.emailInvite.onblur = (e) => {
+    if (el.emailInvite) el.emailInvite.onblur = (e) => {
         if (el.emailInvite.value.length > 0) {
             fetch(`/starship/add-user/${el.emailInvite.value}/${el.starshipSelect.value}`)
                 .then(res => res.json()
